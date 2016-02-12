@@ -1,5 +1,7 @@
 <?php
 
+use common\grid\EnumColumn;
+use common\models\ArticleCategory;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -29,7 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'slug',
             'title',
-            'status',
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'status',
+                'enum' => ArticleCategory::statuses(),
+                'filter' => ArticleCategory::statuses()
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

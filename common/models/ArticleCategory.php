@@ -96,4 +96,16 @@ class ArticleCategory extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ArticleCategory::className(), ['id' => 'parent_id']);
     }
+
+    /**
+     * Returns article category statuses list
+     * @return array|mixed
+     */
+    public static function statuses()
+    {
+        return [
+            self::STATUS_DRAFT => Yii::t('backend', 'Disabled'),
+            self::STATUS_ACTIVE => Yii::t('backend', 'Enabled'),
+        ];
+    }
 }
