@@ -19,6 +19,15 @@ use Yii;
  */
 class Question extends \yii\db\ActiveRecord
 {
+
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE  = 1;
+
+    const TYPE_SINGLE = 1; // 单选题
+    const TYPE_MULTER = 2; // 多选题
+    const TYPE_FILL   = 3; // 填空题
+    const TYPE_ESSAY  = 4; // 问答题
+
     /**
      * @inheritdoc
      */
@@ -33,7 +42,7 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'title', 'updated_at', 'created_at', 'updated_by', 'created_by'], 'required'],
+            [['type', 'title'], 'required'],
             [['type', 'status', 'updated_at', 'created_at', 'updated_by', 'created_by'], 'integer'],
             [['title', 'options'], 'string']
         ];
@@ -55,5 +64,41 @@ class Question extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('backend', '更新者'),
             'created_by' => Yii::t('backend', '创建者'),
         ];
+    }
+
+    public function behaviors() {
+        return [
+            \yii\behaviors\BlameableBehavior::className(),
+            \yii\behaviors\TimestampBehavior::className(),
+        ];
+    }
+
+    /**
+     * 题目类型列表
+     */
+    public static function types() {
+        return [
+            self::TYPE_SINGLE => Yii::t('backend', '单选题'),
+            self::TYPE_MULTER => Yii::t('backend', '多选题'),
+            self::TYPE_FILL => Yii::t('backend', '填空题'),
+            self::TYPE_ESSAY => Yii::t('backend', '问答题'),
+        ];
+    }
+
+    /**
+     * 题目状态列表
+     */
+    public static function statuses()
+    {
+        return [
+            self::STATUS_DELETED => Yii::t('common', 'Disabled'),
+            self::STATUS_ACTIVE => Yii::t('common', 'Enabled'),
+        ];
+    }
+    public function getCreator() {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+    public function getUpdator() {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 }

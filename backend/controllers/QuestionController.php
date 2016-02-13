@@ -26,6 +26,15 @@ class QuestionController extends Controller
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => 'shiyang\umeditor\UMeditorAction',
+            ]
+        ];
+    }
+
     /**
      * Lists all Question models.
      * @return mixed

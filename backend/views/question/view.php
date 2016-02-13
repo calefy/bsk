@@ -2,11 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\Question;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Question */
 
-$this->title = $model->title;
+// 公式asset
+\common\assets\MathQuill::register($this);
+
+$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Questions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -27,14 +31,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'type',
-            'title:ntext',
-            'options:ntext',
+            [
+                'attribute' => 'type',
+                'value' => Question::types()[$model->type]
+            ],
+            'title:html',
+            'options:html',
             'status',
-            'updated_at',
-            'created_at',
-            'updated_by',
-            'created_by',
+            'updated_at:datetime',
+            'created_at:datetime',
+            'updator.username:text:更新者',
+            'creator.username:text:创建者',
         ],
     ]) ?>
 

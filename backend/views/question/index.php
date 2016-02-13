@@ -2,10 +2,15 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\grid\EnumColumn;
+use common\models\Question;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\QuestionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+// 公式asset
+\common\assets\MathQuill::register($this);
 
 $this->title = Yii::t('backend', 'Questions');
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,10 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'type',
-            'title:ntext',
-            'options:ntext',
-            'status',
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'type',
+                'enum' => Question::types(),
+                'filter' => Question::types()
+            ],
+            'title:html',
+            'options:html',
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'status',
+                'enum' => Question::statuses(),
+                'filter' => Question::statuses()
+            ],
             // 'updated_at',
             // 'created_at',
             // 'updated_by',
