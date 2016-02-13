@@ -30,7 +30,13 @@ class QuestionController extends Controller
     {
         return [
             'upload' => [
-                'class' => 'shiyang\umeditor\UMeditorAction',
+                //'class' => 'shiyang\umeditor\UMeditorAction',
+                'class' => 'common\actions\UMeditorUploadAction',
+                'multiple' => false,
+                'fileparam' => 'upfile',
+                'responseNameParam' => 'originalName',
+                'responsePathParam' => 'name',
+                'responseFormat' => \yii\web\Response::FORMAT_RAW,
             ]
         ];
     }

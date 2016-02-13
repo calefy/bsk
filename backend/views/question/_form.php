@@ -12,6 +12,7 @@ use common\models\Question;
 $editorConfig = [
     'clientOptions' => [
         'initialFrameHeight' => 120,
+        'imagePath' => '',
         'toolbar' => [
             'bold italic underline strikethrough | forecolor backcolor | removeformat | superscript subscript formula |',
             'emotion image video',
