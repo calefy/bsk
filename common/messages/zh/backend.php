@@ -113,6 +113,8 @@ return [
     'Processor Architecture' => 'Processor Architecture',
     'Profile' => '资料',
     'Published' => '发布',
+    'Questions' => '题库',
+    'Question' => '题库',
     'Real time' => '实时时间',
     'Remember Me' => '记住我',
     'Reset' => '重置',
