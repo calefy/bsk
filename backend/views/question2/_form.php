@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use shiyang\umeditor\UMeditor;
-use common\models\Question;
+use common\models\Question2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Question */
@@ -28,7 +28,7 @@ $editorConfig = [
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->field($model, 'type')->dropDownList(Question::types()) ?>
+    <?php echo $form->field($model, 'type')->dropDownList(Question2::types()) ?>
 
     <?php // echo $form->field($model, 'title')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'title')->widget(UMeditor::className(), $editorConfig) ?>
