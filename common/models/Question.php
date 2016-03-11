@@ -33,7 +33,7 @@ class Question extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'bsk_question';
+        return 'bsk_question_old';
     }
 
     /**
