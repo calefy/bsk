@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use common\models\Question2;
+use common\models\Question;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Question */
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'type',
-                'value' => Question2::types()[$model->type]
+                'value' => Question::types()[$model->type]
             ],
             'title:html',
             'options:html',

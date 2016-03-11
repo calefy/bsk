@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\Question */
 
 $this->title = Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Question2',
+    'modelClass' => 'Question',
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Questions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

@@ -5,12 +5,12 @@ namespace backend\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Question2;
+use common\models\Question;
 
 /**
  * QuestionSearch represents the model behind the search form about `common\models\Question`.
  */
-class Question2Search extends Question2
+class QuestionSearch extends Question
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class Question2Search extends Question2
      */
     public function search($params)
     {
-        $query = Question2::find();
+        $query = Question::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

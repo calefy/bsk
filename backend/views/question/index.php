@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\grid\EnumColumn;
-use common\models\Question2;
+use common\models\Question;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\QuestionSearch */
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::a(Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Question2',
+    'modelClass' => 'Question',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
@@ -35,16 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => EnumColumn::className(),
                 'attribute' => 'type',
-                'enum' => Question2::types(),
-                'filter' => Question2::types()
+                'enum' => Question::types(),
+                'filter' => Question::types()
             ],
             'title:html',
             'options:html',
             [
                 'class' => EnumColumn::className(),
                 'attribute' => 'status',
-                'enum' => Question2::statuses(),
-                'filter' => Question2::statuses()
+                'enum' => Question::statuses(),
+                'filter' => Question::statuses()
             ],
             // 'updated_at',
             // 'created_at',

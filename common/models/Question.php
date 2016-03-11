@@ -17,7 +17,7 @@ use Yii;
  * @property integer $updated_by
  * @property integer $created_by
  */
-class Question2 extends \yii\db\ActiveRecord
+class Question extends \yii\db\ActiveRecord
 {
 
     const STATUS_DELETED = 0;
@@ -33,7 +33,7 @@ class Question2 extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'bsk_question_old';
+        return 'bsk_question';
     }
 
     /**

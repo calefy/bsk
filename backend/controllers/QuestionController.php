@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Question2;
-use backend\models\search\Question2Search;
+use common\models\Question;
+use backend\models\search\QuestionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * QuestionController implements the CRUD actions for Question model.
  */
-class Question2Controller extends Controller
+class QuestionController extends Controller
 {
     public function behaviors()
     {
@@ -47,7 +47,7 @@ class Question2Controller extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new Question2Search();
+        $searchModel = new QuestionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -75,7 +75,7 @@ class Question2Controller extends Controller
      */
     public function actionCreate()
     {
-        $model = new Question2();
+        $model = new Question();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -127,7 +127,7 @@ class Question2Controller extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Question2::findOne($id)) !== null) {
+        if (($model = Question::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
