@@ -48,3 +48,14 @@ function activeTextinput($form, $model, $attribute, $inputOptions = [], $fieldOp
 {
     return $form->field($model, $attribute, $fieldOptions)->textInput($inputOptions);
 }
+
+/**
+ * 生成数据库ID值
+ * @return string
+ */
+function getUniqueID() {
+    $t = microtime(true) - strtotime('2016-01-01');
+    $t = explode('.', strval($t * 1000000));
+    $t = $t[0] . rand(10, 99);
+    return $t;
+}
