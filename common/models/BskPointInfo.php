@@ -43,13 +43,13 @@ class BskPointInfo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', '考点ID'),
-            'knowledge' => Yii::t('app', '知识点归纳'),
-            'direction' => Yii::t('app', '命题方向'),
-            'updated_by' => Yii::t('app', '更新者'),
-            'updated_at' => Yii::t('app', '更新时间'),
-            'created_by' => Yii::t('app', '创建者'),
-            'created_at' => Yii::t('app', '创建时间'),
+            'id' => Yii::t('common', '考点ID'),
+            'knowledge' => Yii::t('common', '知识点归纳'),
+            'direction' => Yii::t('common', '命题方向'),
+            'updated_by' => Yii::t('common', '更新者'),
+            'updated_at' => Yii::t('common', '更新时间'),
+            'created_by' => Yii::t('common', '创建者'),
+            'created_at' => Yii::t('common', '创建时间'),
         ];
     }
 }

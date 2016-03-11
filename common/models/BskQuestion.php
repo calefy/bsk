@@ -48,18 +48,18 @@ class BskQuestion extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'chapter_id' => Yii::t('app', '章节ID'),
-            'point_id' => Yii::t('app', '考点ID'),
-            'type' => Yii::t('app', '题型：1-选择，2-填空，3-解答'),
-            'title' => Yii::t('app', '题干'),
-            'info' => Yii::t('app', '选项或答案json'),
-            'level' => Yii::t('app', '难度系数'),
-            'status' => Yii::t('app', '状态：0-删除，1-有效'),
-            'updated_by' => Yii::t('app', '更新者'),
-            'updated_at' => Yii::t('app', '更新时间'),
-            'created_by' => Yii::t('app', '创建者'),
-            'created_at' => Yii::t('app', '创建时间'),
+            'id' => Yii::t('common', 'ID'),
+            'chapter_id' => Yii::t('common', '章节ID'),
+            'point_id' => Yii::t('common', '考点ID'),
+            'type' => Yii::t('common', '题型：1-选择，2-填空，3-解答'),
+            'title' => Yii::t('common', '题干'),
+            'info' => Yii::t('common', '选项或答案json'),
+            'level' => Yii::t('common', '难度系数'),
+            'status' => Yii::t('common', '状态：0-删除，1-有效'),
+            'updated_by' => Yii::t('common', '更新者'),
+            'updated_at' => Yii::t('common', '更新时间'),
+            'created_by' => Yii::t('common', '创建者'),
+            'created_at' => Yii::t('common', '创建时间'),
         ];
     }
 }

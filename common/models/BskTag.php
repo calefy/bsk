@@ -43,13 +43,13 @@ class BskTag extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', '标签名称'),
-            'status' => Yii::t('app', 'Status'),
-            'updated_by' => Yii::t('app', 'Updated By'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'created_at' => Yii::t('app', 'Created At'),
+            'id' => Yii::t('common', 'ID'),
+            'name' => Yii::t('common', '标签名称'),
+            'status' => Yii::t('common', 'Status'),
+            'updated_by' => Yii::t('common', 'Updated By'),
+            'updated_at' => Yii::t('common', 'Updated At'),
+            'created_by' => Yii::t('common', 'Created By'),
+            'created_at' => Yii::t('common', 'Created At'),
         ];
     }
 }

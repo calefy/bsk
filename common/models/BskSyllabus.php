@@ -45,15 +45,15 @@ class BskSyllabus extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'grade' => Yii::t('app', '年级级别：1-小学、2-中学、3-高中'),
-            'science' => Yii::t('app', '学科：1-数学'),
-            'name' => Yii::t('app', '大纲版本名称'),
-            'status' => Yii::t('app', '状态：0-删除，1-有效'),
-            'updated_by' => Yii::t('app', '更新者'),
-            'created_by' => Yii::t('app', '创建者'),
-            'updated_at' => Yii::t('app', '更新时间'),
-            'created_at' => Yii::t('app', '创建时间'),
+            'id' => Yii::t('common', 'ID'),
+            'grade' => Yii::t('common', '年级级别：1-小学、2-中学、3-高中'),
+            'science' => Yii::t('common', '学科：1-数学'),
+            'name' => Yii::t('common', '大纲版本名称'),
+            'status' => Yii::t('common', '状态：0-删除，1-有效'),
+            'updated_by' => Yii::t('common', '更新者'),
+            'created_by' => Yii::t('common', '创建者'),
+            'updated_at' => Yii::t('common', '更新时间'),
+            'created_at' => Yii::t('common', '创建时间'),
         ];
     }
 }

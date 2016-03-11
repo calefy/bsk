@@ -43,14 +43,14 @@ class BskExamQuestion extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'exam_id' => Yii::t('app', '试卷ID'),
-            'question_id' => Yii::t('app', '问题ID'),
-            'status' => Yii::t('app', 'Status'),
-            'updated_by' => Yii::t('app', 'Updated By'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'created_at' => Yii::t('app', 'Created At'),
+            'id' => Yii::t('common', 'ID'),
+            'exam_id' => Yii::t('common', '试卷ID'),
+            'question_id' => Yii::t('common', '问题ID'),
+            'status' => Yii::t('common', 'Status'),
+            'updated_by' => Yii::t('common', 'Updated By'),
+            'created_by' => Yii::t('common', 'Created By'),
+            'updated_at' => Yii::t('common', 'Updated At'),
+            'created_at' => Yii::t('common', 'Created At'),
         ];
     }
 }

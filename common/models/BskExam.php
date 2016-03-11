@@ -51,19 +51,19 @@ class BskExam extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'type' => Yii::t('app', '试卷分类：1-真题'),
-            'category_id' => Yii::t('app', '试卷分类ID'),
-            'short_time' => Yii::t('app', '短标题-时间'),
-            'short_addr' => Yii::t('app', '短标题-地点'),
-            'title' => Yii::t('app', '试卷标题'),
-            'description' => Yii::t('app', '试卷描述'),
-            'stem' => Yii::t('app', '试卷主题干json'),
-            'status' => Yii::t('app', '状态：0-删除，1-有效'),
-            'updated_by' => Yii::t('app', '更新者'),
-            'updated_at' => Yii::t('app', '更新时间'),
-            'created_by' => Yii::t('app', '创建者'),
-            'created_at' => Yii::t('app', '创建时间'),
+            'id' => Yii::t('common', 'ID'),
+            'type' => Yii::t('common', '试卷分类：1-真题'),
+            'category_id' => Yii::t('common', '试卷分类ID'),
+            'short_time' => Yii::t('common', '短标题-时间'),
+            'short_addr' => Yii::t('common', '短标题-地点'),
+            'title' => Yii::t('common', '试卷标题'),
+            'description' => Yii::t('common', '试卷描述'),
+            'stem' => Yii::t('common', '试卷主题干json'),
+            'status' => Yii::t('common', '状态：0-删除，1-有效'),
+            'updated_by' => Yii::t('common', '更新者'),
+            'updated_at' => Yii::t('common', '更新时间'),
+            'created_by' => Yii::t('common', '创建者'),
+            'created_at' => Yii::t('common', '创建时间'),
         ];
     }
 }
