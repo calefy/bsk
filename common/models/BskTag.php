@@ -3,6 +3,10 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "bsk_tag".
@@ -17,6 +21,9 @@ use Yii;
  */
 class BskTag extends \yii\db\ActiveRecord
 {
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 1;
+
     /**
      * @inheritdoc
      */
@@ -31,8 +38,10 @@ class BskTag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'required'],
+            [['name'], 'required'],
             [['id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => array_keys(self::statuses())],
             [['name'], 'string', 'max' => 32]
         ];
     }
@@ -50,6 +59,32 @@ class BskTag extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('common', 'Updated At'),
             'created_by' => Yii::t('common', 'Created By'),
             'created_at' => Yii::t('common', 'Created At'),
+        ];
+    }
+
+    public function behaviors() {
+        return ArrayHelper::merge(parent::behaviors(), [
+            BlameableBehavior::className(),
+            TimestampBehavior::className(),
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => 'id' ],
+                'value' => function() {
+                    return getUniqueID();
+                },
+            ]
+        ]);
+    }
+
+    public static function find() {
+        return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
+    }
+
+    public static function statuses()
+    {
+        return [
+            self::STATUS_DELETED => Yii::t('common', 'Deleted'),
+            self::STATUS_ACTIVE => Yii::t('common', 'Active'),
         ];
     }
 }

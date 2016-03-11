@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\BskTag */
 
 $this->title = Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Bsk Tag',
+    'modelClass' => Yii::t('backend', 'Bsk Tag'),
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Bsk Tags'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
