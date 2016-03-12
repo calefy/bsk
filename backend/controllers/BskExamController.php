@@ -98,7 +98,9 @@ class BskExamController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = BskExam::STATUS_DELETED;
+        $model->save();
 
         return $this->redirect(['index']);
     }

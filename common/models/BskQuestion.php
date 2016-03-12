@@ -51,9 +51,9 @@ class BskQuestion extends BskBaseActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
-            'chapter_id' => Yii::t('common', '章节ID'),
-            'point_id' => Yii::t('common', '考点ID'),
-            'type' => Yii::t('common', '题型：1-选择，2-填空，3-解答'),
+            'chapter_id' => Yii::t('common', '章节'),
+            'point_id' => Yii::t('common', '考点'),
+            'type' => Yii::t('common', '题型'),
             'title' => Yii::t('common', '题干'),
             'info' => Yii::t('common', '选项或答案json'),
             'level' => Yii::t('common', '难度系数'),

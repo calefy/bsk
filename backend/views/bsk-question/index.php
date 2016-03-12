@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::a(Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Bsk Question',
+    'modelClass' => Yii::t('backend', 'Bsk Question'),
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
@@ -32,10 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'type',
             'title',
             // 'info',
-            // 'level',
+            'level',
             // 'status',
             // 'updated_by',
-            // 'updated_at',
+            'updated_at:datetime',
             // 'created_by',
             // 'created_at',
 
