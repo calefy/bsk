@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\BskCategory */
 
-$this->title = $model->id;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Bsk Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'semester',
             'syllabus_id',
             'type',
+            'name',
             'lft',
             'rgt',
             'status',

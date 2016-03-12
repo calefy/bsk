@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'semester',
             'syllabus_id',
             // 'type',
+            // 'name',
             // 'lft',
             // 'rgt',
             // 'status',

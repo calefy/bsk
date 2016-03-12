@@ -27,6 +27,8 @@ use yii\bootstrap\ActiveForm;
 
     <?php // echo $form->field($model, 'type') ?>
 
+    <?php // echo $form->field($model, 'name') ?>
+
     <?php // echo $form->field($model, 'lft') ?>
 
     <?php // echo $form->field($model, 'rgt') ?>

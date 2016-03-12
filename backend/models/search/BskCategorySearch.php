@@ -19,6 +19,7 @@ class BskCategorySearch extends BskCategory
     {
         return [
             [['id', 'grade', 'science', 'semester', 'syllabus_id', 'type', 'lft', 'rgt', 'status', 'updated_by', 'created_by', 'updated_at', 'created_at'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -65,6 +66,8 @@ class BskCategorySearch extends BskCategory
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

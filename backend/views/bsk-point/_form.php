@@ -26,6 +26,8 @@ use yii\bootstrap\ActiveForm;
 
     <?php echo $form->field($model, 'type')->textInput() ?>
 
+    <?php echo $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
     <?php echo $form->field($model, 'lft')->textInput() ?>
 
     <?php echo $form->field($model, 'rgt')->textInput() ?>
