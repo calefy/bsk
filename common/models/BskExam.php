@@ -21,7 +21,7 @@ use Yii;
  * @property string $created_by
  * @property integer $created_at
  */
-class BskExam extends \yii\db\ActiveRecord
+class BskExam extends BskBaseActiveRecord
 {
     /**
      * @inheritdoc
@@ -37,11 +37,13 @@ class BskExam extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'type', 'category_id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'required'],
+            [['title'], 'required'],
             [['id', 'type', 'category_id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             [['short_time', 'short_addr'], 'string', 'max' => 64],
             [['title'], 'string', 'max' => 128],
-            [['description', 'stem'], 'string', 'max' => 256]
+            [['description', 'stem'], 'string', 'max' => 256],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => array_keys(self::statuses())],
         ];
     }
 
@@ -65,5 +67,9 @@ class BskExam extends \yii\db\ActiveRecord
             'created_by' => Yii::t('common', '创建者'),
             'created_at' => Yii::t('common', '创建时间'),
         ];
+    }
+
+    public static function find() {
+        return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
 }

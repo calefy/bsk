@@ -20,7 +20,7 @@ use Yii;
  * @property string $created_by
  * @property integer $created_at
  */
-class BskQuestion extends \yii\db\ActiveRecord
+class BskQuestion extends BskBaseActiveRecord
 {
     /**
      * @inheritdoc
@@ -36,8 +36,10 @@ class BskQuestion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'chapter_id', 'point_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'required'],
+            [['title'], 'required'],
             [['id', 'chapter_id', 'point_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => array_keys(self::statuses())],
             [['title', 'info'], 'string', 'max' => 256]
         ];
     }
@@ -61,5 +63,9 @@ class BskQuestion extends \yii\db\ActiveRecord
             'created_by' => Yii::t('common', '创建者'),
             'created_at' => Yii::t('common', '创建时间'),
         ];
+    }
+
+    public static function find() {
+        return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
 }

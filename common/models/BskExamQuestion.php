@@ -16,7 +16,7 @@ use Yii;
  * @property integer $updated_at
  * @property integer $created_at
  */
-class BskExamQuestion extends \yii\db\ActiveRecord
+class BskExamQuestion extends BskBaseActiveRecord
 {
     /**
      * @inheritdoc
@@ -32,7 +32,9 @@ class BskExamQuestion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'exam_id', 'question_id', 'status', 'updated_by', 'created_by', 'updated_at', 'created_at'], 'required'],
+            [['exam_id', 'question_id'], 'required'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => array_keys(self::statuses())],
             [['id', 'exam_id', 'question_id', 'status', 'updated_by', 'created_by', 'updated_at', 'created_at'], 'integer']
         ];
     }
@@ -52,5 +54,9 @@ class BskExamQuestion extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('common', 'Updated At'),
             'created_at' => Yii::t('common', 'Created At'),
         ];
+    }
+
+    public static function find() {
+        return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
 }

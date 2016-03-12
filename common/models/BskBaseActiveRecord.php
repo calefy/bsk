@@ -30,9 +30,7 @@ class BskBaseActiveRecord extends ActiveRecord {
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ ActiveRecord::EVENT_BEFORE_INSERT => 'id' ],
-                'value' => function() {
-                    return CommonHelper::getUniqueID();
-                },
+                'value' => CommonHelper::getUniqueID(),
             ]
         ]);
     }

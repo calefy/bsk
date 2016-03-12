@@ -25,5 +25,14 @@ class EnumHelper {
         ];
     }
 
+    /**
+     * 学期列表：1-24分别标识对应级别中的年级上下学期
+     */
+    public static function semesters() {
+        // TODO
+        return [
+            '1' => '一年级上'
+        ];
+    }
 
 }

@@ -15,7 +15,7 @@ use Yii;
  * @property string $created_by
  * @property integer $created_at
  */
-class BskPointInfo extends \yii\db\ActiveRecord
+class BskPointInfo extends BskBaseActiveRecord
 {
     /**
      * @inheritdoc

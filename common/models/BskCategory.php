@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\helpers\EnumHelper;
 
 /**
  * This is the model class for table "bsk_category".
@@ -22,7 +23,7 @@ use Yii;
  * @property integer $updated_at
  * @property integer $created_at
  */
-class BskCategory extends \yii\db\ActiveRecord
+class BskCategory extends BskBaseActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,8 +39,12 @@ class BskCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'syllabus_id', 'name', 'updated_by', 'created_by', 'updated_at', 'created_at'], 'required'],
+            [['name'], 'required'],
             [['id', 'grade', 'science', 'semester', 'syllabus_id', 'type', 'lft', 'rgt', 'status', 'updated_by', 'created_by', 'updated_at', 'created_at'], 'integer'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => array_keys(self::statuses())],
+            ['grade', 'in', 'range' => array_keys(EnumHelper::grades())],
+            ['science', 'in', 'range' => array_keys(EnumHelper::sciences())],
             [['name'], 'string', 'max' => 32]
         ];
     }
@@ -51,10 +56,10 @@ class BskCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
-            'grade' => Yii::t('common', '年级级别：1-小学、2-中学、3-高中'),
-            'science' => Yii::t('common', '学科：1-数学'),
-            'semester' => Yii::t('common', '学期：1-12分别标识对应级别中的年级上下学期（type=章节时需要）'),
-            'syllabus_id' => Yii::t('common', '大纲ID(type=章节时需要)'),
+            'grade' => Yii::t('common', '年级级别'),
+            'science' => Yii::t('common', '学科'),
+            'semester' => Yii::t('common', '学期'),
+            'syllabus_id' => Yii::t('common', '大纲'),
             'type' => Yii::t('common', '分类类型：1-考点，2-章节，3-试卷'),
             'name' => Yii::t('common', '分类名称'),
             'lft' => Yii::t('common', 'Lft'),
@@ -65,5 +70,9 @@ class BskCategory extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('common', '更新时间'),
             'created_at' => Yii::t('common', '创建时间'),
         ];
+    }
+
+    public static function find() {
+        return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
 }
