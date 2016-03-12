@@ -3,11 +3,6 @@
 namespace common\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\behaviors\AttributeBehavior;
-use yii\behaviors\BlameableBehavior;
-use yii\behaviors\TimestampBehavior;
-use common\helpers\CommonHelper;
 
 /**
  * This is the model class for table "bsk_tag".
@@ -20,11 +15,8 @@ use common\helpers\CommonHelper;
  * @property string $created_by
  * @property integer $created_at
  */
-class BskTag extends \yii\db\ActiveRecord
+class BskTag extends BskBaseActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 1;
-
     /**
      * @inheritdoc
      */
@@ -63,28 +55,8 @@ class BskTag extends \yii\db\ActiveRecord
         ];
     }
 
-    public function behaviors() {
-        return ArrayHelper::merge(parent::behaviors(), [
-            BlameableBehavior::className(),
-            TimestampBehavior::className(),
-            [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [ \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => 'id' ],
-                'value' => function() {
-                    return CommonHelper::getUniqueID();
-                },
-            ]
-        ]);
-    }
-
     public static function find() {
         return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
 
-    public static function statuses() {
-        return [
-            self::STATUS_DELETED => Yii::t('common', 'Deleted'),
-            self::STATUS_ACTIVE => Yii::t('common', 'Active'),
-        ];
-    }
 }
