@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\BskSyllabus */
 
 $this->title = Yii::t('backend', 'Update {modelClass}: ', [
-    'modelClass' => 'Bsk Syllabus',
+    'modelClass' => Yii::t('backend', 'Bsk Syllabus'),
 ]) . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Bsk Syllabi'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];

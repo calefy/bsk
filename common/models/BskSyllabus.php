@@ -3,6 +3,12 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use common\helpers\CommonHelper;
+use common\helpers\EnumHelper;
 
 /**
  * This is the model class for table "bsk_syllabus".
@@ -19,6 +25,9 @@ use Yii;
  */
 class BskSyllabus extends \yii\db\ActiveRecord
 {
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 1;
+
     /**
      * @inheritdoc
      */
@@ -33,8 +42,12 @@ class BskSyllabus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'updated_by', 'created_by', 'updated_at', 'created_at'], 'required'],
+            [['name'], 'required'],
             [['id', 'grade', 'science', 'status', 'updated_by', 'created_by', 'updated_at', 'created_at'], 'integer'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => array_keys(self::statuses())],
+            ['grade', 'in', 'range' => array_keys(EnumHelper::grades())],
+            ['science', 'in', 'range' => array_keys(EnumHelper::sciences())],
             [['name'], 'string', 'max' => 32]
         ];
     }
@@ -46,14 +59,39 @@ class BskSyllabus extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
-            'grade' => Yii::t('common', '年级级别：1-小学、2-中学、3-高中'),
-            'science' => Yii::t('common', '学科：1-数学'),
-            'name' => Yii::t('common', '大纲版本名称'),
-            'status' => Yii::t('common', '状态：0-删除，1-有效'),
+            'grade' => Yii::t('common', '年级级别'),
+            'science' => Yii::t('common', '学科'),
+            'name' => Yii::t('common', '大纲名称'),
+            'status' => Yii::t('common', '状态'),
             'updated_by' => Yii::t('common', '更新者'),
             'created_by' => Yii::t('common', '创建者'),
             'updated_at' => Yii::t('common', '更新时间'),
             'created_at' => Yii::t('common', '创建时间'),
+        ];
+    }
+
+    public function behaviors() {
+        return ArrayHelper::merge(parent::behaviors(), [
+            BlameableBehavior::className(),
+            TimestampBehavior::className(),
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => 'id' ],
+                'value' => function() {
+                    return CommonHelper::getUniqueID();
+                },
+            ]
+        ]);
+    }
+
+    public static function find() {
+        return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
+    }
+
+    public static function statuses() {
+        return [
+            self::STATUS_DELETED => Yii::t('common', 'Deleted'),
+            self::STATUS_ACTIVE => Yii::t('common', 'Active'),
         ];
     }
 }

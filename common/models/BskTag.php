@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use common\helpers\CommonHelper;
 
 /**
  * This is the model class for table "bsk_tag".
@@ -70,7 +71,7 @@ class BskTag extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => 'id' ],
                 'value' => function() {
-                    return getUniqueID();
+                    return CommonHelper::getUniqueID();
                 },
             ]
         ]);
@@ -80,8 +81,7 @@ class BskTag extends \yii\db\ActiveRecord
         return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
 
-    public static function statuses()
-    {
+    public static function statuses() {
         return [
             self::STATUS_DELETED => Yii::t('common', 'Deleted'),
             self::STATUS_ACTIVE => Yii::t('common', 'Active'),

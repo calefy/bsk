@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\grid\EnumColumn;
+use common\helpers\EnumHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\BskSyllabusSearch */
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::a(Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Bsk Syllabus',
+    'modelClass' => Yii::t('backend', 'Bsk Syllabus'),
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
@@ -27,14 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'grade',
-            'science',
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'grade',
+                'enum' => EnumHelper::grades(),
+                'filter' => EnumHelper::grades(),
+            ],
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'science',
+                'enum' => EnumHelper::sciences(),
+                'filter' => EnumHelper::sciences(),
+            ],
             'name',
-            'status',
             // 'updated_by',
             // 'created_by',
-            // 'updated_at',
-            // 'created_at',
+            'updated_at:datetime',
+            'created_at:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

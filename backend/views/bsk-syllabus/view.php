@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\helpers\EnumHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\BskSyllabus */
@@ -27,14 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'grade',
-            'science',
+            [
+                'attribute' => 'grade',
+                'value' => EnumHelper::grades()[$model->grade],
+            ],
+            [
+                'attribute' => 'science',
+                'value' => EnumHelper::sciences()[$model->science],
+            ],
             'name',
-            'status',
-            'updated_by',
-            'created_by',
-            'updated_at',
-            'created_at',
+            'updated_at:datetime',
+            'created_at:datetime',
         ],
     ]) ?>
 
