@@ -140,24 +140,31 @@ $bundle = BackendAsset::register($this);
                             'badgeBgClass'=>'label-success',
                         ],
                         [
+                            'label'=>Yii::t('backend', 'BSK'),
+                            'url' => '#',
+                            'icon'=>'<i class="fa fa-university"></i>',
+                            'options'=>['class'=>'treeview'],
+                            'items'=>[
+                                ['label'=>Yii::t('backend', 'Bsk Syllabi'),    'url'=>['/bsk-syllabus/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                                ['label'=>Yii::t('backend', 'Bsk Points'),       'url'=>['/bsk-point/index'],            'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                                ['label'=>Yii::t('backend', 'Bsk Exams'),        'url'=>['/bsk-exam/index'],             'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                                ['label'=>Yii::t('backend', 'Bsk Questions'),    'url'=>['/bsk-question/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                                ['label'=>Yii::t('backend', 'Bsk Tags'),         'url'=>['/bsk-tag/index'],              'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                                //['label'=>Yii::t('backend', 'Question'), 'url'=>['/question/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                            ]
+                        ],
+                        [
                             'label'=>Yii::t('backend', 'Content'),
                             'url' => '#',
                             'icon'=>'<i class="fa fa-edit"></i>',
                             'options'=>['class'=>'treeview'],
                             'items'=>[
-                                ['label'=>Yii::t('backend', 'Bsk Syllabus'),    'url'=>['/bsk-syllabus/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-                                ['label'=>Yii::t('backend', 'Bsk Point'),       'url'=>['/bsk-point/index'],            'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-                                ['label'=>Yii::t('backend', 'Bsk Exam'),        'url'=>['/bsk-exam/index'],             'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-                                ['label'=>Yii::t('backend', 'Bsk Question'),    'url'=>['/bsk-question/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-                                ['label'=>Yii::t('backend', 'Bsk Tag'),         'url'=>['/bsk-tag/index'],              'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-
                                 ['label'=>Yii::t('backend', 'Static pages'),    'url'=>['/page/index'],                 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Articles'),        'url'=>['/article/index'],              'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Article Categories'), 'url'=>['/article-category/index'],  'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Text Widgets'),    'url'=>['/widget-text/index'],          'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Menu Widgets'),    'url'=>['/widget-menu/index'],          'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Carousel Widgets'),'url'=>['/widget-carousel/index'],      'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-                                //['label'=>Yii::t('backend', 'Question'), 'url'=>['/question/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                             ]
                         ],
                         [
