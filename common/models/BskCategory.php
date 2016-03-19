@@ -19,6 +19,10 @@ class BskCategory extends \kartik\tree\models\Tree
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
 
+    const CATEGORY_GRADE_ID = '680381940753749';
+    const CATEGORY_SCIENCE_ID = '680408093378529';
+    const CATEGORY_SYLLABUS_ID = '680415224103023';
+
     /**
      * @inheritdoc
      */
@@ -47,7 +51,11 @@ class BskCategory extends \kartik\tree\models\Tree
         ];
     }
 
+    /**
+     * 因tree中的 treeQueryClass 设置后无法改变query，因此用find覆盖
+     */
     public static function find() {
-        return parent::find()->where([self::tableName() . '.active' => self::STATUS_ACTIVE]);
+        return (new \common\models\query\BskCategoryQuery(get_called_class()))
+            ->andWhere([ self::tableName().'.active' => self::STATUS_ACTIVE ]);
     }
 }

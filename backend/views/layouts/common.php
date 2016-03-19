@@ -145,7 +145,33 @@ $bundle = BackendAsset::register($this);
                             'icon'=>'<i class="fa fa-university"></i>',
                             'options'=>['class'=>'treeview'],
                             'items'=>[
-                                ['label'=>Yii::t('backend', 'Bsk Categories'),    'url'=>['/bsk-category/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                            [
+                                'label'=>Yii::t('backend', 'Bsk Categories'),
+                                'url'=> '#',
+                                'icon'=>'<i class="fa fa-angle-double-right"></i>',
+                                'items' => [
+                                    [
+                                        'label'=> '基本分类',
+                                        'url'=>['bsk-category/index'],
+                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
+                                    ],
+                                    [
+                                        'label'=> '试卷分类',
+                                        'url'=>['bsk-category/exam'],
+                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
+                                    ],
+                                    [
+                                        'label'=> '章节',
+                                        'url'=>['bsk-category/chapter'],
+                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
+                                    ],
+                                    [
+                                        'label'=> '考点',
+                                        'url'=>['bsk-category/point'],
+                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
+                                    ],
+                                ]
+                            ],
                                 ['label'=>Yii::t('backend', 'Bsk Syllabi'),    'url'=>['/bsk-syllabus/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Bsk Points'),       'url'=>['/bsk-point/index'],            'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Bsk Exams'),        'url'=>['/bsk-exam/index'],             'icon'=>'<i class="fa fa-angle-double-right"></i>'],
