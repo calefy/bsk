@@ -152,22 +152,12 @@ $bundle = BackendAsset::register($this);
                                 'items' => [
                                     [
                                         'label'=> '基本分类',
+                                        'url'=>['bsk-category/category'],
+                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
+                                    ],
+                                    [
+                                        'label'=> '扩展分类',
                                         'url'=>['bsk-category/index'],
-                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
-                                    ],
-                                    [
-                                        'label'=> '试卷分类',
-                                        'url'=>['bsk-category/exam'],
-                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
-                                    ],
-                                    [
-                                        'label'=> '章节',
-                                        'url'=>['bsk-category/chapter'],
-                                        'icon'=>'<i class="fa fa-angle-double-right"></i>',
-                                    ],
-                                    [
-                                        'label'=> '考点',
-                                        'url'=>['bsk-category/point'],
                                         'icon'=>'<i class="fa fa-angle-double-right"></i>',
                                     ],
                                 ]
