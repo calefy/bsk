@@ -145,6 +145,7 @@ $bundle = BackendAsset::register($this);
                             'icon'=>'<i class="fa fa-university"></i>',
                             'options'=>['class'=>'treeview'],
                             'items'=>[
+                                ['label'=>Yii::t('backend', 'Bsk Categories'),    'url'=>['/bsk-category/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Bsk Syllabi'),    'url'=>['/bsk-syllabus/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Bsk Points'),       'url'=>['/bsk-point/index'],            'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Bsk Exams'),        'url'=>['/bsk-exam/index'],             'icon'=>'<i class="fa fa-angle-double-right"></i>'],

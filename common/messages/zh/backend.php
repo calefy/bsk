@@ -31,6 +31,8 @@ return [
     'Backend sidebar collapsed' => '后台边栏',
     'Backend theme' => '后台主题',
     'Boxed backend layout' => 'Boxed backend layout',
+    'Bsk Category' => '分类',
+    'Bsk Categories' => '分类管理',
     'Bsk Exam' => '试卷',
     'Bsk Exams' => '试卷管理',
     'Bsk Point' => '考点',
