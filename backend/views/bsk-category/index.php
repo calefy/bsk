@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\helpers\EnumHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\BskCategoryOtherSearch */
@@ -16,11 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php echo Html::a(Yii::t('backend', 'Create') . '考点分类', ['create', 'tag' => 'point'], ['class' => 'btn btn-success']) ?>
-        &emsp;
-        <?php echo Html::a(Yii::t('backend', 'Create') . '章节分类', ['create', 'tag' => 'chapter'], ['class' => 'btn btn-success']) ?>
-        &emsp;
-        <?php echo Html::a(Yii::t('backend', 'Create') . '试卷分类', ['create', 'tag' => 'exam'], ['class' => 'btn btn-success']) ?>
+        <?php
+            foreach(EnumHelper::categoryTypes() as $key => $val) {
+                echo Html::a(Yii::t('backend', 'Create') . $val . '分类', ['create', 'tag' => $key ], ['class' => 'btn btn-success']) . '  ';
+            }
+        ?>
     </p>
 
     <?php echo GridView::widget([

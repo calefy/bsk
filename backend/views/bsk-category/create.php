@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use common\helpers\EnumHelper;
 
 
 /* @var $this yii\web\View */
 /* @var $model common\models\BskCategoryOther */
 
-$this->title = Yii::t('backend', 'Create') . '分类';
+$this->title = Yii::t('backend', 'Create') . EnumHelper::categoryTypes()[Yii::$app->request->get('tag')] . '分类';
 $this->params['breadcrumbs'][] = Yii::t('backend', 'Bsk Categories');
 $this->params['breadcrumbs'][] = ['label' => '扩展分类管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

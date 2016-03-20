@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // use the Product model you have in the previous step
             'query' => BskCategory::find()->based(),
             'headingOptions'=>['label'=> '基本分类'],
-            'isAdmin' => true,
+            //'isAdmin' => true,
             'iconEditSettings' => [
                 'show' => 'none',
             ],
