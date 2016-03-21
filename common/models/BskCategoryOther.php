@@ -22,6 +22,9 @@ use Yii;
  */
 class BskCategoryOther extends BskBaseActiveRecord
 {
+    const CATEGORY_TYPE_POINT = 1;
+    const CATEGORY_TYPE_CHAPTER = 2;
+    const CATEGORY_TYPE_EXAM = 3;
     /**
      * @inheritdoc
      */
@@ -30,13 +33,21 @@ class BskCategoryOther extends BskBaseActiveRecord
         return 'bsk_category_other';
     }
 
+    public function scenarios() {
+        return [
+            'point' => ['grade_id', 'science_id', 'type', 'category_id'],
+            'other' => ['grade_id', 'science_id', 'semester_id', 'syllabus_id', 'type', 'category_id'],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'grade_id', 'semester_id', 'science_id', 'syllabus_id', 'category_id', 'type', 'status', 'updated_at', 'created_at', 'updated_by', 'created_by'], 'required'],
+            [['grade_id', 'science_id', 'type'], 'required', 'on' => 'point'],
+            [['semester_id', 'science_id', 'type', 'syllabus_id'], 'required', 'on' => 'other'],
             [['id', 'grade_id', 'semester_id', 'science_id', 'syllabus_id', 'category_id', 'type', 'status', 'updated_at', 'created_at', 'updated_by', 'created_by'], 'integer']
         ];
     }
@@ -48,11 +59,11 @@ class BskCategoryOther extends BskBaseActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
-            'grade_id' => Yii::t('common', '年级ID'),
-            'semester_id' => Yii::t('common', '学期ID'),
-            'science_id' => Yii::t('common', '学科ID'),
-            'syllabus_id' => Yii::t('common', '大纲版本ID'),
-            'category_id' => Yii::t('common', '实际分类ID'),
+            'grade_id' => Yii::t('common', '年级'),
+            'semester_id' => Yii::t('common', '学期'),
+            'science_id' => Yii::t('common', '学科'),
+            'syllabus_id' => Yii::t('common', '大纲版本'),
+            'category_id' => Yii::t('common', '分类'),
             'type' => Yii::t('common', '类型'),
             'status' => Yii::t('common', '状态'),
             'updated_at' => Yii::t('common', 'Updated At'),

@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Bsk Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsk-category-index">
+    <p class="well text-danger">**注意：请慎重修改基本分类的层级关系，以免引起应用异常。</p>
 
     <?php
         echo TreeView::widget([
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'query' => BskCategory::find()->based(),
             'headingOptions'=>['label'=> '基本分类'],
             //'isAdmin' => true,
-            'iconEditSettings' => [
+            'iconEditSettings' => [ // 不显示icon的编辑部分
                 'show' => 'none',
             ],
         ]);
