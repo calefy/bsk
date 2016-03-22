@@ -3,6 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use kartik\tree\TreeView;
+use common\models\BskCategory;
+use common\models\BskCategoryOther;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\BskCategoryOther */
 
@@ -10,6 +14,8 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = Yii::t('backend', 'Bsk Categories');
 $this->params['breadcrumbs'][] = ['label' => '扩展分类管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$types = BskCategoryOther::types();
 ?>
 <div class="bsk-category-other-view">
 
@@ -28,18 +34,43 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'grade_id',
-            'semester_id',
-            'science_id',
-            'syllabus_id',
-            'category_id',
-            'type',
-            'status',
-            'updated_at',
-            'created_at',
-            'updated_by',
-            'created_by',
+            [
+                'attribute' => 'type',
+                'value' => $types[$model->type],
+            ],
+            [
+                'attribute' => 'grade_id',
+                'value' => $categories[$model->grade_id],
+            ],
+            [
+                'attribute' => 'semester_id',
+                'value' => isset($categories[$model->semester_id]) ? $categories[$model->semester_id] : $model->semester_id,
+            ],
+            [
+                'attribute' => 'science_id',
+                'value' => $categories[$model->science_id],
+            ],
+            [
+                'attribute' => 'syllabus_id',
+                'value' => isset($categories[$model->syllabus_id]) ? $categories[$model->syllabus_id] : $model->syllabus_id,
+            ],
+            'updated_at:datetime',
+            'created_at:datetime',
         ],
     ]) ?>
+
+    <?php
+        echo TreeView::widget([
+            // single query fetch to render the tree
+            // use the Product model you have in the previous step
+            'query' => BskCategory::find()->andWhere(['root' => $model->category_id])->addOrderBy('root, lft'),
+            'headingOptions'=>['label'=> '分类设置'],
+            //'isAdmin' => true,
+            'iconEditSettings' => [ // 不显示icon的编辑部分
+                'show' => 'none',
+            ],
+            'allowNewRoots' => false,
+        ]);
+    ?>
 
 </div>

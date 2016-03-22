@@ -70,8 +70,19 @@ class BskCategoryController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $categories = BskCategory::find()
+            ->select('id, name')
+            ->andWhere([ 'id' => array_unique([
+                $model->grade_id, $model->semester_id,
+                $model->science_id, $model->syllabus_id,
+            ]) ])
+            ->all();
+        $categories = $categories ? ArrayHelper::map($categories, 'id', 'name') : [];
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'categories' => $categories,
         ]);
     }
 
@@ -153,9 +164,12 @@ class BskCategoryController extends Controller
             // 生成对应的根分类
             $root = $isUpdate ? $cs[$model->category_id] : new BskCategory();
             $root->name = $name;
+            $root->removable = 0;
             if (!$isUpdate) {
                 $root->makeRoot();
                 $model->category_id = $root->id;
+            } else {
+                $root->save();
             }
 
             if ($model->save()) {
