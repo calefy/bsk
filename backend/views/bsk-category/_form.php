@@ -24,7 +24,7 @@ $type = isset($types[$type]) ? $type : BskCategoryOther::CATEGORY_TYPE_POINT;
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo Html::activeHiddenInput($model, 'type', ['value' => $type]) ?>
+    <?php echo Html::hiddenInput('type', $type) ?>
 
     <?php
         if ($type == BskCategoryOther::CATEGORY_TYPE_POINT) { // 考点 显示年级
@@ -62,7 +62,7 @@ $type = isset($types[$type]) ? $type : BskCategoryOther::CATEGORY_TYPE_POINT;
 
 
     <div class="form-group">
-        <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?php echo Html::submitButton('下一步：设置分类结构', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

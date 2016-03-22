@@ -82,14 +82,19 @@ class BskCategoryController extends Controller
      */
     public function actionCreate()
     {
-        $model = new BskCategoryOther();
-        $tpl = 'create';
+        return $this->dealEdit();
+    }
+    public function dealEdit($id = null) {
+        $isUpdate = !!$id;
+        $model = $isUpdate ? $this->findModel($id) : new BskCategoryOther();
+        $tpl = $isUpdate ? 'update' : 'create';
         $ret = ['model' => $model];
 
         if (Yii::$app->request->isPost) {
-            $type = Yii::$app->request->post(BskCategoryOther::className())['type'];
+            $type = Yii::$app->request->post('type');
             $model->setScenario($type == BskCategoryOther::CATEGORY_TYPE_POINT ? 'point' : 'other');
             $model->load(Yii::$app->request->post());
+            $model->type = $type;
             if (!$model->validate()) { // 通过该项保证先做rules校验
                 return $this->render($tpl, $ret);
             }
@@ -100,6 +105,7 @@ class BskCategoryController extends Controller
                 ->andWhere(['id'=>[
                     $model->grade_id, $model->semester_id,
                     $model->science_id, $model->syllabus_id,
+                    $model->category_id,
                 ]])
                 ->all();
             $cs = ArrayHelper::index($cs, 'id');
@@ -129,7 +135,7 @@ class BskCategoryController extends Controller
                 ])
                 ->all();
             if ($exists) {
-                $existsIds = ArrayHelper::getColumn($exists, 'id');
+                $existsIds = ArrayHelper::map($exists, 'id', 'id');
                 unset($existsIds[$model->id]);
                 if (count($existsIds)) {
                     Yii::$app->session->setFlash('alert', ['body' => '分类设置已存在', 'options' => ['class'=>'alert-error']]);
@@ -145,10 +151,12 @@ class BskCategoryController extends Controller
             $name .= isset($cs[$model->syllabus_id]) ? '_' . $cs[$model->syllabus_id]->name : '';
 
             // 生成对应的根分类
-            $root = new BskCategory();
+            $root = $isUpdate ? $cs[$model->category_id] : new BskCategory();
             $root->name = $name;
-            $root->makeRoot();
-            $model->category_id = $root->id;
+            if (!$isUpdate) {
+                $root->makeRoot();
+                $model->category_id = $root->id;
+            }
 
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -167,15 +175,7 @@ class BskCategoryController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        return $this->dealEdit($id);
     }
 
     /**
