@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use common\models\BskCategory;
 use common\models\BskCategoryOther;
-use common\helpers\EnumHelper;
 use backend\models\search\BskCategoryOtherSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -38,9 +37,29 @@ class BskCategoryController extends Controller
         $searchModel = new BskCategoryOtherSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // 获取分类信息
+        $categories = [];
+        $ids = [];
+        foreach($dataProvider->getModels() as $model) {
+            $ids[] = $model->grade_id;
+            $ids[] = $model->semester_id;
+            $ids[] = $model->science_id;
+            $ids[] = $model->syllabus_id;
+            $ids[] = $model->category_id;
+        }
+        $ids = array_unique($ids);
+        if ($ids) {
+            $categories = BskCategory::find()
+                ->select('id, name')
+                ->andWhere([ 'id' => $ids ])
+                ->all();
+            $categories = $categories ? ArrayHelper::map($categories, 'id', 'name') : [];
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories' => $categories,
         ]);
     }
 
@@ -119,7 +138,7 @@ class BskCategoryController extends Controller
             }
 
             // 设置新分类名称
-            $name = '自定义'.EnumHelper::categoryTypes()[$model->type] .'分类';
+            $name = BskCategoryOther::types()[$model->type] .'分类';
             $name .= isset($cs[$model->grade_id]) ? '_' . $cs[$model->grade_id]->name : '';
             $name .= isset($cs[$model->semester_id]) ? '_' . $cs[$model->semester_id]->name : '';
             $name .= isset($cs[$model->science_id]) ? '_' . $cs[$model->science_id]->name : '';

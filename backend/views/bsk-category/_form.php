@@ -7,13 +7,12 @@ use yii\bootstrap\ActiveForm;
 use kartik\tree\TreeViewInput;
 use common\models\BskCategory;
 use common\models\BskCategoryOther;
-use common\helpers\EnumHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\BskCategoryOther */
 /* @var $form yii\bootstrap\ActiveForm */
 
-$types = EnumHelper::categoryTypes();
+$types = BskCategoryOther::types();
 
 $type = Yii::$app->request->get('tag');
 $type = isset($types[$type]) ? $type : BskCategoryOther::CATEGORY_TYPE_POINT;

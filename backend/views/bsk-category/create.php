@@ -1,14 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use common\helpers\EnumHelper;
 use common\models\BskCategoryOther;
 
 
 /* @var $this yii\web\View */
 /* @var $model common\models\BskCategoryOther */
 
-$types = EnumHelper::categoryTypes();
+$types = BskCategoryOther::types();
 
 $type = Yii::$app->request->get('tag');
 $type = isset($types[$type]) ? $type : BskCategoryOther::CATEGORY_TYPE_POINT;

@@ -76,4 +76,12 @@ class BskCategoryOther extends BskBaseActiveRecord
     public static function find() {
         return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
+
+    public static function types() {
+        return [
+            self::CATEGORY_TYPE_POINT => '考点',
+            self::CATEGORY_TYPE_CHAPTER => '章节',
+            self::CATEGORY_TYPE_EXAM => '试卷',
+        ];
+    }
 }
