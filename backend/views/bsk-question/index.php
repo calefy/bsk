@@ -28,10 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'chapter_id',
-            'point_id',
             'type',
-            'title',
-            // 'info',
+            'title:ntext',
+            // 'info:ntext',
             'level',
             // 'status',
             // 'updated_by',

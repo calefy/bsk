@@ -18,7 +18,7 @@ class BskQuestionSearch extends BskQuestion
     public function rules()
     {
         return [
-            [['id', 'chapter_id', 'point_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            [['id', 'chapter_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             [['title', 'info'], 'safe'],
         ];
     }
@@ -54,7 +54,6 @@ class BskQuestionSearch extends BskQuestion
         $query->andFilterWhere([
             'id' => $this->id,
             'chapter_id' => $this->chapter_id,
-            'point_id' => $this->point_id,
             'type' => $this->type,
             'level' => $this->level,
             'status' => $this->status,

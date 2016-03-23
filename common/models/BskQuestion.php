@@ -5,11 +5,10 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "bsk_Question".
+ * This is the model class for table "bsk_question".
  *
  * @property string $id
  * @property string $chapter_id
- * @property string $point_id
  * @property integer $type
  * @property string $title
  * @property string $info
@@ -27,7 +26,7 @@ class BskQuestion extends BskBaseActiveRecord
      */
     public static function tableName()
     {
-        return 'bsk_Question';
+        return 'bsk_question';
     }
 
     /**
@@ -37,10 +36,10 @@ class BskQuestion extends BskBaseActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['id', 'chapter_id', 'point_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            [['id', 'chapter_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => array_keys(self::statuses())],
-            [['title', 'info'], 'string', 'max' => 256]
+            [['title', 'info'], 'string']
         ];
     }
 
@@ -52,12 +51,11 @@ class BskQuestion extends BskBaseActiveRecord
         return [
             'id' => Yii::t('common', 'ID'),
             'chapter_id' => Yii::t('common', '章节'),
-            'point_id' => Yii::t('common', '考点'),
             'type' => Yii::t('common', '题型'),
             'title' => Yii::t('common', '题干'),
-            'info' => Yii::t('common', '选项或答案json'),
+            'info' => Yii::t('common', '选项或答案'),
             'level' => Yii::t('common', '难度系数'),
-            'status' => Yii::t('common', '状态：0-删除，1-有效'),
+            'status' => Yii::t('common', '状态'),
             'updated_by' => Yii::t('common', '更新者'),
             'updated_at' => Yii::t('common', '更新时间'),
             'created_by' => Yii::t('common', '创建者'),

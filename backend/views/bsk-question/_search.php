@@ -19,8 +19,6 @@ use yii\bootstrap\ActiveForm;
 
     <?php echo $form->field($model, 'chapter_id') ?>
 
-    <?php echo $form->field($model, 'point_id') ?>
-
     <?php echo $form->field($model, 'type') ?>
 
     <?php echo $form->field($model, 'title') ?>

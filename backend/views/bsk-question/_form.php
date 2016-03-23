@@ -17,13 +17,11 @@ use yii\bootstrap\ActiveForm;
 
     <?php echo $form->field($model, 'chapter_id')->textInput(['maxlength' => true]) ?>
 
-    <?php echo $form->field($model, 'point_id')->textInput(['maxlength' => true]) ?>
-
     <?php echo $form->field($model, 'type')->textInput() ?>
 
-    <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'title')->textarea(['rows' => 6]) ?>
 
-    <?php echo $form->field($model, 'info')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'info')->textarea(['rows' => 6]) ?>
 
     <?php echo $form->field($model, 'level')->textInput() ?>
 
