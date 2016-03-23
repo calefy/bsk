@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\BskCategoryOther;
+use common\grid\EnumColumn;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\BskCategoryOtherSearch */
@@ -28,55 +29,56 @@ $types = BskCategoryOther::types();
 
     <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             [
-                'attribute' => 'grade_id',
-                'value' => function($model) use ($categories) {
-                    $id = $model->grade_id;
-                    return isset($categories[$id]) ? $categories[$id] : $id;
-                }
-            ],
-            [
-                'attribute' => 'semester_id',
-                'value' => function($model) use ($categories) {
-                    $id = $model->semester_id;
-                    return isset($categories[$id]) ? $categories[$id] : ($id ? $id : '');
-                }
-            ],
-            [
-                'attribute' => 'science_id',
-                'value' => function($model) use ($categories) {
-                    $id = $model->science_id;
-                    return isset($categories[$id]) ? $categories[$id] : $id;
-                }
-            ],
-            [
-                'attribute' => 'syllabus_id',
-                'value' => function($model) use ($categories) {
-                    $id = $model->syllabus_id;
-                    return isset($categories[$id]) ? $categories[$id] : ($id ? $id : '');
-                }
-            ],
-            [
-                'attribute' => 'category_id',
-                'value' => function($model) use ($categories) {
-                    $id = $model->category_id;
-                    return isset($categories[$id]) ? $categories[$id] : $id;
-                }
-            ],
-            [
+                'class' => EnumColumn::className(),
                 'attribute' => 'type',
-                'value' => function($model) use ($types) {
-                    return $types[$model->type];
+                'enum' => $types,
+                'filter' => $types,
+            ],
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'grade_id',
+                'enum' => $grades,
+                'filter' => $grades,
+            ],
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'semester_id',
+                'enum' => $semesters,
+                'filter' => $semesters,
+                'value' => function($model) use($semesters) {
+                    $id = $model->semester_id;
+                    return isset($semesters[$id]) ? $semesters[$id] : '';
+                }
+            ],
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'science_id',
+                'enum' => $sciences,
+                'filter' => $sciences,
+            ],
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'syllabus_id',
+                'enum' => $syllabus,
+                'filter' => $syllabus,
+                'value' => function($model) use($syllabus) {
+                    $id = $model->syllabus_id;
+                    return isset($syllabus[$id]) ? $syllabus[$id] : '';
                 }
             ],
             // 'status',
             // 'updated_at',
-            // 'created_at',
+            [
+                'attribute' => 'created_at',
+                'format' => 'datetime',
+                'filter' => false,
+            ],
             // 'updated_by',
             // 'created_by',
 

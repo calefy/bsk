@@ -38,28 +38,31 @@ class BskCategoryController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         // 获取分类信息
-        $categories = [];
-        $ids = [];
-        foreach($dataProvider->getModels() as $model) {
-            $ids[] = $model->grade_id;
-            $ids[] = $model->semester_id;
-            $ids[] = $model->science_id;
-            $ids[] = $model->syllabus_id;
-            $ids[] = $model->category_id;
+        $gradeAndSemesters = BskCategory::find()->semesters()->all();
+        $grades = [];
+        $semesters = [];
+        foreach($gradeAndSemesters as $item) {
+            if ($item->lvl == 1) {
+                $grades[$item->id] = $item->name;
+            } else if ($item->lvl == 2) {
+                $semesters[$item->id] = $item->name;
+            }
         }
-        $ids = array_unique($ids);
-        if ($ids) {
-            $categories = BskCategory::find()
-                ->select('id, name')
-                ->andWhere([ 'id' => $ids ])
-                ->all();
-            $categories = $categories ? ArrayHelper::map($categories, 'id', 'name') : [];
-        }
+
+        $sciences = BskCategory::find()->sciences()->all();
+        $sciences = ArrayHelper::map($sciences, 'id', 'name');
+
+        $syllabus = BskCategory::find()->syllabus()->all();
+        $syllabus = ArrayHelper::map($syllabus, 'id', 'name');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'categories' => $categories,
+
+            'grades' => $grades,
+            'semesters' => $semesters,
+            'sciences' => $sciences,
+            'syllabus' => $syllabus,
         ]);
     }
 
