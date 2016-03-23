@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use yii\helpers\ArrayHelper;
+use common\models\BskCategoryOther;
+
 /**
  * BskQuestionController implements the CRUD actions for BskQuestion model.
  */
@@ -62,11 +65,29 @@ class BskQuestionController extends Controller
     {
         $model = new BskQuestion();
 
+        // 获取所有章节、考点分类的rootID
+        $roots = BskCategoryOther::find()
+            ->select('type, category_id')
+            ->andWhere([ 'type' => [BskCategoryOther::CATEGORY_TYPE_CHAPTER, BskCategoryOther::CATEGORY_TYPE_POINT]])
+            ->all();
+        $chapterRoots = [];
+        $pointRoots = [];
+        foreach ($roots as $root) {
+            if ($root->type == BskCategoryOther::CATEGORY_TYPE_POINT) {
+                $pointRoots[] = $root->category_id;
+            } else {
+                $chapterRoots[] = $root->category_id;
+            }
+        }
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'chapterRoots' => $chapterRoots,
+                'pointRoots' => $pointRoots,
             ]);
         }
     }

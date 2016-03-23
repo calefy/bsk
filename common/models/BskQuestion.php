@@ -21,6 +21,9 @@ use Yii;
  */
 class BskQuestion extends BskBaseActiveRecord
 {
+    const QUESTION_TYPE_SELECT = 1;
+    const QUESTION_TYPE_FILL = 2;
+    const QUESTION_TYPE_ASK = 3;
     /**
      * @inheritdoc
      */
@@ -65,5 +68,16 @@ class BskQuestion extends BskBaseActiveRecord
 
     public static function find() {
         return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * 试题类型
+     */
+    public static function types() {
+        return [
+            self::QUESTION_TYPE_SELECT => '选择题',
+            self::QUESTION_TYPE_FILL => '填空题',
+            self::QUESTION_TYPE_ASK => '问答题',
+        ];
     }
 }
