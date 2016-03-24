@@ -11,6 +11,8 @@ use common\models\BskQuestion;
 /* @var $this yii\web\View */
 /* @var $model common\models\BskQuestion */
 /* @var $form yii\bootstrap\ActiveForm */
+
+$chapterTreeInputId = Html::getInputId($model, 'chapter_id');
 ?>
 
 <div class="bsk-question-form">
@@ -20,20 +22,18 @@ use common\models\BskQuestion;
     <?php echo $form->errorSummary($model); ?>
 
 
-    <?php
-        if ($chapterRoots) {
-            echo $form->field($model, 'chapter_id')->widget(TreeViewInput::className(), [
-                'query' => BskCategory::find()->andWhere(['root' => $chapterRoots])->addOrderBy('root, lft'),
-                'multiple' => false,     // set to false if you do not need multiple selection
-                'options' => [ 'id' => Html::getInputId($model, 'chapter_id') ], // 与表单其他项保持一致，以便require验证
-            ]);
-        } else {
-    ?>
+    <?php if ($chapterRoots):
+        echo $form->field($model, 'chapter_id')->widget(TreeViewInput::className(), [
+            'query' => BskCategory::find()->andWhere(['root' => $chapterRoots])->addOrderBy('root, lft'),
+            'multiple' => false,     // set to false if you do not need multiple selection
+            'options' => [ 'id' => $chapterTreeInputId ], // 与表单其他项保持一致，以便require验证
+        ]);
+    else : ?>
         <div class="form-group">
             <label class="control-label">章节</label>
             <p>尚未设置章节信息，请先<?= Html::a('新建章节', ['/bsk-category/create', 'tag' => BskCategoryOther::CATEGORY_TYPE_CHAPTER])?></p>
         </div>
-    <?php } ?>
+    <?php endif; ?>
 
     <?php echo $form->field($model, 'type')->dropDownList(BskQuestion::types(), ['prompt' => '选择...']) ?>
 
@@ -51,3 +51,26 @@ use common\models\BskQuestion;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+// 修改选择实现
+$func = <<<FUNC
+$('#{$chapterTreeInputId}')
+    .off('treeview.change')
+    .on('treeview.change', function(e, key, desc) {
+        if (!key) return;
+        var input = \$(e.currentTarget),
+            d = input.data('treeinput'),
+            li = d.\$tree.find('li[data-key=' + key +']');
+        if (li.data('rgt') - li.data('lft') > 1) {
+            input.val(''); // 重置回change前
+            return;
+        }
+        d.setInput(desc.split(','));
+        if (d.autoCloseOnSelect) {
+            d.\$input.closest('.kv-tree-dropdown-container').removeClass('open');
+        }
+    });
+FUNC;
+$this->registerJs($func);
+?>
