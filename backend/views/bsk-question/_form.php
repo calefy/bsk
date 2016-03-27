@@ -13,6 +13,7 @@ use common\models\BskQuestion;
 /* @var $form yii\bootstrap\ActiveForm */
 
 $chapterTreeInputId = Html::getInputId($model, 'chapter_id');
+$pointTreeInputId = 'points';
 ?>
 
 <div class="bsk-question-form">
@@ -27,6 +28,7 @@ $chapterTreeInputId = Html::getInputId($model, 'chapter_id');
             'query' => BskCategory::find()->andWhere(['root' => $chapterRoots])->addOrderBy('root, lft'),
             'multiple' => false,     // set to false if you do not need multiple selection
             'options' => [ 'id' => $chapterTreeInputId ], // 与表单其他项保持一致，以便require验证
+            'rootOptions' => [ 'label' => '全部章节定义' ],
         ]);
     else : ?>
         <div class="form-group">
@@ -34,6 +36,17 @@ $chapterTreeInputId = Html::getInputId($model, 'chapter_id');
             <p>尚未设置章节信息，请先<?= Html::a('新建章节', ['/bsk-category/create', 'tag' => BskCategoryOther::CATEGORY_TYPE_CHAPTER])?></p>
         </div>
     <?php endif; ?>
+
+    <div class="form-group">
+        <label class="control-label">考点</label>
+        <?=TreeViewInput::widget([
+            'name' => 'points',
+            'query' => BskCategory::find()->andWhere(['root' => $pointRoots])->addOrderBy('root, lft'),
+            'multiple' => true,
+            'options' => [ 'id' => $pointTreeInputId ],
+            'rootOptions' => [ 'label' => '全部考点定义' ],
+        ]) ?>
+    </div>
 
     <?php echo $form->field($model, 'type')->dropDownList(BskQuestion::types(), ['prompt' => '选择...']) ?>
 
@@ -55,21 +68,28 @@ $chapterTreeInputId = Html::getInputId($model, 'chapter_id');
 <?php
 // 修改选择实现
 $func = <<<FUNC
-$('#{$chapterTreeInputId}')
+$('#{$chapterTreeInputId}, #{$pointTreeInputId}')
     .off('treeview.change')
     .on('treeview.change', function(e, key, desc) {
-        if (!key) return;
         var input = \$(e.currentTarget),
             d = input.data('treeinput'),
-            li = d.\$tree.find('li[data-key=' + key +']');
-        if (li.data('rgt') - li.data('lft') > 1) {
-            input.val(''); // 重置回change前
-            return;
+            vkey = [], vdesc = [], keys;
+        if (key) {
+            keys = ('' + key).split(',');
+            keys.forEach(function(item) {
+                var li = d.\$tree.find('li[data-key=' + item +']');
+                if (li.data('lft') > 1 && li.data('rgt') - li.data('lft') === 1) {
+                    vkey.push(item);
+                    vdesc.push(li.find('>.kv-tree-list .kv-node-label').text());
+                }
+            });
         }
-        d.setInput(desc.split(','));
-        if (d.autoCloseOnSelect) {
+
+        if (!d.treeview.multiple && d.autoCloseOnSelect) {
             d.\$input.closest('.kv-tree-dropdown-container').removeClass('open');
         }
+        input.val(vkey.join(''));
+        d.setInput(vdesc);
     });
 FUNC;
 $this->registerJs($func);

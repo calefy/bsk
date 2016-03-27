@@ -40,6 +40,7 @@ $type = isset($types[$type]) ? $type : BskCategoryOther::CATEGORY_TYPE_POINT;
                 'query' => BskCategory::find()->semesters(),
                 'multiple' => false,     // set to false if you do not need multiple selection
                 'options' => [ 'id' => Html::getInputId($model, 'semester_id') ], // 与表单其他项保持一致，以便require验证
+                'rootOptions' => [ 'label' => '全部学期' ]
             ]);
         }
     ?>

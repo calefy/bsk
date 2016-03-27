@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'iconEditSettings' => [ // 不显示icon的编辑部分
                 'show' => 'none',
             ],
+            'rootOptions' => [ 'label' => '全部基本分类' ]
         ]);
     ?>
 
