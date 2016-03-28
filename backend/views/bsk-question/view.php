@@ -6,6 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\BskQuestion */
 
+\common\assets\MathJax::register($this);
+
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Bsk Questions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

@@ -12,8 +12,12 @@ use common\models\BskQuestion;
 /* @var $model common\models\BskQuestion */
 /* @var $form yii\bootstrap\ActiveForm */
 
+\common\assets\CKEditor::register($this);
+
 $chapterTreeInputId = Html::getInputId($model, 'chapter_id');
 $pointTreeInputId = 'points';
+
+$model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 ?>
 
 <div class="bsk-question-form">
@@ -22,6 +26,7 @@ $pointTreeInputId = 'points';
 
     <?php echo $form->errorSummary($model); ?>
 
+    <?php echo $form->field($model, 'type')->dropDownList(BskQuestion::types(), ['prompt' => '选择...', 'disabled' => true]) ?>
 
     <?php if ($chapterRoots):
         echo $form->field($model, 'chapter_id')->widget(TreeViewInput::className(), [
@@ -48,13 +53,11 @@ $pointTreeInputId = 'points';
         ]) ?>
     </div>
 
-    <?php echo $form->field($model, 'type')->dropDownList(BskQuestion::types(), ['prompt' => '选择...']) ?>
+    <?php echo $form->field($model, 'level')->textInput() ?>
 
-    <?php echo $form->field($model, 'title')->textarea(['rows' => 6]) ?>
+    <?php echo $form->field($model, 'title')->textarea([ 'rows' => 6 ]) ?>
 
     <?php echo $form->field($model, 'info')->textarea(['rows' => 6]) ?>
-
-    <?php echo $form->field($model, 'level')->textInput() ?>
 
 
     <div class="form-group">
@@ -66,8 +69,10 @@ $pointTreeInputId = 'points';
 </div>
 
 <?php
-// 修改选择实现
+$titleId = Html::getInputId($model, 'title');
+$mathjaxLib = \common\assets\MathJax::CDN;
 $func = <<<FUNC
+// 修改选择实现
 $('#{$chapterTreeInputId}, #{$pointTreeInputId}')
     .off('treeview.change')
     .on('treeview.change', function(e, key, desc) {
@@ -91,6 +96,26 @@ $('#{$chapterTreeInputId}, #{$pointTreeInputId}')
         input.val(vkey.join(''));
         d.setInput(vdesc);
     });
+
+var editorConfig = {
+    title: false,
+    height: 100,
+    uiColor: '#eeeeee',
+    resize_enabled: false,
+    enterMode: CKEDITOR.ENTER_BR,
+    removeButtons: '',
+    toolbar: [
+        ['Undo', 'Redo'],
+        ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'],
+        ['Image', 'SpecialChar', 'Mathjax'],
+        ['Maximize']
+    ],
+    filebrowserImageUploadUrl: '',
+    mathJaxLib: '{$mathjaxLib}',
+    extraPlugins: 'mathjax'
+};
+
+CKEDITOR.replace('{$titleId}', editorConfig);
 FUNC;
 $this->registerJs($func);
 ?>

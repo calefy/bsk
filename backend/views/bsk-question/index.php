@@ -1,11 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
+use common\models\BskQuestion;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\BskQuestionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+\common\assets\MathJax::register($this);
 
 $this->title = Yii::t('backend', 'Bsk Questions');
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,9 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php echo Html::a(Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => Yii::t('backend', 'Bsk Question'),
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <a class="btn btn-success" href="<?=Url::to(['create', 'type' => BskQuestion::QUESTION_TYPE_SELECT])?>">创建选择题</a>
+        <a class="btn btn-success" href="<?=Url::to(['create', 'type' => BskQuestion::QUESTION_TYPE_FILL])?>">创建填空题</a>
+        <a class="btn btn-success" href="<?=Url::to(['create', 'type' => BskQuestion::QUESTION_TYPE_ASK])?>">创建问答题</a>
     </p>
 
     <?php echo GridView::widget([
