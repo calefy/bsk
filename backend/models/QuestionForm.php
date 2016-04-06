@@ -19,7 +19,7 @@ class QuestionForm extends Model
     public $title; // 题干
     public $info; // 选项或回答json
 
-    public $analyze; // 解析
+    //public $analyze; // 解析
 
     /**
      * @inheritdoc
@@ -47,7 +47,7 @@ class QuestionForm extends Model
             'point_ids' => '试题考点',
             'title' => '题干',
             'info' => '选项或答案',
-            'analyze' => '解析',
+            //'analyze' => '解析',
         ];
     }
 }

@@ -12,7 +12,7 @@ use common\models\BskQuestion;
 /* @var $model common\models\BskQuestion */
 /* @var $form yii\bootstrap\ActiveForm */
 
-\common\assets\CKEditor::register($this);
+\backend\assets\QuestionAsset::register($this);
 
 $chapterTreeInputId = Html::getInputId($model, 'chapter_id');
 $pointTreeInputId = 'point_ids';
@@ -96,56 +96,13 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 <?php
 $titleId = Html::getInputId($model, 'title');
 $mathjaxLib = \common\assets\MathJax::CDN;
-$func = <<<FUNC
-// 修改选择实现
-$('#{$chapterTreeInputId}, #{$pointTreeInputId}')
-    .off('treeview.change')
-    .on('treeview.change', function(e, key, desc) {
-        var input = \$(e.currentTarget),
-            d = input.data('treeinput'),
-            vkey = [], vdesc = [], keys;
-        if (key) {
-            keys = ('' + key).split(',');
-            keys.forEach(function(item) {
-                var li = d.\$tree.find('li[data-key=' + item +']');
-                if (li.data('lft') > 1 && li.data('rgt') - li.data('lft') === 1) {
-                    vkey.push(item);
-                    vdesc.push(li.find('>.kv-tree-list .kv-node-label').text());
-                }
-            });
-        }
 
-        if (!d.treeview.multiple && d.autoCloseOnSelect) {
-            d.\$input.closest('.kv-tree-dropdown-container').removeClass('open');
-        }
-        input.val(vkey.join(''));
-        d.setInput(vdesc);
-    });
-
-var editorConfig = {
-    title: false,
-    height: 100,
-    uiColor: '#eeeeee',
-    resize_enabled: false,
-    enterMode: CKEDITOR.ENTER_BR,
-    removeButtons: '',
-    toolbar: [
-        ['Undo', 'Redo'],
-        ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'],
-        ['Image', 'SpecialChar', 'Mathjax'],
-        ['Maximize']
-    ],
-    filebrowserImageUploadUrl: '',
-    mathJaxLib: '{$mathjaxLib}',
-    extraPlugins: 'mathjax'
+$conf = <<<CONF
+var bsk_question = {
+    treeInputIds: ['{$chapterTreeInputId}', '{$pointTreeInputId}'],
+    editorIds: ['{$titleId}'],
+    mathjaxLib: '{$mathjaxLib}'
 };
-
-var editor = CKEDITOR.replace('{$titleId}', editorConfig);
-editor.on('change', function(){
-    $('#{$titleId}')
-        .val(editor.getData())
-        .trigger('change.yiiActiveForm');
-});
-FUNC;
-$this->registerJs($func);
+CONF;
+$this->registerJs($conf, $this::POS_END);
 ?>
