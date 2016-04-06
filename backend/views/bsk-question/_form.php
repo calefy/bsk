@@ -15,7 +15,7 @@ use common\models\BskQuestion;
 \common\assets\CKEditor::register($this);
 
 $chapterTreeInputId = Html::getInputId($model, 'chapter_id');
-$pointTreeInputId = 'points';
+$pointTreeInputId = 'point_ids';
 
 $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 ?>
@@ -32,40 +32,40 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
         </div>
         <div class="box-body row">
 
-    <div class="col-md-6">
-        <?php echo $form->field($model, 'type')->dropDownList(BskQuestion::types(), ['prompt' => '选择...', 'disabled' => true]) ?>
-    </div>
-    <div class="col-md-6">
-        <?php echo $form->field($model, 'level')->textInput() ?>
-    </div>
-
-
-    <div class="col-md-6">
-        <?php if ($chapterRoots):
-            echo $form->field($model, 'chapter_id')->widget(TreeViewInput::className(), [
-                'query' => BskCategory::find()->andWhere(['root' => $chapterRoots])->addOrderBy('root, lft'),
-                'multiple' => false,     // set to false if you do not need multiple selection
-                'options' => [ 'id' => $chapterTreeInputId ], // 与表单其他项保持一致，以便require验证
-                'rootOptions' => [ 'label' => '全部章节定义' ],
-            ]);
-        else : ?>
-            <div class="form-group">
-                <label class="control-label">章节</label>
-                <p>尚未设置章节信息，请先<?= Html::a('新建章节', ['/bsk-category/create', 'tag' => BskCategoryOther::CATEGORY_TYPE_CHAPTER])?></p>
+            <div class="col-md-6 form-group">
+                <label class="control-label"><?=$model->getAttributeLabel('type')?></label>
+                <?=Html::textInput(null, BskQuestion::types()[$model->type], [ 'readonly' => true, 'class' => 'form-control' ])?>
+                <?=Html::hiddenInput(Html::getInputName($model, 'type'), $model->type) ?>
             </div>
-        <?php endif; ?>
-    </div>
+            <div class="col-md-6">
+                <?php echo $form->field($model, 'difficult')->hint('请输入0~1之间的数值')->textInput() ?>
+            </div>
 
-    <div class="form-group col-md-6">
-        <label class="control-label">考点</label>
-        <?=TreeViewInput::widget([
-            'name' => 'points',
-            'query' => BskCategory::find()->andWhere(['root' => $pointRoots])->addOrderBy('root, lft'),
-            'multiple' => true,
-            'options' => [ 'id' => $pointTreeInputId ],
-            'rootOptions' => [ 'label' => '全部考点定义' ],
-        ]) ?>
-    </div>
+
+            <div class="col-md-6">
+                <?php if ($chapterRoots):
+                    echo $form->field($model, 'chapter_id')->widget(TreeViewInput::className(), [
+                        'query' => BskCategory::find()->andWhere(['root' => $chapterRoots])->addOrderBy('root, lft'),
+                        'multiple' => false,     // set to false if you do not need multiple selection
+                        'options' => [ 'id' => $chapterTreeInputId ], // 与表单其他项保持一致，以便require验证
+                        'rootOptions' => [ 'label' => '全部章节定义' ],
+                    ]);
+                else : ?>
+                    <div class="form-group">
+                        <label class="control-label">章节</label>
+                        <p>尚未设置章节信息，请先<?= Html::a('新建章节', ['/bsk-category/create', 'tag' => BskCategoryOther::CATEGORY_TYPE_CHAPTER])?></p>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="col-md-6">
+                <?=$form->field($model, 'point_ids')->widget(TreeViewInput::className(), [
+                    'query' => BskCategory::find()->andWhere(['root' => $pointRoots])->addOrderBy('root, lft'),
+                    'multiple' => true,
+                    'options' => [ 'id' => $pointTreeInputId ],
+                    'rootOptions' => [ 'label' => '全部考点定义' ],
+                ]) ?>
+            </div>
 
         </div>
     </div>
@@ -82,7 +82,7 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
     <?php echo $form->field($model, 'info')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?php echo Html::submitButton(!$model->id ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => !$model->id ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
         </div>
@@ -140,7 +140,12 @@ var editorConfig = {
     extraPlugins: 'mathjax'
 };
 
-CKEDITOR.replace('{$titleId}', editorConfig);
+var editor = CKEDITOR.replace('{$titleId}', editorConfig);
+editor.on('change', function(){
+    $('#{$titleId}')
+        .val(editor.getData())
+        .trigger('change.yiiActiveForm');
+});
 FUNC;
 $this->registerJs($func);
 ?>

@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 
 use yii\helpers\ArrayHelper;
 use common\models\BskCategoryOther;
+use backend\models\QuestionForm;
 
 /**
  * BskQuestionController implements the CRUD actions for BskQuestion model.
@@ -63,8 +64,6 @@ class BskQuestionController extends Controller
      */
     public function actionCreate()
     {
-        $model = new BskQuestion();
-
         // 获取所有章节、考点分类的rootID
         $roots = BskCategoryOther::find()
             ->select('type, category_id')
@@ -80,16 +79,45 @@ class BskQuestionController extends Controller
             }
         }
 
+        // 加载到对应的form model中
+        $model = new QuestionForm();
+        $tpl = 'create';
+        $ret = [
+            'model' => $model,
+            'chapterRoots' => $chapterRoots,
+            'pointRoots' => $pointRoots,
+        ];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-                'chapterRoots' => $chapterRoots,
-                'pointRoots' => $pointRoots,
-            ]);
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            // 保存试题
+            $question = new BskQuestion();
+            $question->chapter_id = $model->chapter_id;
+            $question->type = $model->type;
+            $question->title = $model->title;
+            $question->info = $model->info;
+            $question->level = round($model->difficult * 100);
+            if (!$question->save()) {
+                $model->addErrors($question->getErrors());
+                return $this->render($tpl, $ret);
+            }
+
+            // 保存试题与考点关系
+            $point_ids = explode(',', $model->point_ids);
+            if (!empty($point_ids)) {
+                foreach($point_ids as $point_id) {
+                    if (!$point_id) continue;
+                    $point = new BskQuestionPoint();
+                    $point->question_id = $question->id;
+                    $point->point_id = $point_id;
+                    $point->save();
+                }
+            }
+            // 保存成功后跳转到详情
+            return $this->redirect(['view', 'id' => $question->id]);
         }
+
+        return $this->render($tpl, $ret);
     }
 
     /**
