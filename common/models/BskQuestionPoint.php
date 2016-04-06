@@ -16,7 +16,7 @@ use Yii;
  * @property string $created_by
  * @property integer $created_at
  */
-class BskQuestionPoint extends \yii\db\ActiveRecord
+class BskQuestionPoint extends BskBaseActiveRecord
 {
     /**
      * @inheritdoc
@@ -32,7 +32,7 @@ class BskQuestionPoint extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'question_id', 'point_id', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'required'],
+            [['question_id', 'point_id'], 'required'],
             [['id', 'question_id', 'point_id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer']
         ];
     }

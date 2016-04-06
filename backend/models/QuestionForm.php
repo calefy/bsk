@@ -31,6 +31,7 @@ class QuestionForm extends Model
             [['type', 'chapter_id'], 'integer'],
             ['type', 'in', 'range' => array_keys(BskQuestion::types()) ],
             ['difficult', 'double', 'min' => 0, 'max' => 1],
+            [['point_ids', 'info'], 'string'],
         ];
     }
 
