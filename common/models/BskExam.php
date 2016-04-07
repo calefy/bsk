@@ -72,4 +72,15 @@ class BskExam extends BskBaseActiveRecord
     public static function find() {
         return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
     }
+
+    public function getQuestionsRelation() {
+        return $this->hasMany(BskExamQuestion::className(), ['exam_id' => 'id'])
+            ->onCondition([BskExamQuestion::tableName() . '.status' => BskExamQuestion::STATUS_ACTIVE ]);
+    }
+
+    public function getQuestions() {
+        return $this->hasMany(BskQuestion::className(), ['id' => 'question_id'])
+            ->via('questionsRelation')
+            ->onCondition([BskQuestion::tableName() . '.status' => BskQuestion::STATUS_ACTIVE ]);
+    }
 }
