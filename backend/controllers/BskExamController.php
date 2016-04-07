@@ -8,6 +8,9 @@ use backend\models\search\BskExamSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+
+use common\models\BskCategoryOther;
 
 /**
  * BskExamController implements the CRUD actions for BskExam model.
@@ -60,15 +63,7 @@ class BskExamController extends Controller
      */
     public function actionCreate()
     {
-        $model = new BskExam();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->edit();
     }
 
     /**
@@ -79,14 +74,30 @@ class BskExamController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        return $this->edit($id);
+    }
+
+    public function edit($id = null) {
+        $isUpdate = !!$id;
+
+        // 获取所有章节、考点分类的rootID
+        $roots = BskCategoryOther::find()
+            ->select('category_id')
+            ->andWhere([ 'type' => BskCategoryOther::CATEGORY_TYPE_EXAM ])
+            ->all();
+        $examRoots = ArrayHelper::getColumn($roots, 'category_id');
+
+        $model = $isUpdate ? $this->findModel($id) : new BskExam();
+        $tpl = $isUpdate ? 'update' : 'create';
+        $ret = [
+            'model' => $model,
+            'examRoots' => $examRoots,
+        ];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render($tpl, $ret);
         }
     }
 

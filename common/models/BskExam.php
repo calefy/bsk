@@ -37,9 +37,9 @@ class BskExam extends BskBaseActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['title', 'type', 'category_id', 'short_time', 'short_addr'], 'required'],
             [['id', 'type', 'category_id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
-            [['short_time', 'short_addr'], 'string', 'max' => 64],
+            [['short_time', 'short_addr'], 'string', 'max' => 16],
             [['title'], 'string', 'max' => 128],
             [['description', 'stem'], 'string', 'max' => 256],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
@@ -54,8 +54,8 @@ class BskExam extends BskBaseActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
-            'type' => Yii::t('common', '试卷分类：1-真题'),
-            'category_id' => Yii::t('common', '试卷分类ID'),
+            'type' => Yii::t('common', '试卷类型'),
+            'category_id' => Yii::t('common', '试卷分类'),
             'short_time' => Yii::t('common', '短标题-时间'),
             'short_addr' => Yii::t('common', '短标题-地点'),
             'title' => Yii::t('common', '试卷标题'),

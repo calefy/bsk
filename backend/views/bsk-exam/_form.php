@@ -3,9 +3,18 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+use kartik\tree\TreeViewInput;
+use common\models\BskCategory;
+use common\models\BskCategoryOther;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\BskExam */
 /* @var $form yii\bootstrap\ActiveForm */
+
+\backend\assets\EditorAsset::register($this);
+\backend\assets\TreeInputAsset::register($this);
+
+$model->type = $model->type ? $model->type : 1; // 默认写死为真题类型
 ?>
 
 <div class="bsk-exam-form">
@@ -14,19 +23,28 @@ use yii\bootstrap\ActiveForm;
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->field($model, 'type')->textInput() ?>
+    <?=Html::hiddenInput(Html::getInputName($model, 'type'), $model->type)?>
 
-    <?php echo $form->field($model, 'category_id')->textInput(['maxlength' => true]) ?>
+    <?=$form->field($model, 'category_id')->widget(TreeViewInput::className(), [
+        'query' => BskCategory::find()->andWhere(['root' => $examRoots])->addOrderBy('root, lft'),
+        'multiple' => false,
+        'options' => [ 'id' => Html::getInputId($model, 'category_id'), 'data-tree-leaf' => true ],
+        'rootOptions' => [ 'label' => '全部试卷分类' ],
+    ]) ?>
 
-    <?php echo $form->field($model, 'short_time')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?php echo $form->field($model, 'short_time')->textInput(['maxlength' => true, 'placeholder' => '如：2016']) ?>
+        </div>
+        <div class="col-md-6">
+            <?php echo $form->field($model, 'short_addr')->textInput(['maxlength' => true, 'placeholder' => '如：衡中']) ?>
+        </div>
+    </div>
 
-    <?php echo $form->field($model, 'short_addr')->textInput(['maxlength' => true]) ?>
 
     <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?php echo $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
-
-    <?php echo $form->field($model, 'stem')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'description')->textarea(['maxlength' => true, 'rows' => 3, 'data-ckeditor' => true]) ?>
 
     <div class="form-group">
         <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
