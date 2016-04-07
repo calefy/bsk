@@ -48,7 +48,7 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
                     echo $form->field($model, 'chapter_id')->widget(TreeViewInput::className(), [
                         'query' => BskCategory::find()->andWhere(['root' => $chapterRoots])->addOrderBy('root, lft'),
                         'multiple' => false,     // set to false if you do not need multiple selection
-                        'options' => [ 'id' => $chapterTreeInputId ], // 与表单其他项保持一致，以便require验证
+                        'options' => [ 'id' => $chapterTreeInputId, 'data-tree-leaf' => true ], // 与表单其他项保持一致，以便require验证
                         'rootOptions' => [ 'label' => '全部章节定义' ],
                     ]);
                 else : ?>
@@ -63,7 +63,7 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
                 <?=$form->field($model, 'point_ids')->widget(TreeViewInput::className(), [
                     'query' => BskCategory::find()->andWhere(['root' => $pointRoots])->addOrderBy('root, lft'),
                     'multiple' => true,
-                    'options' => [ 'id' => $pointTreeInputId ],
+                    'options' => [ 'id' => $pointTreeInputId, 'data-tree-leaf' => true ],
                     'rootOptions' => [ 'label' => '全部考点定义' ],
                 ]) ?>
             </div>
@@ -108,9 +108,9 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
             <h3 class="box-title">试题解析</h3>
         </div>
         <div class="box-body" >
-            <?=$form->field($model, 'analyze')->textarea()?>
-            <?=$form->field($model, 'answer')->textarea()?>
-            <?=$form->field($model, 'comment')->textarea()?>
+            <?=$form->field($model, 'analyze')->textarea(['data-ckeditor' => true])?>
+            <?=$form->field($model, 'answer')->textarea(['data-ckeditor' => true])?>
+            <?=$form->field($model, 'comment')->textarea(['data-ckeditor' => true])?>
         </div>
     </div>
 
