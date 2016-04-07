@@ -13,7 +13,7 @@ $(function() {
         toolbar: [
             ['Undo', 'Redo'],
             ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'],
-            ['Image', 'SpecialChar', 'Mathjax'],
+            ['Image', 'Table', 'SpecialChar', 'Mathjax'],
             ['Maximize']
         ],
         filebrowserImageUploadUrl: '/bsk-question/image-upload?fileparam=upload',
@@ -80,17 +80,18 @@ $(function() {
         var type = global_config.type,
             isSelect = type === 1, // 选择题
             isFill = type === 2; // 填空题
-        if (!isSelect && !isFill) return;
-        var infoInput = $('#' + global_config.infoId),
-            info = infoInput.val();
-        info = info ? JSON.parse(info) : info;
+        if (isSelect || isFill) {
+            var infoInput = $('#' + global_config.infoId),
+                info = infoInput.val();
+            info = info ? JSON.parse(info) : info;
 
-        if (info) {
-            $.each(info, function(i, item) {
-                _addOption(isFill, item);
-            });
-        } else {
-            _addOption(isFill);
+            if (info) {
+                $.each(info, function(i, item) {
+                    _addOption(isFill, item);
+                });
+            } else {
+                _addOption(isFill);
+            }
         }
 
         CKEDITOR.replace(global_config.analyzeId);
@@ -149,8 +150,14 @@ $(function() {
                 });
                 $('#' + global_config.infoId).val(JSON.stringify(opts));
 
-                if (!tval || !opts.length) {
-                    alert('标题或选项不能为空');
+                if (!tval) {
+                    alert('标题不能为空');
+                    return false;
+                } else if (isSelect && !opts.length) {
+                    alert('选项不能为空');
+                    return false;
+                } else if (isFill && !opts.length) {
+                    alert('填空答案不能为空');
                     return false;
                 } else if (isSelect && !hasCorrect) {
                     alert('选项必须设置一个为正确答案');

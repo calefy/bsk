@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use common\grid\EnumColumn;
 use common\models\BskQuestion;
 
 /* @var $this yii\web\View */
@@ -28,17 +29,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'chapter_id',
-            'type',
-            'title:ntext',
+            //'chapter_id',
+            [
+                'class' => EnumColumn::className(),
+                'attribute' => 'type',
+                'enum' => BskQuestion::types(),
+                'filter' => BskQuestion::types()
+            ],
+            'title:html',
             // 'info:ntext',
-            'level',
+            [
+                'attribute' => 'level',
+                'value' => function($model) {
+                    return $model->level / 100;
+                }
+            ],
             // 'status',
             // 'updated_by',
-            'updated_at:datetime',
+            [
+                'attribute' => 'updated_at',
+                'format' => 'datetime',
+                'filter' => false,
+            ],
             // 'created_by',
             // 'created_at',
 
