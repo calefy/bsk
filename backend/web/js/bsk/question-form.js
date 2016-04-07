@@ -16,7 +16,7 @@ $(function() {
             ['Image', 'SpecialChar', 'Mathjax'],
             ['Maximize']
         ],
-        filebrowserImageUploadUrl: '',
+        filebrowserImageUploadUrl: '/bsk-question/image-upload?fileparam=upload',
         mathJaxLib: global_config.mathjaxLib,
         extraPlugins: 'mathjax'
     };

@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
 use common\models\BskCategoryOther;
 use common\models\BskQuestionPoint;
 use backend\models\QuestionForm;
+use trntv\filekit\actions\UploadAction;
 
 /**
  * BskQuestionController implements the CRUD actions for BskQuestion model.
@@ -31,6 +32,29 @@ class BskQuestionController extends Controller
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'image-upload' => [
+                'class' => UploadAction::className(),
+                'responseFormat' => \yii\web\Response::FORMAT_HTML,
+            ],
+        ];
+    }
+    public function afterAction($action, $result)
+    {
+            if ($action->id === 'image-upload') { // 处理ckeditor返回格式
+                if ($result['files']) {
+                    $file = $result['files'][0];
+                    $num = Yii::$app->request->get('CKEditorFuncNum');
+                    $url = isset($file['url']) ? $file['url'] : '';
+                    $err = isset($file['errors']) ? $file['errors'] : '';
+                    return "<script>window.parent.CKEDITOR.tools.callFunction({$num}, '{$url}', '{$err}');</script>";
+                }
+            }
+            $result = parent::afterAction($action, $result);
+            return $result;
+    }
     /**
      * Lists all BskQuestion models.
      * @return mixed
