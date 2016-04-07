@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 
+use common\models\BskCategory;
 use common\models\BskCategoryOther;
 
 /**
@@ -38,9 +39,19 @@ class BskExamController extends Controller
         $searchModel = new BskExamSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // 获取分类信息
+        //$models = $dataProvider->getModels();
+        //$cids = ArrayHelper::getColumn($models, 'category_id');
+        //$cs = BskCategory::find()->select('id, name')->andWhere(['id' => $cids])->all();
+        //$cmap = [];
+        //if ($cs) {
+        //    $cmap = ArrayHelper::map($cs, 'id', 'name');
+        //}
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            //'categoryMap' => $cmap,
         ]);
     }
 

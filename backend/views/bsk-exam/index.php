@@ -27,18 +27,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'type',
-            'category_id',
+            //'type',
+            //'category_id',
+           // [
+           //     'label' => '短标题',
+           //     'format' => 'html',
+           //     'value' => function($model) {
+           //         return $model->short_time . '&middot;' . $model->short_addr;
+           //     }
+           // ],
             'short_time',
             'short_addr',
             'title',
-            'description',
+            //'description',
             // 'stem',
             // 'status',
             // 'updated_by',
-            'updated_at:datetime',
+            [
+                'attribute' => 'updated_at',
+                'format' => 'datetime',
+                'filter' => false,
+            ],
             // 'created_by',
-            'created_at:datetime',
+            //'created_at:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
