@@ -14,7 +14,7 @@ class QuestionForm extends Model
     public $type; // 题型
     public $difficult; // 难度系数
     public $chapter_id; // 章节分类ID
-    public $point_ids; // 考点分类ID
+    public $point_ids; // 考点分类IDs
 
     public $title; // 题干
     public $info; // 选项或回答json
@@ -31,7 +31,7 @@ class QuestionForm extends Model
             [['type', 'chapter_id'], 'integer'],
             ['type', 'in', 'range' => array_keys(BskQuestion::types()) ],
             ['difficult', 'double', 'min' => 0, 'max' => 1],
-            [['point_ids', 'info'], 'string'],
+            [['id', 'point_ids', 'info'], 'string'],
         ];
     }
 
@@ -41,6 +41,7 @@ class QuestionForm extends Model
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'type' => '题型',
             'difficult' => '难度系数',
             'chapter_id' => '试题章节',

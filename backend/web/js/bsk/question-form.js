@@ -86,7 +86,9 @@ $(function() {
         info = info ? JSON.parse(info) : info;
 
         if (info) {
-            // TODO
+            $.each(info, function(i, item) {
+                _addOption(isFill, item);
+            });
         } else {
             _addOption(isFill);
         }
@@ -125,17 +127,15 @@ $(function() {
                 var hasCorrect = false;
                 $('#questionBody dd').each(function(i, dd) {
                     dd = $(dd);
-                    var obj = { text: '', correct: false },
+                    var obj = { text: '' },
                         id = dd.children(':last').attr('id'),
                         editor = CKEDITOR.instances[id];
                     if (editor) {
                         obj.text = editor.getData();
                     }
-                    if (isSelect) {
-                        obj.correct = dd.children('input').is(':checked');
-                        if (obj.correct) {
-                            hasCorrect = true;
-                        }
+                    if (isSelect && dd.children('input').is(':checked')) {
+                        obj.correct = true;
+                        hasCorrect = true;
                     }
                     opts.push(obj);
                 });
@@ -151,7 +151,8 @@ $(function() {
             });
     }
 
-    function _addOption(isFill, content) {
+    function _addOption(isFill, contentObj) {
+        contentObj = contentObj || {};
         var body = $('#questionBody'),
             container = body.find('dl[data-role=options]'),
             len = container.children('dd').length,
@@ -159,9 +160,9 @@ $(function() {
             item;
         item =  '<dd>' +
                 '    <a data-role="delete" href="#"><i class="glyphicon glyphicon-remove"></i></a>' +
-                (isFill ? '' : '    <input type="checkbox" />') +
+                (isFill ? '' : '    <input type="checkbox" '+(contentObj.correct ? 'checked' : '')+' />') +
                 (isFill ? '' : '    <span data-role="prefix">'+String.fromCharCode(65 + len)+'</span>. ')+
-                '    <div class="dib vat" contenteditable="true" id="'+id+'">'+(content ? content : '点击这里编辑'+(isFill ? '填空答案' : '选项'))+'</div>' +
+                '    <div class="dib vat" contenteditable="true" id="'+id+'">'+(contentObj.text ? contentObj.text : '点击这里编辑'+(isFill ? '填空答案' : '选项'))+'</div>' +
                 '</dd>'
 
         container.append(item);

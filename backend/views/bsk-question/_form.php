@@ -23,6 +23,7 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 <?php $this->beginBlock('content'); ?>
 <div class="bsk-question-form">
     <?php $form = ActiveForm::begin(); ?>
+    <?=Html::hiddenInput(Html::getInputName($model, 'id'), $model->id)?>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -77,13 +78,13 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
         </div>
         <div class="box-body" id="questionBody">
 
-            <div class="well well-sm">
-                <p>* 直接点击内容进行编辑</p>
+            <div class="well well-xs">
+                * 直接点击内容进行编辑
                 <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
-                <p>* 选项前面的选择框，表示该项是否是正确答案</p>
+                <br/>* 选项前面的选择框，表示该项是否是正确答案
                 <?php endif; ?>
                 <?php if ($model->type == BskQuestion::QUESTION_TYPE_FILL): ?>
-                <p>* 请用三个下划线"___"表示填空位置</p>
+                <br/>* 请用三个下划线"___"表示填空位置
                 <?php endif; ?>
             </div>
 
@@ -92,7 +93,7 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 
             <div class="form-group question-edit">
                 <dl data-role="options">
-                    <dt><div contenteditable="true" id="title">点击这里编辑题干</div></dt>
+                    <dt><div contenteditable="true" id="title"><?=$model->title ? $model->title : '点击这里编辑题干'?></div></dt>
                 </dl>
                 <?php if ($model->type != BskQuestion::QUESTION_TYPE_ASK): ?>
                 <p class="btns"><button type="button" data-role="addOption" class="btn btn-info btn-xs">添加<?=$model->type == BskQuestion::QUESTION_TYPE_FILL ? '填空答案' : '选项'?></button></p>

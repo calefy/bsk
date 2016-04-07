@@ -65,6 +65,23 @@ class BskQuestionController extends Controller
      */
     public function actionCreate()
     {
+        return $this->edit();
+    }
+
+    /**
+     * Updates an existing BskQuestion model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        return $this->edit($id);
+    }
+
+    public function edit($id = null)
+    {
+        $isUpdate = !!$id;
         // 获取所有章节、考点分类的rootID
         $roots = BskCategoryOther::find()
             ->select('type, category_id')
@@ -89,10 +106,28 @@ class BskQuestionController extends Controller
             'pointRoots' => $pointRoots,
         ];
 
+        // 编辑时，获取原对象
+        $question = null;
+        $org_point_ids = [];
+        if ($isUpdate) {
+            $tpl = 'update';
+            $question = BskQuestion::findOne($id);
+            $points = BskQuestionPoint::find()->select('point_id')->andWhere(['question_id' => $id])->all();
+            $model->id = $id;
+            $model->chapter_id = $question->chapter_id;
+            $model->type = $question->type;
+            $model->title = $question->title;
+            $model->info = $question->info;
+            $model->difficult = $question->level / 100;
+            $org_point_ids = ArrayHelper::getColumn($points, 'point_id');
+            $model->point_ids = implode(',', $org_point_ids);
+        } else {
+            $question = new BskQuestion();
+        }
+
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
             // 保存试题
-            $question = new BskQuestion();
             $question->chapter_id = $model->chapter_id;
             $question->type = $model->type;
             $question->title = $model->title;
@@ -106,12 +141,22 @@ class BskQuestionController extends Controller
             // 保存试题与考点关系
             $point_ids = explode(',', $model->point_ids);
             if (!empty($point_ids)) {
-                foreach($point_ids as $point_id) {
-                    if (!$point_id) continue;
-                    $point = new BskQuestionPoint();
-                    $point->question_id = $question->id;
-                    $point->point_id = $point_id;
-                    $point->save();
+                $sames = array_intersect($point_ids, $org_point_ids);
+                $toDels = array_diff($org_point_ids, $sames);
+                $toAdd = array_diff($point_ids, $sames);
+                if ($toDels) {
+                    BskQuestionPoint::updateAll(
+                        ['status' => BskQuestionPoint::STATUS_DELETED],
+                        ['point_id' => $toDels, 'question_id' => $id]);
+                }
+                if ($toAdd) {
+                    foreach($toAdd as $point_id) {
+                        if (!$point_id) continue;
+                        $point = new BskQuestionPoint();
+                        $point->question_id = $question->id;
+                        $point->point_id = $point_id;
+                        $point->save();
+                    }
                 }
             }
             // 保存成功后跳转到详情
@@ -119,25 +164,6 @@ class BskQuestionController extends Controller
         }
 
         return $this->render($tpl, $ret);
-    }
-
-    /**
-     * Updates an existing BskQuestion model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
     }
 
     /**
