@@ -39,7 +39,7 @@ class BskQuestion extends BskBaseActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['id', 'chapter_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            [['id', 'origin_exam_id', 'chapter_id', 'type', 'level', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => array_keys(self::statuses())],
             [['title', 'info', 'analyze', 'answer', 'comment'], 'string']
@@ -53,6 +53,7 @@ class BskQuestion extends BskBaseActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
+            'origin_exam_id' => Yii::t('common', '来源试卷'),
             'chapter_id' => Yii::t('common', '章节'),
             'type' => Yii::t('common', '题型'),
             'title' => Yii::t('common', '题干'),

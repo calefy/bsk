@@ -148,7 +148,7 @@ $(function() {
                     }
                     opts.push(obj);
                 });
-                $('#' + global_config.infoId).val(JSON.stringify(opts));
+                $('#' + global_config.infoId).val(opts.length ? JSON.stringify(opts) : '');
 
                 if (!tval) {
                     alert('标题不能为空');
