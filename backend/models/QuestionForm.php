@@ -17,9 +17,11 @@ class QuestionForm extends Model
     public $point_ids; // 考点分类IDs
 
     public $title; // 题干
-    public $info; // 选项或回答json
+    public $info; // 选项或回答json {text: '', correct: true}
 
-    //public $analyze; // 解析
+    public $analyze; // 分析
+    public $answer; // 解答
+    public $comment; // 点评
 
     /**
      * @inheritdoc
@@ -31,7 +33,7 @@ class QuestionForm extends Model
             [['type', 'chapter_id'], 'integer'],
             ['type', 'in', 'range' => array_keys(BskQuestion::types()) ],
             ['difficult', 'double', 'min' => 0, 'max' => 1],
-            [['id', 'point_ids', 'info'], 'string'],
+            [['id', 'point_ids', 'info', 'analyze', 'answer', 'comment'], 'string'],
         ];
     }
 
@@ -48,7 +50,9 @@ class QuestionForm extends Model
             'point_ids' => '试题考点',
             'title' => '题干',
             'info' => '选项或答案',
-            //'analyze' => '解析',
+            'analyze' => '分析',
+            'answer' => '解答',
+            'comment' => '点评',
         ];
     }
 }

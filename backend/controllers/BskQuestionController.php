@@ -142,6 +142,9 @@ class BskQuestionController extends Controller
             $model->type = $question->type;
             $model->title = $question->title;
             $model->info = $question->info;
+            $model->analyze = $question->analyze;
+            $model->answer = $question->answer;
+            $model->comment = $question->comment;
             $model->difficult = $question->level / 100;
             $org_point_ids = ArrayHelper::getColumn($points, 'point_id');
             $model->point_ids = implode(',', $org_point_ids);
@@ -156,6 +159,9 @@ class BskQuestionController extends Controller
             $question->type = $model->type;
             $question->title = $model->title;
             $question->info = $model->info;
+            $question->analyze = $model->analyze;
+            $question->answer = $model->answer;
+            $question->comment = $model->comment;
             $question->level = round($model->difficult * 100);
             if (!$question->save()) {
                 $model->addErrors($question->getErrors());

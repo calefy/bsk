@@ -78,16 +78,6 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
         </div>
         <div class="box-body" id="questionBody">
 
-            <div class="well well-xs">
-                * 直接点击内容进行编辑
-                <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
-                <br/>* 选项前面的选择框，表示该项是否是正确答案
-                <?php endif; ?>
-                <?php if ($model->type == BskQuestion::QUESTION_TYPE_FILL): ?>
-                <br/>* 请用三个下划线"___"表示填空位置
-                <?php endif; ?>
-            </div>
-
             <?php echo Html::hiddenInput(Html::getInputName($model, 'title'), $model->title, ['id' => Html::getInputId($model, 'title')]) ?>
             <?php echo Html::hiddenInput(Html::getInputName($model, 'info'), $model->info, ['id' => Html::getInputId($model, 'info')]) ?>
 
@@ -100,12 +90,30 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
                 <?php endif; ?>
             </div>
 
-            <br>
-
-
+            <div class="help-block">
+                * 直接点击内容进行编辑
+                <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
+                <br/>* 选项前面的选择框，表示该项是否是正确答案
+                <?php endif; ?>
+                <?php if ($model->type == BskQuestion::QUESTION_TYPE_FILL): ?>
+                <br/>* 请用三个下划线"___"表示填空位置
+                <?php endif; ?>
+            </div>
 
         </div>
     </div>
+
+    <div class="box box-success">
+        <div class="box-header">
+            <h3 class="box-title">试题解析</h3>
+        </div>
+        <div class="box-body" >
+            <?=$form->field($model, 'analyze')->textarea()?>
+            <?=$form->field($model, 'answer')->textarea()?>
+            <?=$form->field($model, 'comment')->textarea()?>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <?php echo Html::submitButton(!$model->id ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => !$model->id ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -121,6 +129,9 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 // 输出一些配置变量到页面中
 $titleId = Html::getInputId($model, 'title');
 $infoId = Html::getInputId($model, 'info');
+$analyzeId = Html::getInputId($model, 'analyze');
+$answerId = Html::getInputId($model, 'answer');
+$commentId = Html::getInputId($model, 'comment');
 $mathjaxLib = \common\assets\MathJax::CDN;
 
 $conf = <<<CONF
@@ -128,6 +139,9 @@ var bsk_question = {
     type: $model->type,
     infoId: '{$infoId}',
     titleId: '{$titleId}',
+    analyzeId: '{$analyzeId}',
+    answerId: '{$answerId}',
+    commentId: '{$commentId}',
     treeInputIds: ['{$chapterTreeInputId}', '{$pointTreeInputId}'],
     mathjaxLib: '{$mathjaxLib}'
 };

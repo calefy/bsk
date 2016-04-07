@@ -28,7 +28,7 @@ $(function() {
     function init() {
         setTimeout(initTreeInputs, 600); // 修改treeview.change事件处理需要初始化后执行，因此延时调用
         //initEditors();
-        initInfo();
+        initForm();
     }
 
     init();
@@ -76,7 +76,7 @@ $(function() {
     }
 
     // 初始化选项或填空答案部分
-    function initInfo() {
+    function initForm() {
         var type = global_config.type,
             isSelect = type === 1, // 选择题
             isFill = type === 2; // 填空题
@@ -92,6 +92,10 @@ $(function() {
         } else {
             _addOption(isFill);
         }
+
+        CKEDITOR.replace(global_config.analyzeId);
+        CKEDITOR.replace(global_config.answerId);
+        CKEDITOR.replace(global_config.commentId);
 
         // 监听事件
         $('#questionBody')
@@ -119,6 +123,10 @@ $(function() {
             // 在表单校验前，获取editor中的数据
             $('form').on('beforeValidate', function(e) {
                 var form = $(e.currentTarget);
+                // 解析
+                $('#' + global_config.analyzeId).val(CKEDITOR.instances[global_config.analyzeId].getData());
+                $('#' + global_config.answerId).val(CKEDITOR.instances[global_config.answerId].getData());
+                $('#' + global_config.commentId).val(CKEDITOR.instances[global_config.commentId].getData());
                 // title
                 var tval = CKEDITOR.instances.title.getData();
                 $('#' + global_config.titleId).val(tval);
