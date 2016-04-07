@@ -77,13 +77,39 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
         </div>
         <div class="box-body">
 
-    <?php echo $form->field($model, 'title')->textarea([ 'rows' => 6 ]) ?>
+            <?php echo $form->field($model, 'title')->textarea([ 'rows' => 6 ]) ?>
 
-    <?php echo $form->field($model, 'info')->textarea(['rows' => 6]) ?>
+            <?php echo Html::hiddenInput(Html::getInputName($model, 'info'), $model->info, ['id' => Html::getInputId($model, 'info')]) ?>
 
-    <div class="form-group">
-        <?php echo Html::submitButton(!$model->id ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => !$model->id ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+            <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT || $model->type == BskQuestion::QUESTION_TYPE_FILL): ?>
+            <div class="form-group">
+                <label class="control-label" ><?=$model->type == BskQuestion::QUESTION_TYPE_SELECT ? '选项设置' : '填空答案'?></label>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>选项内容</th>
+                            <th>是否正确</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> <textarea class="form-control" cols="30" rows="3"></textarea> </td>
+                            <td><input class="form-control" type="checkbox"></td>
+                            <td>
+                                <a href="#">up</a>
+                                <a href="#">down</a>
+                                <a href="#">delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php endif; ?>
+
+            <div class="form-group">
+                <?php echo Html::submitButton(!$model->id ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => !$model->id ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
 
         </div>
     </div>
@@ -94,11 +120,15 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 <?php $this->endBlock(); ?>
 
 <?php
+// 输出一些配置变量到页面中
 $titleId = Html::getInputId($model, 'title');
 $mathjaxLib = \common\assets\MathJax::CDN;
+$infoId = Html::getInputId($model, 'info');
 
 $conf = <<<CONF
 var bsk_question = {
+    type: $model->type,
+    infoId: '{$infoId}',
     treeInputIds: ['{$chapterTreeInputId}', '{$pointTreeInputId}'],
     editorIds: ['{$titleId}'],
     mathjaxLib: '{$mathjaxLib}'

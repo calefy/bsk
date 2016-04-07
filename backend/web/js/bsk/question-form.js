@@ -4,8 +4,9 @@ $(function() {
     var global_config = window.bsk_question || {};
 
     function init() {
-        setTimeout(initTreeInputs, 600);
+        setTimeout(initTreeInputs, 600); // 修改treeview.change事件处理需要初始化后执行，因此延时调用
         initEditors();
+        initInfo();
     }
 
     init();
@@ -67,6 +68,18 @@ $(function() {
                     .trigger('change.yiiActiveForm');
             });
         });
+    }
+
+
+    // 初始化选项或填空答案部分
+    function initInfo() {
+        var type = global_config.type,
+            isSelect = type === 1, // 选择题
+            isFill = type === 2; // 填空题
+        if (!isSelect && !isFill) return;
+        var infoInput = $('#' + global_config.infoId),
+            info = infoInput.val();
+        info = info ? JSON.parse(info) : info;
     }
 
 });
