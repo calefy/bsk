@@ -1,27 +1,28 @@
 <?php
 /**
- * 试题创建
+ * treeInput asset，修改原控件单选方式，只能选择叶子节点
  *
  * @author calefy
- * @date 2016-04-06
+ * @date 2016-04-07
  */
 
 namespace backend\assets;
 
 use yii\web\AssetBundle;
 
-class QuestionAsset extends AssetBundle
+class TreeInputAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
     public $js = [
-        'js/bsk/question-form.js'
+        'js/bsk/treeInput.js'
     ];
 
     public $depends = [
-        'backend\assets\EditorAsset',
-        'backend\assets\TreeInputAsset',
+        'yii\web\JqueryAsset',
     ];
 }
+
+
 

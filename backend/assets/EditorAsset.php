@@ -1,27 +1,28 @@
 <?php
 /**
- * 试题创建
+ * 后台通用编辑器asset
  *
  * @author calefy
- * @date 2016-04-06
+ * @date 2016-04-07
  */
 
 namespace backend\assets;
 
 use yii\web\AssetBundle;
 
-class QuestionAsset extends AssetBundle
+class EditorAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
     public $js = [
-        'js/bsk/question-form.js'
+        'js/bsk/editor.js'
     ];
 
     public $depends = [
-        'backend\assets\EditorAsset',
-        'backend\assets\TreeInputAsset',
+        'yii\web\JqueryAsset',
+        'common\assets\CKEditor',
     ];
 }
+
 
