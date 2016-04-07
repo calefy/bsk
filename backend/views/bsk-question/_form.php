@@ -75,44 +75,41 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
         <div class="box-header">
             <h3 class="box-title">试题主体</h3>
         </div>
-        <div class="box-body">
+        <div class="box-body" id="questionBody">
 
-            <?php echo $form->field($model, 'title')->textarea([ 'rows' => 6 ]) ?>
+            <div class="well well-sm">
+                <p>* 直接点击内容进行编辑</p>
+                <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
+                <p>* 选项前面的选择框，表示该项是否是正确答案</p>
+                <?php endif; ?>
+                <?php if ($model->type == BskQuestion::QUESTION_TYPE_FILL): ?>
+                <p>* 请用三个下划线"___"表示填空位置</p>
+                <?php endif; ?>
+            </div>
 
+            <?php echo Html::hiddenInput(Html::getInputName($model, 'title'), $model->title, ['id' => Html::getInputId($model, 'title')]) ?>
             <?php echo Html::hiddenInput(Html::getInputName($model, 'info'), $model->info, ['id' => Html::getInputId($model, 'info')]) ?>
 
-            <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT || $model->type == BskQuestion::QUESTION_TYPE_FILL): ?>
-            <div class="form-group">
-                <label class="control-label" ><?=$model->type == BskQuestion::QUESTION_TYPE_SELECT ? '选项设置' : '填空答案'?></label>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>选项内容</th>
-                            <th>是否正确</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> <textarea class="form-control" cols="30" rows="3"></textarea> </td>
-                            <td><input class="form-control" type="checkbox"></td>
-                            <td>
-                                <a href="#">up</a>
-                                <a href="#">down</a>
-                                <a href="#">delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="form-group question-edit">
+                <dl data-role="options">
+                    <dt><div contenteditable="true" id="title">点击这里编辑题干</div></dt>
+                </dl>
+                <?php if ($model->type != BskQuestion::QUESTION_TYPE_ASK): ?>
+                <p class="btns"><button type="button" data-role="addOption" class="btn btn-info btn-xs">添加<?=$model->type == BskQuestion::QUESTION_TYPE_FILL ? '填空答案' : '选项'?></button></p>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
 
-            <div class="form-group">
-                <?php echo Html::submitButton(!$model->id ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => !$model->id ? 'btn btn-success' : 'btn btn-primary']) ?>
-            </div>
+            <br>
+
+
 
         </div>
     </div>
+
+    <div class="form-group">
+        <?php echo Html::submitButton(!$model->id ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => !$model->id ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+
 
     <?php ActiveForm::end(); ?>
 
@@ -122,15 +119,15 @@ $model->type = $model->type ? $model->type : Yii::$app->request->get('type');
 <?php
 // 输出一些配置变量到页面中
 $titleId = Html::getInputId($model, 'title');
-$mathjaxLib = \common\assets\MathJax::CDN;
 $infoId = Html::getInputId($model, 'info');
+$mathjaxLib = \common\assets\MathJax::CDN;
 
 $conf = <<<CONF
 var bsk_question = {
     type: $model->type,
     infoId: '{$infoId}',
+    titleId: '{$titleId}',
     treeInputIds: ['{$chapterTreeInputId}', '{$pointTreeInputId}'],
-    editorIds: ['{$titleId}'],
     mathjaxLib: '{$mathjaxLib}'
 };
 CONF;

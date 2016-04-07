@@ -19,4 +19,14 @@ body .user-panel > .info {
 body .table {
   word-break: break-all;
 }
+  .dib{ display: inline-block; }
+  .vat{ vertical-align: top; }
+  .vam{ vertical-align: middle; }
+
+  .question-edit{padding: 15px 0;}
+  .question-edit dt{margin-bottom: 10px;}
+  .question-edit dd{margin: 5px 20px;}
+  .question-edit dd>a {display:inline-block;vertical-align:middle;}
+  .question-edit dd>input{margin:0 10px;}
+  .question-edit .btns{margin-left:20px;}
 /*# sourceMappingURL=style.map *//*# sourceMappingURL=style.map */
