@@ -31,30 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
         $types = BskQuestion::types();
         $items = json_decode($model->info, true);
-        $title = $model->title;
-
-        if ($model->type == BskQuestion::QUESTION_TYPE_FILL) { // 填空题替换
-            $ts = explode('___', $title);
-            $len = count($ts);
-            $newTitle = [];
-            foreach($ts as $i => $t) {
-                $newTitle[] = $t;
-                if ($i + 1 < $len) {
-                    $newTitle[] = '<span class="fill-tex">';
-                    $answer = array_shift($items);
-                    if ($answer['text']) {
-                        $newTitle[] = $answer['text'];
-                    }
-                    $newTitle[] = '</span>';
-                }
-            }
-            $title = implode('', $newTitle);
-        }
     ?>
 
     <div class="box box-primary">
         <div class="box-header">
-            <h3>（<?=$types[$model->type]?>）<?=$title?></h3>
+            <h3>（<?=$types[$model->type]?>）<?=BskQuestion::replaceFill($model)?></h3>
         </div>
         <div class="box-body">
             <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT): ?>

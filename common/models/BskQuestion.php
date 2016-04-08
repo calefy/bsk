@@ -84,4 +84,32 @@ class BskQuestion extends BskBaseActiveRecord
             self::QUESTION_TYPE_ASK => '问答题',
         ];
     }
+
+    /**
+     * 填空题替换空位，附加答案信息
+     */
+    public static function replaceFill($model, $className='fill-tex') {
+        $ret = $model->title;
+
+        if ($model->type == self::QUESTION_TYPE_FILL) { // 填空题替换
+            $ts = explode('___', $model->title);
+            $len = count($ts);
+            $items = json_decode($model->info, true);
+            $ret = [];
+            foreach($ts as $i => $t) {
+                $ret[] = $t;
+                if ($i + 1 < $len) {
+                    $ret[] = '<span class="'.$className.'">';
+                    $answer = array_shift($items);
+                    if ($answer['text']) {
+                        $ret[] = $answer['text'];
+                    }
+                    $ret[] = '</span>';
+                }
+            }
+            $ret = implode('', $ret);
+        }
+
+        return $ret;
+    }
 }
