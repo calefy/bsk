@@ -30,7 +30,8 @@ body .table {
   .question-edit dd>a {display:inline-block;vertical-align:middle;}
   .question-edit dd>input{margin:0 10px;}
   .question-edit .btns{margin-left:20px;}
-  .question-item .box-body{padding: 10px 30px;}
+  .question-item .box-header{padding-left: 20px;}
+  .question-item .box-body{padding: 10px 40px;}
   .question-item .box-footer{font-size:12px;}
 
   .required .control-label:after{content:'(必填项)';color:#f33;}

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 use common\models\BskQuestion;
 
@@ -43,7 +44,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div>
+        <?php
+            $mTitle = ['一', '二', '三'];
+            $lastType = null;
+        ?>
         <?php foreach($questions as $index=>$question): ?>
+            <?php
+                if ($lastType !== $question->type) {
+                    echo '<h4>' . array_shift($mTitle) . '、' . BskQuestion::types()[$question->type] . '</h4>';
+                    $lastType = $question->type;
+                }
+            ?>
             <div class="box box-solid question-item">
                 <div class="box-header"><?=($index + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
                 <?php if ($question->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
