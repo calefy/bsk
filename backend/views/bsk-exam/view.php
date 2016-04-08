@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\models\BskQuestion;
 
+use kartik\select2\Select2;
+use yii\web\JsExpression;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\BskExam */
 
@@ -25,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         &emsp;&emsp;
-        <?=Html::a('从题库中添加', ['#'], ['class' => 'btn btn-warning'])?>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#questionSelect">从题库中添加</button>
         &emsp;&emsp;
         <?=Html::a('新建选择题', ['/bsk-question/create', 'type' => BskQuestion::QUESTION_TYPE_SELECT, 'exam_id' => $model->id], ['class' => 'btn btn-info'])?>
         <?=Html::a('新建填空题', ['/bsk-question/create', 'type' => BskQuestion::QUESTION_TYPE_FILL, 'exam_id' => $model->id], ['class' => 'btn btn-info'])?>
@@ -40,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div>
-        <?php foreach($model->questions as $index=>$question): ?>
+        <?php foreach($questions as $index=>$question): ?>
             <div class="box box-solid question-item">
                 <div class="box-header"><?=($index + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
                 <?php if ($question->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
@@ -59,5 +62,47 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endforeach; ?>
     </div>
+</div>
 
+
+<div class="modal fade" id="questionSelect">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">从题库添加</h4>
+      </div>
+      <form action="<?=\yii\helpers\Url::to(['question-selected'])?>" method="POST">
+          <input type="hidden" name="exam_id" value="<?=$model->id?>">
+          <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
+
+          <div class="modal-body">
+            <?=Select2::widget([
+                'name' => 'sels',
+                'options' => ['placeholder' => '请选择试题...', 'multiple' => true],
+                'pluginOptions' => [
+                    'language' => [
+                        'errorLoading' => new JsExpression("function () { return '数据加载中...'; }"),
+                    ],
+                    'ajax' => [
+                        'url' => \yii\helpers\Url::to(['question-select', 'exam_id' => $model->id]),
+                        'dataType' => 'json',
+                        'delay' => 250,
+                        'cache' => true,
+                        'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
+                        'processResults' => new JsExpression('function(data, params){ params.page = params.page || 1; return {results: data.list, pagenation: {more: (params.page * 20) < data.total}} }')
+                    ],
+                    'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                    'templateResult' => new JsExpression('function(item) { return item.title; }'),
+                    'templateSelection' => new JsExpression('function (item) { return item.title; }'),
+                ],
+            ])?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary">保存</button>
+          </div>
+      </form>
+    </div>
+  </div>
 </div>

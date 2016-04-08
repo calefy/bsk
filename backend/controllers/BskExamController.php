@@ -4,14 +4,17 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\BskExam;
+use common\models\BskExamQuestion;
 use backend\models\search\BskExamSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\data\ActiveDataProvider;
 
 use common\models\BskCategory;
 use common\models\BskCategoryOther;
+use common\models\BskQuestion;
 
 /**
  * BskExamController implements the CRUD actions for BskExam model.
@@ -62,8 +65,15 @@ class BskExamController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        // 试卷的试题
+        $questions = $model->getQuestions()
+            ->select('id,type,title,info,level')
+            ->addOrderBy(['type' => SORT_ASC])
+            ->all();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'questions' => $questions,
         ]);
     }
 
@@ -141,5 +151,35 @@ class BskExamController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionQuestionSelect($exam_id, $q=null, $page = 0) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // 获取试卷已有的试题ID
+        $qids = BskExamQuestion::find()->andWhere(['exam_id' => $exam_id])->select('question_id')->all();
+        $qids = ArrayHelper::getColumn($qids, 'question_id');
+        $qids = $qids ? $qids : [];
+        // 查找之外的试题
+        $provider = new ActiveDataProvider([
+            'query' => BskQuestion::find()->andWhere(['not in', 'id', $qids])->select('id,title,type'),
+        ]);
+
+        return [
+            'list' => $provider->getModels(),
+            'total' => $provider->getTotalCount(),
+        ];
+    }
+    public function actionQuestionSelected() {
+        $exam_id = Yii::$app->request->post('exam_id');
+        $sels = Yii::$app->request->post('sels');
+        if ($exam_id && $sels) {
+            foreach($sels as $sel) {
+                $rel = new BskExamQuestion();
+                $rel->exam_id = $exam_id;
+                $rel->question_id = $sel;
+                $rel->save();
+            }
+        }
+        return $this->redirect(['view', 'id' => $exam_id]);
     }
 }

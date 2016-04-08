@@ -50,7 +50,8 @@
     "bower-asset/flot": "^0.8",
     "symfony/process": "^3.0",
     "shiyang/yii2-umeditor": "*",
-    "kartik-v/yii2-tree-manager": "@dev"
+    "kartik-v/yii2-tree-manager": "@dev",
+    "kartik-v/yii2-widget-select2": "@dev"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0.0",
