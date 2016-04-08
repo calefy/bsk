@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
         'model' => $model,
         'chapterRoots' => $chapterRoots,
         'pointRoots' => $pointRoots,
+        'exams' => $exams,
     ]) ?>
 
 </div>

@@ -24,6 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        &emsp;&emsp;
+        <?=Html::a('从题库中添加', ['#'], ['class' => 'btn btn-warning'])?>
+        &emsp;&emsp;
+        <?=Html::a('新建选择题', ['/bsk-question/create', 'type' => BskQuestion::QUESTION_TYPE_SELECT, 'exam_id' => $model->id], ['class' => 'btn btn-info'])?>
+        <?=Html::a('新建填空题', ['/bsk-question/create', 'type' => BskQuestion::QUESTION_TYPE_FILL, 'exam_id' => $model->id], ['class' => 'btn btn-info'])?>
+        <?=Html::a('新建问答题', ['/bsk-question/create', 'type' => BskQuestion::QUESTION_TYPE_ASK, 'exam_id' => $model->id], ['class' => 'btn btn-info'])?>
     </p>
 
     <div>

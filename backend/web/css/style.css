@@ -33,4 +33,6 @@ body .table {
   .question-item .box-body{padding: 10px 30px;}
   .question-item .box-footer{font-size:12px;}
 
+  .required .control-label:after{content:'(必填项)';color:#f33;}
+
 /*# sourceMappingURL=style.map *//*# sourceMappingURL=style.map */

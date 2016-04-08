@@ -12,6 +12,8 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use common\models\BskCategoryOther;
 use common\models\BskQuestionPoint;
+use common\models\BskExam;
+use common\models\BskExamQuestion;
 use backend\models\QuestionForm;
 use trntv\filekit\actions\UploadAction;
 
@@ -120,6 +122,13 @@ class BskQuestionController extends Controller
                 $chapterRoots[] = $root->category_id;
             }
         }
+        // 获取所有试卷map
+        $exams = BskExam::find()->select('id,title')->all();
+        if ($exams) {
+            $exams = ArrayHelper::map($exams, 'id', 'title');
+        } else {
+            $exams = [];
+        }
 
         // 加载到对应的form model中
         $model = new QuestionForm();
@@ -128,6 +137,7 @@ class BskQuestionController extends Controller
             'model' => $model,
             'chapterRoots' => $chapterRoots,
             'pointRoots' => $pointRoots,
+            'exams' => $exams,
         ];
 
         // 编辑时，获取原对象
@@ -142,6 +152,7 @@ class BskQuestionController extends Controller
             $model->type = $question->type;
             $model->title = $question->title;
             $model->info = $question->info;
+            $model->origin_exam_id= $question->origin_exam_id;
             $model->analyze = $question->analyze;
             $model->answer = $question->answer;
             $model->comment = $question->comment;
@@ -159,6 +170,7 @@ class BskQuestionController extends Controller
             $question->type = $model->type;
             $question->title = $model->title;
             $question->info = $model->info;
+            $question->origin_exam_id= $model->origin_exam_id;
             $question->analyze = $model->analyze;
             $question->answer = $model->answer;
             $question->comment = $model->comment;
@@ -166,6 +178,13 @@ class BskQuestionController extends Controller
             if (!$question->save()) {
                 $model->addErrors($question->getErrors());
                 return $this->render($tpl, $ret);
+            }
+            // 如果有exam_id，保存关系
+            if ($question->origin_exam_id) {
+                $examQuestion = new BskExamQuestion();
+                $examQuestion->exam_id = $question->origin_exam_id;
+                $examQuestion->question_id = $question->id;
+                $examQuestion->save();
             }
 
             // 保存试题与考点关系
@@ -190,7 +209,12 @@ class BskQuestionController extends Controller
                 }
             }
             // 保存成功后跳转到详情
-            return $this->redirect(['view', 'id' => $question->id]);
+            // 如果url中存在exam_id，则跳转到试卷页面
+            if (Yii::$app->request->get('exam_id')) {
+                return $this->redirect(['/bsk-exam/view', 'id' => $question->origin_exam_id]);
+            } else {
+                return $this->redirect(['view', 'id' => $question->id]);
+            }
         }
 
         return $this->render($tpl, $ret);
