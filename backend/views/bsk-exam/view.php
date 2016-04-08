@@ -17,6 +17,7 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Bsk Exams'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $this->beginBlock('content'); ?>
 <div class="bsk-exam-view">
 
     <p>
@@ -36,42 +37,46 @@ $this->params['breadcrumbs'][] = $this->title;
         <?=Html::a('新建问答题', ['/bsk-question/create', 'type' => BskQuestion::QUESTION_TYPE_ASK, 'exam_id' => $model->id], ['class' => 'btn btn-info'])?>
     </p>
 
-    <div>
-        <h3 class="text-center">（<?=$model->short_time . '&middot;' . $model->short_addr?>）<?=$model->title?></h3>
-        <p><?=$model->description?></p>
-    </div>
-    <hr>
-
-
-    <div>
-        <?php
-            $mTitle = ['一', '二', '三'];
-            $lastType = null;
-        ?>
-        <?php foreach($questions as $index=>$question): ?>
-            <?php
-                if ($lastType !== $question->type) {
-                    echo '<h4>' . array_shift($mTitle) . '、' . BskQuestion::types()[$question->type] . '</h4>';
-                    $lastType = $question->type;
-                }
-            ?>
-            <div class="box box-solid question-item">
-                <div class="box-header"><?=($index + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
-                <?php if ($question->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
-                <div class="box-body">
-                    <?php $opts = json_decode($question->info, true); ?>
-                    <?php foreach($opts as $i => $opt): ?>
-                        <?php $correct = isset($opt['correct']) ? $opt['correct'] : false; ?>
-                        <p class="<?=$correct ? 'bg-green' : ''?>"><?=chr(65 + $i)?>. <?=$opt['text']?></p>
-                    <?php endforeach;?>
-                </div>
-                <?php endif;?>
-                <div class="box-footer clearfix">
-                    <a class="pull-right" href="/bsk-question/view?id=<?=$question->id?>" target="_blank">查看详情</a>
-                    <span class="pull-right">难度：<?=$question->level / 100?> &emsp; </span>
-                </div>
+    <div class="box box-default">
+        <div class="box-body">
+            <div>
+                <h3 class="text-center">（<?=$model->short_time . '&middot;' . $model->short_addr?>）<?=$model->title?></h3>
+                <p><?=$model->description?></p>
             </div>
-        <?php endforeach; ?>
+            <hr>
+
+
+            <div>
+                <?php
+                    $mTitle = ['一', '二', '三'];
+                    $lastType = null;
+                ?>
+                <?php foreach($questions as $index=>$question): ?>
+                    <?php
+                        if ($lastType !== $question->type) {
+                            echo '<h4>' . array_shift($mTitle) . '、' . BskQuestion::types()[$question->type] . '</h4>';
+                            $lastType = $question->type;
+                        }
+                    ?>
+                    <div class="box box-solid question-item">
+                        <div class="box-header"><?=($index + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
+                        <?php if ($question->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
+                        <div class="box-body">
+                            <?php $opts = json_decode($question->info, true); ?>
+                            <?php foreach($opts as $i => $opt): ?>
+                                <?php $correct = isset($opt['correct']) ? $opt['correct'] : false; ?>
+                                <p class="<?=$correct ? 'bg-green' : ''?>"><?=chr(65 + $i)?>. <?=$opt['text']?></p>
+                            <?php endforeach;?>
+                        </div>
+                        <?php endif;?>
+                        <div class="box-footer clearfix">
+                            <a class="pull-right" href="/bsk-question/view?id=<?=$question->id?>" target="_blank">查看详情</a>
+                            <span class="pull-right">难度：<?=$question->level / 100?> &emsp; </span>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -117,3 +122,4 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
   </div>
 </div>
+<?php $this->endBlock(); ?>
