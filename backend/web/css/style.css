@@ -22,6 +22,7 @@ body .table {
   .dib{ display: inline-block; }
   .vat{ vertical-align: top; }
   .vam{ vertical-align: middle; }
+  .fill-tex{padding:0 15px;display:inline-block;border-bottom:1px solid #333;}
 
   .question-edit{padding: 15px 0;}
   .question-edit dt{margin-bottom: 10px;}
@@ -29,5 +30,7 @@ body .table {
   .question-edit dd>a {display:inline-block;vertical-align:middle;}
   .question-edit dd>input{margin:0 10px;}
   .question-edit .btns{margin-left:20px;}
-  .fill-tex{padding:0 15px;display:inline-block;border-bottom:1px solid #333;}
+  .question-item .box-body{padding: 10px 30px;}
+  .question-item .box-footer{font-size:12px;}
+
 /*# sourceMappingURL=style.map *//*# sourceMappingURL=style.map */

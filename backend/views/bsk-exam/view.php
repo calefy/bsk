@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\BskQuestion;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\BskExam */
@@ -29,12 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
         <h3 class="text-center">（<?=$model->short_time . '&middot;' . $model->short_addr?>）<?=$model->title?></h3>
         <p><?=$model->description?></p>
     </div>
+    <hr>
+
 
     <div>
-        <?php foreach($model->questions as $question): ?>
-            <div class="box box-solid">
-                <div class="box-header"><?=$question->title?></div>
-                <div class="box-body">opt.</div>
+        <?php foreach($model->questions as $index=>$question): ?>
+            <div class="box box-solid question-item">
+                <div class="box-header"><?=($index + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
+                <?php if ($question->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
+                <div class="box-body">
+                    <?php $opts = json_decode($question->info, true); ?>
+                    <?php foreach($opts as $i => $opt): ?>
+                        <?php $correct = isset($opt['correct']) ? $opt['correct'] : false; ?>
+                        <p class="<?=$correct ? 'bg-green' : ''?>"><?=chr(65 + $i)?>. <?=$opt['text']?></p>
+                    <?php endforeach;?>
+                </div>
+                <?php endif;?>
+                <div class="box-footer clearfix">
+                    <a class="pull-right" href="/bsk-question/view?id=<?=$question->id?>" target="_blank">查看详情</a>
+                    <span class="pull-right">难度：<?=$question->level / 100?> &emsp; </span>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
