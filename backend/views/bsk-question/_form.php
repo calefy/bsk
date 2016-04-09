@@ -104,7 +104,8 @@ $model->origin_exam_id = $model->origin_exam_id ? $model->origin_exam_id : Yii::
             </div>
 
             <div class="help-block">
-                * 直接点击内容进行编辑
+                * 直接点击内容进行编辑<br/>
+                * 公式输入请参考<a href="http://bbs.emath.ac.cn/thread-5237-1-1.html#post_51907" target="_blank">常用数学公式语法(LaTeX 排版)</a>
                 <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
                 <br/>* 选项前面的选择框，表示该项是否是正确答案
                 <?php endif; ?>

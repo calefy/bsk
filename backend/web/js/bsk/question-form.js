@@ -101,8 +101,8 @@ $(function() {
             id = 'option-' + (countor++),
             item;
         item =  '<dd>' +
-                '    <a data-role="delete" href="#"><i class="glyphicon glyphicon-remove"></i></a>' +
-                (isFill ? '' : '    <input type="checkbox" '+(contentObj.correct ? 'checked' : '')+' />') +
+                '    <a data-role="delete" href="#" title="删除"><i class="fa fa-times"></i></a>' +
+                (isFill ? '' : '    <input type="checkbox" '+(contentObj.correct ? 'checked' : '')+' title="是否正确"/>') +
                 (isFill ? '' : '    <span data-role="prefix">'+String.fromCharCode(65 + len)+'</span>. ')+
                 '    <div class="dib vat" contenteditable="true" id="'+id+'">'+(contentObj.text ? contentObj.text : '点击这里编辑'+(isFill ? '填空答案' : '选项'))+'</div>' +
                 '</dd>'

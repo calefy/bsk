@@ -142,7 +142,7 @@ $bundle = BackendAsset::register($this);
                         [
                             'label'=>Yii::t('backend', 'BSK'),
                             'url' => '#',
-                            'icon'=>'<i class="fa fa-university"></i>',
+                            'icon'=>'<i class="fa fa-graduation-cap"></i>',
                             'options'=>['class'=>'treeview'],
                             'items'=>[
                             [
