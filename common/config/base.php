@@ -112,11 +112,20 @@ $config = [
         ],
 
         'fileStorage' => [
-            'class' => '\trntv\filekit\Storage',
-            'baseUrl' => '@storageUrl/source',
+            'class' => '\common\components\Storage',
+            //'class' => '\trntv\filekit\Storage',
+            //'baseUrl' => '@storageUrl/source',
+            //'filesystem' => [
+            //    'class' => 'common\components\filesystem\LocalFlysystemBuilder',
+            //    'path' => '@storage/web/source'
+            //],
+            'baseUrl' => '@storageUrl',
             'filesystem' => [
-                'class' => 'common\components\filesystem\LocalFlysystemBuilder',
-                'path' => '@storage/web/source'
+                'class' => 'common\components\filesystem\OssFlysystemBuilder',
+                'oss_client_id' => getenv('OSS_CLIENT_ID'),
+                'oss_client_secret' => getenv('OSS_CLIENT_SECRET'),
+                'endpoint' => Yii::getAlias('@storageUrl'),
+                'bucket_name' => 'bskres',
             ],
             'as log' => [
                 'class' => 'common\behaviors\FileStorageLogBehavior',
