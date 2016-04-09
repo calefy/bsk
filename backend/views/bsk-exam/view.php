@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 use common\models\BskQuestion;
@@ -50,16 +51,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                     $mTitle = ['一', '二', '三'];
                     $lastType = null;
+                    $lastIndex = 0;
                 ?>
                 <?php foreach($questions as $index=>$question): ?>
                     <?php
                         if ($lastType !== $question->type) {
                             echo '<h4>' . array_shift($mTitle) . '、' . BskQuestion::types()[$question->type] . '</h4>';
                             $lastType = $question->type;
+                            $lastIndex = $index;
                         }
                     ?>
                     <div class="box box-solid question-item">
-                        <div class="box-header"><?=($index + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
+                        <div class="box-header"><?=($index - $lastIndex + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
                         <?php if ($question->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
                         <div class="box-body">
                             <?php $opts = json_decode($question->info, true); ?>
@@ -70,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <?php endif;?>
                         <div class="box-footer clearfix">
-                            <a class="pull-right" href="/bsk-question/view?id=<?=$question->id?>" target="_blank">查看详情</a>
+                            <a class="pull-right" href="<?=Url::to(['/bsk-question/view', 'id' => $question->id])?>" target="_blank">查看详情</a>
                             <span class="pull-right">难度：<?=$question->level / 100?> &emsp; </span>
                         </div>
                     </div>

@@ -1,6 +1,5 @@
 <?php
-use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 $this->title = '有效教育 —— 从必胜课网校开始！！';//Yii::$app->name;
@@ -36,20 +35,17 @@ $this->title = '有效教育 —— 从必胜课网校开始！！';//Yii::$app-
     <div class="body-content">
         <h2>试卷</h2>
 
-        <?php echo GridView::widget([
-            'tableOptions' => ['class' => 'table table-striped'],
-            'headerRowOptions' => ['class' => 'hide'],
-            'dataProvider' => $examsProvider,
-            'columns' => [
-                [
-                    'format' => 'html',
-                    'value' => function($model) {
-                        return Html::a($model->title, ['/']);
-                    }
-
-                ]
-            ],
-        ]); ?>
+    <?php echo \yii\widgets\ListView::widget([
+        'dataProvider'=>$examsProvider,
+        'summaryOptions' => ['style' => 'margin-bottom: 15px;'],
+        'pager'=>[
+            'hideOnSinglePage'=>true,
+        ],
+        'itemView'=> function($model){
+            $url = Url::to(['/exam/view', 'id' => $model->id]);
+            return "<p><a href={$url}>{$model->title}</a></p> <hr/>";
+        },
+    ])?>
 
     </div>
 </div>

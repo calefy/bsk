@@ -23,7 +23,7 @@ use yii\helpers\Html;
                 )?>
             </span>
         </div>
-        <div class="article-content">
+        <div class="article-content hide">
             <?php if ($model->thumbnail_path): ?>
                 <?php echo Html::img(
                     Yii::$app->glide->createSignedUrl([
