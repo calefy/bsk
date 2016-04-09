@@ -5,6 +5,9 @@ use Yii;
 use frontend\models\ContactForm;
 use yii\web\Controller;
 
+use yii\data\ActiveDataProvider;
+use common\models\BskExam;
+
 /**
  * Site controller
  */
@@ -32,7 +35,13 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $examsProvider = new ActiveDataProvider([
+            'query' => BskExam::find()->addOrderBy('created_at DESC'),
+        ]);
+
+        return $this->render('index', [
+            'examsProvider' => $examsProvider,
+        ]);
     }
 
     public function actionContact()
