@@ -162,11 +162,9 @@ $bundle = BackendAsset::register($this);
                                     ],
                                 ]
                             ],
-                                ['label'=>Yii::t('backend', 'Bsk Syllabi'),    'url'=>['/bsk-syllabus/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-                                ['label'=>Yii::t('backend', 'Bsk Points'),       'url'=>['/bsk-point/index'],            'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Bsk Exams'),        'url'=>['/bsk-exam/index'],             'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Bsk Questions'),    'url'=>['/bsk-question/index'],         'icon'=>'<i class="fa fa-angle-double-right"></i>'],
-                                ['label'=>Yii::t('backend', 'Bsk Tags'),         'url'=>['/bsk-tag/index'],              'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                                //['label'=>Yii::t('backend', 'Bsk Tags'),         'url'=>['/bsk-tag/index'],              'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 //['label'=>Yii::t('backend', 'Question'), 'url'=>['/question/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                             ]
                         ],
@@ -186,19 +184,21 @@ $bundle = BackendAsset::register($this);
                         ],
                         [
                             'label'=>Yii::t('backend', 'System'),
-                            'options' => ['class' => 'header']
+                            'options' => ['class' => 'header'],
+                            'visible'=>Yii::$app->user->can('administrator'),
                         ],
                         [
                             'label'=>Yii::t('backend', 'Users'),
                             'icon'=>'<i class="fa fa-users"></i>',
                             'url'=>['/user/index'],
-                            'visible'=>Yii::$app->user->can('administrator')
+                            'visible'=>Yii::$app->user->can('administrator'),
                         ],
                         [
                             'label'=>Yii::t('backend', 'Other'),
                             'url' => '#',
                             'icon'=>'<i class="fa fa-cogs"></i>',
                             'options'=>['class'=>'treeview'],
+                            'visible'=>Yii::$app->user->can('administrator'),
                             'items'=>[
                                 //[
                                 //    'label'=>Yii::t('backend', 'i18n'),
