@@ -40,7 +40,7 @@ $bundle = BackendAsset::register($this);
                             </a>
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li id="log-dropdown" class="dropdown notifications-menu">
+                        <li id="log-dropdown" class="dropdown notifications-menu hide">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-warning"></i>
                             <span class="label label-danger">
