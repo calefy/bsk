@@ -2,6 +2,8 @@
 use common\models\BskQuestion;
 use yii\helpers\Url;
 
+\common\assets\MathJax::register($this);
+
 $this->title = $model->title;
 ?>
 <div class="exam-view">
