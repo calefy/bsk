@@ -53,4 +53,8 @@ class BskQuestionPoint extends BskBaseActiveRecord
             'created_at' => Yii::t('common', '创建时间'),
         ];
     }
+
+    public static function find() {
+        return parent::find()->where([self::tableName() . '.status' => self::STATUS_ACTIVE]);
+    }
 }

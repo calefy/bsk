@@ -189,23 +189,21 @@ class BskQuestionController extends Controller
 
             // 保存试题与考点关系
             $point_ids = explode(',', $model->point_ids);
-            if (!empty($point_ids)) {
-                $sames = array_intersect($point_ids, $org_point_ids);
-                $toDels = array_diff($org_point_ids, $sames);
-                $toAdd = array_diff($point_ids, $sames);
-                if ($toDels) {
-                    BskQuestionPoint::updateAll(
-                        ['status' => BskQuestionPoint::STATUS_DELETED],
-                        ['point_id' => $toDels, 'question_id' => $id]);
-                }
-                if ($toAdd) {
-                    foreach($toAdd as $point_id) {
-                        if (!$point_id) continue;
-                        $point = new BskQuestionPoint();
-                        $point->question_id = $question->id;
-                        $point->point_id = $point_id;
-                        $point->save();
-                    }
+            $sames = array_intersect($point_ids, $org_point_ids);
+            $toDels = array_diff($org_point_ids, $sames);
+            $toAdd = array_diff($point_ids, $sames);
+            if ($toDels) {
+                BskQuestionPoint::updateAll(
+                    ['status' => BskQuestionPoint::STATUS_DELETED],
+                    ['point_id' => $toDels, 'question_id' => $id]);
+            }
+            if ($toAdd) {
+                foreach($toAdd as $point_id) {
+                    if (!$point_id) continue;
+                    $point = new BskQuestionPoint();
+                    $point->question_id = $question->id;
+                    $point->point_id = $point_id;
+                    $point->save();
                 }
             }
             // 保存成功后跳转到详情
