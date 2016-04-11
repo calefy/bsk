@@ -16,7 +16,7 @@ class QuestionAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $js = [
-        'js/bsk/question-form.js'
+        'js/bsk/question-form.js?v=0.1'
     ];
 
     public $depends = [
