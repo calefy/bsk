@@ -25,7 +25,7 @@ $(function() {
                 if (!d.treeview.multiple && d.autoCloseOnSelect) {
                     d.$input.closest('.kv-tree-dropdown-container').removeClass('open');
                 }
-                input.val(vkey.join(''));
+                input.val(vkey.join(','));
                 d.setInput(vdesc);
             });
     }
