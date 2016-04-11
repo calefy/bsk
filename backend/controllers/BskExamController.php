@@ -153,15 +153,22 @@ class BskExamController extends Controller
         }
     }
 
-    public function actionQuestionSelect($exam_id, $q=null, $page = 0) {
+    public function actionQuestionSelect($exam_id, $q=null) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         // 获取试卷已有的试题ID
         $qids = BskExamQuestion::find()->andWhere(['exam_id' => $exam_id])->select('question_id')->all();
         $qids = ArrayHelper::getColumn($qids, 'question_id');
         $qids = $qids ? $qids : [];
         // 查找之外的试题
+        $query = BskQuestion::find()
+                    ->select('id,title,type')
+                    ->andWhere(['not in', 'id', $qids])
+                    ->limit(30);
+        if ($q) {
+            $query->andWhere(['like', 'title', $q]);
+        }
         $provider = new ActiveDataProvider([
-            'query' => BskQuestion::find()->andWhere(['not in', 'id', $qids])->select('id,title,type'),
+            'query' => $query,
         ]);
 
         return [
