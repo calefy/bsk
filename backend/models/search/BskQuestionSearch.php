@@ -41,7 +41,7 @@ class BskQuestionSearch extends BskQuestion
      */
     public function search($params)
     {
-        $query = BskQuestion::find();
+        $query = BskQuestion::find()->orderBy('created_at DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

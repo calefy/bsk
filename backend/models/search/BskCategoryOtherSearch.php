@@ -40,7 +40,7 @@ class BskCategoryOtherSearch extends BskCategoryOther
      */
     public function search($params)
     {
-        $query = BskCategoryOther::find();
+        $query = BskCategoryOther::find()->orderBy('created_at DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
