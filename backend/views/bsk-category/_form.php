@@ -16,6 +16,10 @@ $types = BskCategoryOther::types();
 
 $type = Yii::$app->request->get('tag');
 $type = isset($types[$type]) ? $type : BskCategoryOther::CATEGORY_TYPE_POINT;
+// 如果是编辑，根据model中的类型识别
+if ($model->type) {
+    $type = $model->type;
+}
 ?>
 
 <div class="bsk-category-other-form">
