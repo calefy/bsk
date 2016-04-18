@@ -8,8 +8,6 @@ use OSS\OssClient;
 use OSS\Core\OssException;
 
 /**
- * Class LocalFlysystemProvider
- * @author Eugene Terentev <eugene@terentev.net>
  */
 class OssFlysystemBuilder implements FilesystemBuilderInterface
 {

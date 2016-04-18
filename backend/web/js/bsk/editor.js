@@ -8,7 +8,7 @@ $(function() {
         removeButtons: '',
         toolbar: [
             ['Undo', 'Redo'],
-            ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'],
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
             ['Image', 'Table', 'SpecialChar', 'Mathjax'],
             ['Maximize']
         ],
