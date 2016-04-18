@@ -32,11 +32,11 @@ $this->title = $model->title;
                 <div class="panel-body">
                     <div><?=($index - $lastIndex + 1) . '. ' . BskQuestion::replaceFill($question)?></div>
                     <?php if ($question->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
-                    <div style="padding: 15px 20px 0">
+                    <div style="padding: 15px 20px 0" class="row">
                         <?php $opts = json_decode($question->info, true); ?>
                         <?php foreach($opts as $i => $opt): ?>
                             <?php $correct = isset($opt['correct']) ? $opt['correct'] : false; ?>
-                            <p class="<?=$correct ? 'bg-green' : ''?>"><?=chr(65 + $i)?>. <?=$opt['text']?></p>
+                            <p class="col-sm-3 <?php// echo $correct ? 'bg-green' : ''?>"><?=chr(65 + $i)?>. <?=$opt['text']?></p>
                         <?php endforeach;?>
                     </div>
                     <?php endif;?>
