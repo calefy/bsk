@@ -2,6 +2,8 @@
 use common\models\BskQuestion;
 use yii\helpers\Url;
 
+\common\assets\MathJax::register($this);
+
 $types = BskQuestion::types();
 $items = json_decode($model->info, true);
 
