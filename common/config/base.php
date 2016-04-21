@@ -126,6 +126,7 @@ $config = [
                 'oss_client_secret' => getenv('OSS_CLIENT_SECRET'),
                 'endpoint' => Yii::getAlias('@storageUrl'),
                 'bucket_name' => 'bskres',
+                'prefix' => 'f',
             ],
             'as log' => [
                 'class' => 'common\behaviors\FileStorageLogBehavior',

@@ -15,6 +15,7 @@ class OssFlysystemBuilder implements FilesystemBuilderInterface
     public $oss_client_secret;
     public $bucket_name;
     public $endpoint;
+    public $prefix = 'f';
 
     public function build()
     {
@@ -26,7 +27,7 @@ class OssFlysystemBuilder implements FilesystemBuilderInterface
                 $this->endpoint,
                 true
             );
-            $adapter = new OssAdapter($ossClient, $this->bucket_name);
+            $adapter = new OssAdapter($ossClient, $this->bucket_name, $this->prefix);
 
         } catch (OssException $e) {
             print $e->getMessage();
