@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 class CKEditor extends AssetBundle
 {
     public $js = [
-        '//cdn.ckeditor.com/4.5.7/full-all/ckeditor.js',
+        '//r.oss.chinabsk.cn/j/ckeditor/ckeditor.js',
     ];
 }
 
