@@ -13,7 +13,7 @@ $(function() {
             ['Maximize']
         ],
         filebrowserImageUploadUrl: '/bsk-question/image-upload?fileparam=upload',
-        mathJaxLib: '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML',
+        mathJaxLib: '//libs.cdnjs.net/mathjax/2.6.1/MathJax.js?config=TeX-AMS_HTML',
         extraPlugins: 'mathjax'
     };
     // 所有editor都使用上面的config
