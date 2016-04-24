@@ -13,7 +13,8 @@ use yii\web\AssetBundle;
 class MathJax extends AssetBundle
 {
     //const CDN = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML';
-    const CDN = '//libs.cdnjs.net/mathjax/2.6.1/MathJax.js?config=TeX-AMS_HTML';
+    //const CDN = '//libs.cdnjs.net/mathjax/2.6.1/MathJax.js?config=TeX-AMS_HTML';
+    const CDN = '//r.oss.chinabsk.cn/j/MathJax/MathJax.js?config=TeX-AMS_HTML';
 
 
     public $js = [
