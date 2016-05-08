@@ -20,11 +20,10 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
     <?php echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => Yii::t('frontend', 'Home'), 'url' => ['/site/index']],
-            ['label' => Yii::t('frontend', 'About'), 'url' => ['/page/view', 'slug'=>'about']],
+            ['label' => Yii::t('frontend', 'Home'), 'url' => ['/']],
             ['label' => Yii::t('frontend', 'Articles'), 'url' => ['/article/index']],
-            ['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
-            /*
+            //['label' => Yii::t('frontend', 'About'), 'url' => ['/page/view', 'slug'=>'about']],
+            //['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
             ['label' => Yii::t('frontend', 'Signup'), 'url' => ['/user/sign-in/signup'], 'visible'=>Yii::$app->user->isGuest],
             ['label' => Yii::t('frontend', 'Login'), 'url' => ['/user/sign-in/login'], 'visible'=>Yii::$app->user->isGuest],
             [
@@ -47,6 +46,7 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                     ]
                 ]
             ],
+            /*
             [
                 'label'=>Yii::t('frontend', 'Language'),
                 'items'=>array_map(function ($code) {
@@ -69,7 +69,11 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; 必胜课-今日养成网络教育培训中心 <?php echo date('Y') ?></p>
-        <p class="pull-right"><?php// echo Yii::powered() ?></p>
+        <p class="pull-right">
+            <?php// echo Yii::powered() ?>
+            <a href="/page/about">关于我们</a>
+            <a href="/site/contact">意见反馈</a>
+        </p>
     </div>
 </footer>
 <?php $this->endContent() ?>

@@ -16,9 +16,12 @@ $this->title = '有效教育 —— 从必胜课网校开始！！';//Yii::$app-
     ?>
 
     <div class="jumbotron">
-        <h1>必胜课</h1>
+        <h1>
+            <img src="/img/logo.png" alt=""/>
+            必胜课
+        </h1>
 
-        <p class="lead">今日养成网络教育培训中心</p>
+        <p class="lead">今日养成网络教育</p>
 
 
         <?php
