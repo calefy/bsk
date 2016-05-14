@@ -76,4 +76,14 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
         </p>
     </div>
 </footer>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d0d008cd3e5c866ccfc5dedd3133a34a";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 <?php $this->endContent() ?>
