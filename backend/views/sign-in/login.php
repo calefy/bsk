@@ -10,6 +10,7 @@ $this->title = Yii::t('backend', 'Sign In');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['body-class'] = 'login-page';
 ?>
+
 <div class="login-box">
     <div class="login-logo">
         <?php echo Html::encode($this->title) ?>
