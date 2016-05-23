@@ -29,11 +29,17 @@ $config = [
             'class'=>'yii\web\User',
             'identityClass' => 'common\models\User',
             'loginUrl'=>['sign-in/login'],
+            //'identityClass' => 'mdm\admin\models\User',
+            //'loginUrl' => ['admin/user/login'],
             'enableAutoLogin' => true,
             'as afterLogin' => 'common\behaviors\LoginTimestampBehavior'
         ],
     ],
     'modules'=>[
+        'admin' => [
+            'class' => 'mdm\admin\Module',
+            'layout' => null,
+        ],
         'treemanager' =>  [
             'class' => '\kartik\tree\Module',
         ],

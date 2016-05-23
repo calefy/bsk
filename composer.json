@@ -52,7 +52,8 @@
     "shiyang/yii2-umeditor": "*",
     "kartik-v/yii2-tree-manager": "@dev",
     "kartik-v/yii2-widget-select2": "@dev",
-    "aliyuncs/oss-sdk-php": "^2.0"
+    "aliyuncs/oss-sdk-php": "^2.0",
+    "mdmsoft/yii2-admin": "^3.2"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0.0",
