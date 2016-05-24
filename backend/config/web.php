@@ -74,15 +74,16 @@ $config = [
                 'allow' => true,
                 'roles' => ['?'],
             ],
-            [
-                'controllers'=>['user'],
-                'allow' => true,
-                'roles' => ['administrator'],
-            ],
-            [
-                'controllers'=>['user'],
-                'allow' => false,
-            ],
+            // 页面地址通过yii2-admin配置权限
+            //[
+            //    'controllers'=>['user'],
+            //    'allow' => true,
+            //    'roles' => ['administrator'],
+            //],
+            //[
+            //    'controllers'=>['user'],
+            //    'allow' => false,
+            //],
             [
                 'allow' => true,
                 'roles' => ['manager'],

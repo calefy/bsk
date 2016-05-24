@@ -122,7 +122,7 @@ $bundle = BackendAsset::register($this);
                     </div>
                 </div>
                 <!-- sidebar menu: : style can be found in sidebar.less -->
-                <?php echo Menu::widget([
+                <?php /* echo Menu::widget([
                     'options'=>['class'=>'sidebar-menu'],
                     'linkTemplate' => '<a href="{url}">{icon}<span>{label}</span>{right-icon}{badge}</a>',
                     'submenuTemplate'=>"\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n",
@@ -229,7 +229,37 @@ $bundle = BackendAsset::register($this);
                             ]
                         ]
                     ]
-                ]) ?>
+                ]) */?>
+
+                <?php
+                    // 为第一级菜单添加图标
+                    $icons = [
+                        '<i class="fa fa-bar-chart-o"></i>',
+                        '<i class="fa fa-graduation-cap"></i>',
+                        '<i class="fa fa-edit"></i>',
+                        '<i class="fa fa-cogs"></i>',
+                        '<i class="fa fa-cogs"></i>',
+                    ];
+                    $items = \mdm\admin\classes\MenuHelper::getAssignedMenu(Yii::$app->user->id);
+                    foreach($items as $index=>&$item) {
+                        if ($index === 0) {
+                            $item['badge'] = TimelineEvent::find()->today()->count();
+                            $item['badgeBgClass'] = 'label-success';
+                        }
+                        $item['icon'] = array_shift($icons);
+                    }
+                    // 插入分类
+                    array_splice($items, 1, 0, [['label' => '内容', 'icon' => '', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->can('editor')]]);
+                    array_splice($items, 4, 0, [['label' => '系统', 'icon' => '', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->can('manager')]]);
+                    // 渲染菜单
+                    echo Menu::widget([
+                        'options'=>['class'=>'sidebar-menu'],
+                        'linkTemplate' => '<a href="{url}">{icon}<span>{label}</span>{right-icon}{badge}</a>',
+                        'submenuTemplate'=>"\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n",
+                        'activateParents'=>true,
+                        'items'=>$items,
+                    ]);
+                ?>
             </section>
             <!-- /.sidebar -->
         </aside>

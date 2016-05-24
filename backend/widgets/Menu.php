@@ -43,6 +43,8 @@ class Menu extends \yii\widgets\Menu
      */
     protected function renderItem($item)
     {
+        $item['icon'] = isset($item['icon']) ? $item['icon'] : '<i class="fa fa-angle-double-right"></i>';
+
         $item['badgeOptions'] = isset($item['badgeOptions']) ? $item['badgeOptions'] : [];
 
         if (!ArrayHelper::getValue($item, 'badgeOptions.class')) {
