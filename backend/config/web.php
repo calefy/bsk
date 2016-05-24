@@ -48,6 +48,15 @@ $config = [
             'defaultRoute'=>'i18n-message/index'
         ]
     ],
+    'as access' => [
+        'class' => 'mdm\admin\classes\AccessControl',
+        'allowActions' => [
+            'sign-in/*',
+            'site/error',
+            'debug/*',
+        ]
+    ],
+    /*
     'as globalAccess'=>[
         'class'=>'\common\behaviors\GlobalAccessBehavior',
         'rules'=>[
@@ -84,12 +93,13 @@ $config = [
             //    'controllers'=>['user'],
             //    'allow' => false,
             //],
-            [
-                'allow' => true,
-                'roles' => ['manager'],
-            ]
+            //[
+            //    'allow' => true,
+            //    'roles' => ['editor'],
+            //]
         ]
     ]
+    */
 ];
 
 if (YII_ENV_DEV) {
