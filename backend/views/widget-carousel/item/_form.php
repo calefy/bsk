@@ -17,6 +17,7 @@ use yii\helpers\Html;
     <?php echo $form->field($model, 'image')->widget(
         \trntv\filekit\widget\Upload::className(),
         [
+            'messagesCategory' => 'backend',
             'url'=>['/file-storage/upload'],
         ]
     ) ?>

@@ -40,6 +40,7 @@ class SignInController extends Controller
         return [
             'avatar-upload' => [
                 'class' => UploadAction::className(),
+                'messagesCategory' => 'backend',
                 'deleteRoute' => 'avatar-delete',
                 'on afterSave' => function ($event) {
                     /* @var $file \League\Flysystem\File */

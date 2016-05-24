@@ -39,6 +39,7 @@ class BskQuestionController extends Controller
         return [
             'image-upload' => [
                 'class' => UploadAction::className(),
+                'messagesCategory' => 'backend',
                 'responseFormat' => \yii\web\Response::FORMAT_HTML,
             ],
         ];
