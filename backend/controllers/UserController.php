@@ -101,8 +101,12 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        Yii::$app->authManager->revokeAll($id);
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('deleteUser')) {
+            Yii::$app->authManager->revokeAll($id);
+            $this->findModel($id)->delete();
+        } else {
+            Yii::$app->session->setFlash('alert', ['body' => '当前登录者无删除用户权限，请联系超级管理员', 'options' => ['class'=> 'alert-danger']]);
+        }
 
         return $this->redirect(['index']);
     }
