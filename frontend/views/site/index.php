@@ -6,6 +6,13 @@ $this->title = '有效教育 —— 从必胜课网校开始！！';//Yii::$app-
 ?>
 <div class="site-index">
 
+    <!--荣誉榜-->
+    <!--课程分类-->
+    <!--广告-->
+    <!--宣传定义-->
+    <!--联系方式-->
+
+
     <?php
         //echo \common\widgets\DbCarousel::widget([
         //    'key'=>'index',
