@@ -64,23 +64,32 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
     <?php NavBar::end(); ?>
     -->
 
-    <div class="header-top clearfix">
-        <div class="pull-left">
-            <span>服务热线：400-0123-456 (9:00-22:30)</span>
-        </div>
-        <div class="pull-right">
-            <a href="#">充值</a>
-            <a href="#">登录</a>
-            |
-            <a href="#">注册</a>
+    <div class="header-top">
+        <div class="wide clearfix">
+            <div class="pull-right">
+                <a href="#"><i class="icon icon-charge"></i> 充值</a>
+                &emsp;
+                <a href="#">登录</a>
+                |
+                <a href="#">注册</a>
+            </div>
+            <div class="text-center">
+                <span><i class="icon icon-phone"></i> 服务热线：400-0123-456 (9:00-22:30)</span>
+                <a class="icon icon-qq" href="#"></a>
+                <a class="icon icon-wx" href="#"></a>
+                <a class="icon icon-wb" href="#"></a>
+                <a class="icon icon-contact" href="#"></a>
+            </div>
         </div>
     </div>
-    <div class="header-logo">
-        <h1>只要还有明天——今日永远是新起点！！！</h1>
-    </div>
+    <h1 class="header-logo wide">
+        <img src="/img/logo-whole.png" alt=""/>
+        &emsp;&emsp; &emsp;&emsp;
+        <small>只要还有明天——今日永远是新起点！！！</small>
+    </h1>
     <div class="header-nav">
-        <ul>
-            <li><a href="/">首页</a></li>
+        <ul class="wide clearfix">
+            <li><a href="/" class="on">首页</a></li>
             <li><a href="/page/about">关于我们</a></li>
             <li><a href="/">精品题库</a></li>
             <li><a href="/">中考试卷</a></li>
@@ -91,24 +100,30 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
     </div>
     <div class="header-carousel"></div>
     <div class="header-grade">
-        <a href="#">七年级</a>
-        <a href="#">八年级</a>
-        <a href="#">九年级</a>
+        <div class="wide row text-center">
+            <div class="col-sm-4"><a href="#">七年级</a></div>
+            <div class="col-sm-4"><a href="#">八年级</a></div>
+            <div class="col-sm-4"><a href="#">九年级</a></div>
+        </div>
     </div>
 
-    <div class="search-from clearfix">
-        <div class="pull-left"></div>
-        <form class="pull-right">
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">试题 <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">试题</a></li>
-                        <li><a href="#">试卷</a></li>
-                    </ul>
+    <div class="search-form wide">
+        <form class="clearfix">
+            <div class="pull-left">
+                <img src="/img/logo-whole.png" alt=""/>
+            </div>
+            <div class="pull-right">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">试题 <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">试题</a></li>
+                            <li><a href="#">试卷</a></li>
+                        </ul>
+                    </div>
+                    <input class="form-control" type="">
+                    <span class="input-group-btn"><button class="btn btn-default" type="submit">搜索</button></span>
                 </div>
-                <input class="form-control" type="">
-                <span class="input-group-btn"><button class="btn btn-default" type="submit">搜索</button></span>
             </div>
         </form>
     </div>

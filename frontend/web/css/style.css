@@ -32,9 +32,6 @@ body {
   margin: 0 auto -60px;
   padding: 0 0 60px;
 }
-.wrap > .container {
-  padding: 70px 15px 20px;
-}
 .footer {
   height: 60px;
   background-color: #f5f5f5;
@@ -99,3 +96,37 @@ a.desc:after {
   margin: 0 0 15px 0;
 }
 /*# sourceMappingURL=style.map */
+
+.wide{width:1000px;margin:0 auto;}
+
+.icon{display:inline-block;vertical-align:middle;width:20px;height:20px;background:url(/img/icon-lit.png) no-repeat 0 0;}
+.icon-phone{background-position:0 -1px;}
+.icon-qq{background-position:-31px -1px;}
+.icon-wx{background-position:-60px -1px;}
+.icon-wb{background-position:-90px -1px;}
+.icon-contact{background-position:-121px -1px;}
+.icon-charge{background-position:-156px -1px;}
+
+.header-top{height:26px;line-height:25px; font-size:13px;background-color:#f5f5f5;border-bottom:1px solid #e0e0e0;}
+.header-top .icon{margin-top:-3px;}
+.header-top .pull-right{padding:0 15px;}
+.header-top a.icon{margin-left:6px;}
+.header-logo{margin:39px auto 48px;}
+.header-logo small{display:inline-block;width:671px;height:36px;text-indent:-1000px;overflow:hidden;vertical-align:middle;background:url(/img/logo-text.png) no-repeat;}
+.header-nav{height:82px;padding-top:17px;background:url(/img/nav-bg.png) repeat-x;}
+.header-nav li{float:left;line-height:65px;font-size:22px;border-right:1px solid #fff;list-style:none;text-align:center;}
+.header-nav li:last-child{border-right:none;}
+.header-nav li a{color:#fff;display:block;padding:17px 18px 0;margin-top:-17px;min-width:120px;}
+.header-nav li a.on{background:url(/img/nav-bg.png) repeat-x 0 -92px;}
+
+.header-grade{height:74px;padding:20px 0;background-color:#6bbf11;}
+.header-grade a{display:inline-block;line-height:32px;color:#fff;padding:0 30px;background-color:#427d03;border-radius:16px;}
+
+.search-form form{padding:20px 20px 40px;margin:18px 10px;border:1px solid #91d04f;border-radius:15px;}
+.search-form form img{height:85px;}
+.search-form form .pull-right{width:680px;margin-top:25px;}
+.search-form form .btn-default,
+.search-form form .form-control{border-color:#6bbf11;}
+.search-form form .dropdown-toggle{border-right:none;}
+.search-form form .form-control{border-right:none;}
+.search-form form .search-submit{background-color:#6bbf11;color:#fff;}
