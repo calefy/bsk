@@ -132,9 +132,9 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
 
 </div>
 
-<footer class="footer">
+<div class="footer">
     <div class="footer-seperator"></div>
-    <div class="clearfix">
+    <div class="clearfix wide">
         <div class="pull-left">
             <p>
                 <a href="" target="_blank">商务合作</a>
@@ -144,11 +144,11 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                 <a href="" target="_blank">站长统计</a>
                 <a href="/site/contact" target="_blank">意见反馈</a>
             </p>
-            <p>冀ICP备16003770号-1 @2003-<?=date('Y')?></p>
+            <p>冀ICP备16003770号-1 &copy;2003-<?=date('Y')?></p>
         </div>
-        <div class="pull-right">河北省市场监管<br/>主体身份认证</div>
+        <div class="pull-right"><p>河北省市场监管<br/>主体身份认证</p></div>
     </div>
-</footer>
+</div>
 
 <script>
 var _hmt = _hmt || [];
