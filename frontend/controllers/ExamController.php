@@ -16,7 +16,14 @@ class ExamController extends Controller
 {
 
     /**
-     *
+     * 试卷分类筛选页面
+     */
+    public function actionCategory() {
+        return $this->render('category', []);
+    }
+
+    /**
+     * 试卷详情页面
      */
     public function actionView($id)
     {
