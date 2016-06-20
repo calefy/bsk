@@ -10,7 +10,6 @@ use yii\web\ServerErrorHttpException;
 use yii\data\Pagination;
 use yii\data\Sort;
 
-use common\models\BskQuestion;
 use common\models\BskExam;
 use common\models\BskCategory;
 use common\models\BskCategoryOther;
