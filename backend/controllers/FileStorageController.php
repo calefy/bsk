@@ -33,7 +33,6 @@ class FileStorageController extends Controller
         return [
             'upload' => [
                 'class' => 'trntv\filekit\actions\UploadAction',
-                'messagesCategory' => 'backend',
                 'deleteRoute' => 'upload-delete'
             ],
             'upload-delete' => [
@@ -41,7 +40,6 @@ class FileStorageController extends Controller
             ],
             'upload-imperavi' => [
                 'class' => 'trntv\filekit\actions\UploadAction',
-                'messagesCategory' => 'backend',
                 'fileparam' => 'file',
                 'responseUrlParam'=> 'filelink',
                 'multiple' => false,
