@@ -67,8 +67,9 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
     <div class="header-top">
         <div class="wide clearfix">
             <div class="pull-right">
-                <a href="#"><i class="icon icon-charge"></i> 充值</a>
+                <!--<a href="#"><i class="icon icon-charge"></i> 充值</a>
                 &emsp;
+                -->
                 <a href="#">登录</a>
                 |
                 <a href="#">注册</a>
@@ -99,6 +100,7 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
         </ul>
     </div>
     <div class="header-carousel"></div>
+    <!--
     <div class="header-grade">
         <div class="wide row text-center">
             <div class="col-sm-4"><a href="#">七年级</a></div>
@@ -106,6 +108,7 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
             <div class="col-sm-4"><a href="#">九年级</a></div>
         </div>
     </div>
+    -->
 
     <div class="search-form wide">
         <form class="clearfix">

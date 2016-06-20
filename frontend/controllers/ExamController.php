@@ -92,9 +92,10 @@ class ExamController extends Controller
         }
 
         // 选中父级分类，需要查询包含子分类的数据
-        $cids = [$c];
+        $cids = null;
         if (isset($ids)) {
             $curCategoryObj = null;
+            $cids = [$c];
             foreach($extraCategories as $item) {
                 if ($c == $item->id) {
                     if ($item->rgt - $item->lft > 1) {
@@ -150,7 +151,7 @@ class ExamController extends Controller
             'semesters' => $semesters,
             'curSemesterName' => $semesterMap[$m],
 
-            'extraCategories' => ArrayHelper::toArray($extraCategories),
+            'extraCategories' => $extraCategories ? ArrayHelper::toArray($extraCategories) : null,
 
             'sort' => $sort,
             'exams' => $exams,
