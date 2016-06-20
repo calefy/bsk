@@ -1,25 +1,30 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 \frontend\assets\ExamCategoryAsset::register($this);
 
 $this->title = '试卷分类查询';
+
 ?>
 <div class="site-exam wide">
     <div class="big-filter">
         <div class="btn-group">
             <button class="btn btn-default" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-menu-hamburger"></span>
-                <span>初中数学</span>
+                <span><?=$curGradeSubjectName?></span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li class="dropdown-header">初中</li>
-                <li><a href="#">数学</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">高中</li>
-                <li><a href="#">数学</a></li>
-                <li class="divider"></li>
+                <?php foreach($gradeSubjects['leveled'] as $index=>$grade):?>
+                    <li class="dropdown-header"><?=$grade['name']?></li>
+                    <?php foreach($grade['subjects'] as $subject): ?>
+                        <li><a href="<?=Url::to(array_merge(['/exam/category'], $req, ['g' => $grade['id'], 's' => $subject['id']]))?>"><?=$subject['name']?></a></li>
+                    <?php endforeach ?>
+                    <?php if ($index + 1 < count($gradeSubjects)): ?>
+                        <li class="divider"></li>
+                    <?php endif ?>
+                <?php endforeach?>
             </ul>
         </div>
     </div>
@@ -28,17 +33,20 @@ $this->title = '试卷分类查询';
         <div class="pull-left">
             <div class="btn-group">
                 <button class="btn btn-default" data-toggle="dropdown">
-                    <span>人教新版</span>
+                    <span><?=$curSyllabusName?></span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="">xxx版</a></li>
+                    <?php foreach($syllabus as $item): ?>
+                    <li><a href="<?=Url::to(array_merge(['/exam/category'], $req, ['l' => $item->id]))?>"><?=$item->name?></a></li>
+                    <?php endforeach ?>
                 </ul>
             </div>
         </div>
         <div class="pull-right">
-            <a href="">中考试题</a>
-            <a href="">中考试题</a>
+            <?php foreach($semesters as $item): ?>
+                <a href="<?=Url::to(array_merge(['/exam/category'], $req, ['m' => $item->id]))?>" class="<?=$req['m'] == $item->id ? 'active' : ''?>"><?=$item->name?></a>
+            <?php endforeach ?>
         </div>
     </div>
 <!--
@@ -55,48 +63,44 @@ $this->title = '试卷分类查询';
     </div>
 
     <div class="list clearfix">
-        <div class="pull-left tree">
-            <div id="exam-cat-tree">
-              <ul>
-                <li data-jstree='{"opened": true, "selected": true}'>
-                    <a href="#">Root node 1</a>
-                  <ul>
-                    <li data-id="123321"> <a href="#">Root node 111</a> </li>
-                    <li><a href="#">Child node 2</a></li>
-                  </ul>
-                </li>
-                <li>Root node 1
-                  <ul>
-                    <li>Child node 1</li>
-                    <li><a href="#">Child node 2</a></li>
-                  </ul>
-                </li>
-              </ul>
+        <?php if (empty($extraCategories)): ?>
+            <div class="well">暂无相关数据</div>
+        <?php else: ?>
+            <div class="pull-left tree">
+                <div id="exam-cat-tree"
+                     data-current="<?=$req['c']?>"
+                     data-categories="<?=Html::encode(json_encode($extraCategories))?>"
+                     data-req="<?=Html::encode(json_encode($req))?>" ></div>
             </div>
-        </div>
-        <div class="pull-right cnt">
-            <div class="clearfix title">
-                <p class="pull-left">
-                    您当前的位置：
-                    <a href="/">必胜课</a> &gt;
-                    <a href="/exam/category">初中数学</a> &gt;
-                    <a href="/exam/category">中考专题</a>
-                </p>
-                <p class="pull-right">
-                    排序：
-                    <a href="">试卷名称</a> |
-                    <a href="">浏览次数</a> |
-                    <a href="">下载次数</a> |
-                    <a href="">上载日期</a>
-                </p>
+            <div class="pull-right cnt">
+                <div class="clearfix title">
+                    <p class="pull-left">
+                        您当前的位置：
+                        <a href="/">必胜课</a> &gt;
+                        <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?=$curGradeSubjectName?></a> &gt;
+                        <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?=$curSemesterName?></a>
+                    </p>
+                    <p class="pull-right">
+                        排序：
+                        <?=$sort->link('title') ?> |
+                        <?=$sort->link('created_at') ?>
+                    </p>
+                </div>
+                <ul class="list-wrap">
+                    <?php foreach($exams as $item): ?>
+                    <li>
+                        <h4><?=Html::a($item->title, ['/exam/view', 'id' => $item->id])?></h4>
+                        <p><?=$item->description?></p>
+                        <p class="foot">上传：<?=date('Y-m-d', $item->created_at)?> </p>
+                    </li>
+                    <?php endforeach?>
+                    <?php if (empty($exams)): ?><div class="well">暂无试卷数据</div><?php endif?>
+                </ul>
+                <div class="text-center">
+                    <?=\yii\widgets\LinkPager::widget([ 'pagination' => $pages ])?>
+                </div>
             </div>
-            <ul>
-                <li>
-                    <h4>试卷title</h4>
-                    <p>上传：2016-06-20  浏览：123次 下载：12次</p>
-                </li>
-            </ul>
-        </div>
+        <?php endif?>
     </div>
 
     <div class="ads-b">

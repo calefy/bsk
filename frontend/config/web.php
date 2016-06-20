@@ -1,4 +1,5 @@
 <?php
+$params = require(__DIR__ . '/params.php');
 $config = [
     'homeUrl'=>Yii::getAlias('@frontendUrl'),
     'controllerNamespace' => 'frontend\controllers',
@@ -8,6 +9,9 @@ $config = [
             'class' => 'frontend\modules\user\Module',
             //'shouldBeActivated' => true
         ],
+        'treemanager' =>  [
+            'class' => '\kartik\tree\Module',
+        ],
         'api' => [
             'class' => 'frontend\modules\api\Module',
             'modules' => [
@@ -16,6 +20,7 @@ $config = [
         ]
     ],
     'components' => [
+        /*
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
@@ -38,6 +43,7 @@ $config = [
                 ]
             ]
         ],
+        */
         'errorHandler' => [
             'errorAction' => 'site/error'
         ],
@@ -51,7 +57,8 @@ $config = [
             'enableAutoLogin' => true,
             'as afterLogin' => 'common\behaviors\LoginTimestampBehavior'
         ]
-    ]
+    ],
+    'params' => $params,
 ];
 
 if (YII_ENV_DEV) {
