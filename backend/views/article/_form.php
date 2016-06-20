@@ -46,7 +46,6 @@ use yii\bootstrap\ActiveForm;
         Upload::className(),
         [
             'url' => ['/file-storage/upload'],
-            'messagesCategory' => 'backend',
             'maxFileSize' => 5000000, // 5 MiB
         ]);
     ?>
@@ -54,7 +53,6 @@ use yii\bootstrap\ActiveForm;
     <?php echo $form->field($model, 'attachments')->widget(
         Upload::className(),
         [
-            'messagesCategory' => 'backend',
             'url' => ['/file-storage/upload'],
             'sortable' => true,
             'maxFileSize' => 10000000, // 10 MiB

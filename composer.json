@@ -35,6 +35,7 @@
     "mihaildev/yii2-elfinder": "^1.0",
     "trntv/yii2-aceeditor": "^2.0",
     "trntv/probe": "^0.2",
+    "trntv/yii2-file-kit": "^1.1",
     "trntv/yii2-glide": "^1.0.0",
     "trntv/yii2-datetime-widget": "^1.0.0",
     "trntv/cheatsheet": "^0.1@dev",
@@ -52,8 +53,7 @@
     "kartik-v/yii2-tree-manager": "@dev",
     "kartik-v/yii2-widget-select2": "@dev",
     "aliyuncs/oss-sdk-php": "^2.0",
-    "mdmsoft/yii2-admin": "^3.2",
-    "trntv/yii2-file-kit": "^1.1"
+    "mdmsoft/yii2-admin": "^3.2"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0.0",
