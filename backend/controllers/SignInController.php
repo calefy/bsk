@@ -41,12 +41,12 @@ class SignInController extends Controller
             'avatar-upload' => [
                 'class' => UploadAction::className(),
                 'deleteRoute' => 'avatar-delete',
-                'on afterSave' => function ($event) {
-                    /* @var $file \League\Flysystem\File */
-                    $file = $event->file;
-                    $img = ImageManagerStatic::make($file->read())->fit(215, 215);
-                    $file->put($img->encode());
-                }
+                //'on afterSave' => function ($event) {
+                //    /* @var $file \League\Flysystem\File */
+                //    $file = $event->file;
+                //    $img = ImageManagerStatic::make($file->read())->fit(215, 215);
+                //    $file->put($img->encode());
+                //}
             ],
             'avatar-delete' => [
                 'class' => DeleteAction::className()
