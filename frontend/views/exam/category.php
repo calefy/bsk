@@ -5,7 +5,7 @@ use yii\helpers\Url;
 
 $this->title = '试卷分类查询';
 ?>
-<div class="exam-category wide">
+<div class="site-exam wide">
     <div class="big-filter">
         <div class="btn-group">
             <button class="btn btn-default" data-toggle="dropdown">
@@ -21,7 +21,6 @@ $this->title = '试卷分类查询';
                 <li><a href="#">数学</a></li>
                 <li class="divider"></li>
             </ul>
-            
         </div>
     </div>
 
@@ -76,6 +75,27 @@ $this->title = '试卷分类查询';
             </div>
         </div>
         <div class="pull-right cnt">
+            <div class="clearfix title">
+                <p class="pull-left">
+                    您当前的位置：
+                    <a href="/">必胜课</a> &gt;
+                    <a href="/exam/category">初中数学</a> &gt;
+                    <a href="/exam/category">中考专题</a>
+                </p>
+                <p class="pull-right">
+                    排序：
+                    <a href="">试卷名称</a> |
+                    <a href="">浏览次数</a> |
+                    <a href="">下载次数</a> |
+                    <a href="">上载日期</a>
+                </p>
+            </div>
+            <ul>
+                <li>
+                    <h4>试卷title</h4>
+                    <p>上传：2016-06-20  浏览：123次 下载：12次</p>
+                </li>
+            </ul>
         </div>
     </div>
 

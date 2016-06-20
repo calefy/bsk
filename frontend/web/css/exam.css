@@ -1,9 +1,17 @@
 /**
  * 试卷相关样式
  */
+.site-exam ul{padding:0;margin:0;list-style:none;}
+
 .big-filter{padding:10px 20px;margin-bottom:4px; background-color:#447f05;}
 .grade-filter{padding:10px 15px;border-top:1px solid #169bef;background-color:#85d034;}
 .grade-filter .pull-right a{line-height:34px;color:#fff;margin:0 3px;}
+
 .list{margin:10px 0;}
+.list .tree,
+.list .cnt{border:1px solid #dfdfdf;}
+.list .tree{width:215px;padding:15px 0;}
+.list .cnt{width:770px;padding:15px 10px;}
+
 .ads-t, .ads-b{margin:5px 0;}
 
