@@ -39,6 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'text1',
             'text2',
             'text3',
+            'url',
+            'weight',
             //'status',
             //'updated_by',
             'updated_at:datetime',

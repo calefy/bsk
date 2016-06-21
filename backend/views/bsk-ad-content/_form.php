@@ -18,7 +18,7 @@ use common\models\BskAdPosition;
     <?php echo $form->errorSummary($model); ?>
 
      <?php echo $form->field($model, 'position_id')->widget(Select2::classname(), [
-             'data' => ArrayHelper::map(
+            'data' => ArrayHelper::map(
                     BskAdPosition::find()->select('id, description')->orderBy(['created_at'=>SORT_DESC])->all(),
                     'id',
                     'description'),
@@ -36,6 +36,8 @@ use common\models\BskAdPosition;
     <?php echo $form->field($model, 'text3')->textInput(['maxlength' => true]) ?>
 
     <?php echo $form->field($model, 'url')->textInput(['maxlength' => true, 'placeholder'=>'如: /exam/view?id=xxx 或 http://....']) ?>
+
+    <?php echo $form->field($model, 'weight')->dropDownList(range(0, 30), ['placeholder' => '优先展示权重值大的广告内容']) ?>
 
 
     <div class="form-group">

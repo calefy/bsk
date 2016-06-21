@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\BskAdPosition */
 
 $this->title = Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Bsk Ad Position',
+    'modelClass' => Yii::t('backend', 'Bsk Ad Position'),
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Bsk Ad Positions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

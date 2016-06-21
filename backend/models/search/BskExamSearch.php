@@ -41,10 +41,15 @@ class BskExamSearch extends BskExam
      */
     public function search($params)
     {
-        $query = BskExam::find()->orderBy('created_at DESC');
+        $query = BskExam::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC,
+                ],
+            ]
         ]);
 
         if (!($this->load($params) && $this->validate())) {

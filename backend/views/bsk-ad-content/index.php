@@ -21,7 +21,7 @@ $allPositions = ArrayHelper::map(BskAdPosition::find()->select('id, description'
 
     <p>
         <?php echo Html::a(Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Bsk Ad Content',
+    'modelClass' => Yii::t('backend', 'Bsk Ad Content'),
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
@@ -31,7 +31,7 @@ $allPositions = ArrayHelper::map(BskAdPosition::find()->select('id, description'
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             [
                 'class' => EnumColumn::className(),
                 'attribute' => 'position_id',
@@ -47,12 +47,14 @@ $allPositions = ArrayHelper::map(BskAdPosition::find()->select('id, description'
                 'format' => 'html',
                 'value' => function($model) {
                     if (!$model->image_path) return null;
-                    return Html::img($model->image_base_url .'/'. $model->image_path, ['class'=> 'mh100']);
+                    return Html::img($model->image_base_url .'/'. $model->image_path, ['class'=> 'mh100 mw300']);
                 }
             ],
             'text1',
             'text2',
             'text3',
+            'url',
+            'weight',
             // 'status',
             // 'updated_by',
             // 'updated_at',

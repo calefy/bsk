@@ -39,7 +39,7 @@ class BskAdContent extends BskBaseActiveRecord
     {
         return [
             [['position_id'], 'required'],
-            [['id', 'position_id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            [['id', 'position_id', 'weight', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             [['image_path'], 'string', 'max' => 128],
             [['image_base_url'], 'string', 'max' => 64],
             [['text1', 'text2', 'text3'], 'string', 'max' => 512],
@@ -55,13 +55,14 @@ class BskAdContent extends BskBaseActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
-            'position_id' => Yii::t('common', '广告位ID'),
+            'position_id' => Yii::t('common', '广告位'),
             'image_path' => Yii::t('common', '广告图片路径'),
             'image_base_url' => Yii::t('common', '广告图片host'),
             'text1' => Yii::t('common', '广告文案1'),
             'text2' => Yii::t('common', '广告文案1'),
             'text3' => Yii::t('common', '广告文案1'),
             'url' => Yii::t('common', '跳转地址'),
+            'weight' => Yii::t('common', '权重'),
             'status' => Yii::t('common', 'Status'),
             'updated_by' => Yii::t('common', 'Updated By'),
             'updated_at' => Yii::t('common', 'Updated At'),
