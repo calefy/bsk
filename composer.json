@@ -54,7 +54,8 @@
     "aliyuncs/oss-sdk-php": "^2.0",
     "mdmsoft/yii2-admin": "^3.2",
     "trntv/yii2-file-kit": "^1.1",
-    "bower-asset/jstree": "^3.3"
+    "bower-asset/jstree": "^3.3",
+    "kartik-v/yii2-widget-fileinput": "^1.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0.0",
