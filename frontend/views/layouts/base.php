@@ -70,9 +70,15 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                 <!--<a href="#"><i class="icon icon-charge"></i> 充值</a>
                 &emsp;
                 -->
-                <a href="#">登录</a>
-                |
-                <a href="#">注册</a>
+                <?php if (Yii::$app->user->isGuest):?>
+                    <a href="/user/sign-in/login">登录</a> &nbsp;
+                    | &nbsp;
+                    <a href="/user/sign-in/signup">注册</a>
+                <?php else:?>
+                    欢迎 <a href="/user/default/index"><em><?=Yii::$app->user->identity->getPublicIdentity()?></em></a>
+                    &emsp;
+                    <a href="/user/sign-in/logout">退出</a>
+                <?php endif?>
             </div>
             <div class="text-center">
                 <span><i class="icon icon-phone"></i> 服务热线：400-0123-456 (9:00-22:30)</span>
@@ -90,13 +96,13 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
     </h1>
     <div class="header-nav">
         <ul class="wide clearfix">
-            <li><a href="/" class="on">首页</a></li>
-            <li><a href="/page/about">关于我们</a></li>
+            <li><a href="/">首页</a></li>
+            <li><a href="/exam/category">精品试卷</a></li>
             <li><a href="/">精品题库</a></li>
-            <li><a href="/">中考试卷</a></li>
             <li><a href="/">视频课程</a></li>
             <li><a href="/">学习交流</a></li>
             <li><a href="/">一对一老师资源库</a></li>
+            <li><a href="/page/about">关于我们</a></li>
         </ul>
     </div>
     <div class="header-carousel"></div>

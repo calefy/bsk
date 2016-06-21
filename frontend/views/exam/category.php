@@ -64,7 +64,7 @@ $this->title = '试卷分类查询';
 
     <div class="list clearfix">
         <?php if (empty($extraCategories)): ?>
-            <div class="well">暂无试卷数据</div>
+            <div class="well">暂无 “<?=$curGradeSubjectName . '->' . $curSyllabusName . '->' . $curSemesterName?>” 分类下的试卷</div>
         <?php else: ?>
             <div class="pull-left tree">
                 <div id="exam-cat-tree"
