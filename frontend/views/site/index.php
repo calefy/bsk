@@ -3,48 +3,25 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 $this->title = '有效教育 —— 从必胜课网校开始！！';//Yii::$app->name;
+
+$ads = getAds(['index-banner-ad', 'index-honors']);
+$honors = isset($ads['index-honors']) ? $ads['index-honors'] : [];
+$bannerAd = isset($ads['index-banner-ad']) ? $ads['index-banner-ad'] : [];
 ?>
 <div class="site-index">
 
     <!--荣誉榜-->
     <div class="index-honor wide">
         <ul class="clearfix">
+            <?php foreach($honors as $item): ?>
             <li>
                 <div class="avatar">
-                    <img src="http://zj-images.img-cn-beijing.aliyuncs.com/5e270244b74d42ec22c100b79eaa02ac.jpg" alt="">
-                    <p>张子涵</p>
+                    <img src="<?=$item->getImageUrl()?>" alt="">
+                    <p><?=$item->text1?></p>
                 </div>
-                <div class="text">
-                    中考总成绩：577分，其中数学成绩120分，以优异的成绩被衡水中学录取!
-                </div>
+                <div class="text"><?=$item->text2?></div>
             </li>
-            <li>
-                <div class="avatar">
-                    <img src="http://zj-images.img-cn-beijing.aliyuncs.com/5e270244b74d42ec22c100b79eaa02ac.jpg" alt="">
-                    <p>张子涵</p>
-                </div>
-                <div class="text">
-                    中考总成绩：577分，其中数学成绩120分，以优异的成绩被衡水中学录取!
-                </div>
-            </li>
-            <li>
-                <div class="avatar">
-                    <img src="http://zj-images.img-cn-beijing.aliyuncs.com/5e270244b74d42ec22c100b79eaa02ac.jpg" alt="">
-                    <p>张子涵</p>
-                </div>
-                <div class="text">
-                    中考总成绩：577分，其中数学成绩120分，以优异的成绩被衡水中学录取!
-                </div>
-            </li>
-            <li>
-                <div class="avatar">
-                    <img src="http://zj-images.img-cn-beijing.aliyuncs.com/5e270244b74d42ec22c100b79eaa02ac.jpg" alt="">
-                    <p>张子涵</p>
-                </div>
-                <div class="text">
-                    中考总成绩：577分，其中数学成绩120分，以优异的成绩被衡水中学录取!
-                </div>
-            </li>
+            <?php endforeach?>
         </ul>
     </div>
 
@@ -86,7 +63,9 @@ $this->title = '有效教育 —— 从必胜课网校开始！！';//Yii::$app-
 
     <!--广告-->
     <div class="wide">
-        <img src="http://r.oss.chinabsk.cn/i/ads1.jpg" alt=""/>
+        <?php foreach($bannerAd as $item):?>
+            <img src="<?=$item->getImageUrl()?>" alt="<?=$item->text1?>"/>
+        <?php endforeach?>
     </div>
 
     <!--宣传定义-->

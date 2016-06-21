@@ -59,8 +59,8 @@ class BskAdContent extends BskBaseActiveRecord
             'image_path' => Yii::t('common', '广告图片路径'),
             'image_base_url' => Yii::t('common', '广告图片host'),
             'text1' => Yii::t('common', '广告文案1'),
-            'text2' => Yii::t('common', '广告文案1'),
-            'text3' => Yii::t('common', '广告文案1'),
+            'text2' => Yii::t('common', '广告文案2'),
+            'text3' => Yii::t('common', '广告文案3'),
             'url' => Yii::t('common', '跳转地址'),
             'weight' => Yii::t('common', '权重'),
             'status' => Yii::t('common', 'Status'),
@@ -93,5 +93,9 @@ class BskAdContent extends BskBaseActiveRecord
     public function getAdPosition() {
         return $this->hasOne(BskAdPosition::className(), ['id' => 'position_id'])
             ->onCondition([BskAdPosition::tableName() . '.status' => BskAdPosition::STATUS_ACTIVE ]);
+    }
+
+    public function getImageUrl() {
+        return $this->image_base_url . '/' . $this->image_path;
     }
 }
