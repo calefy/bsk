@@ -11,6 +11,7 @@ $bannerAd = isset($ads['index-banner-ad']) ? $ads['index-banner-ad'] : [];
 <div class="site-index">
 
     <!--荣誉榜-->
+    <?php if ($honors): ?>
     <div class="index-honor wide">
         <ul class="clearfix">
             <?php foreach($honors as $item): ?>
@@ -24,6 +25,7 @@ $bannerAd = isset($ads['index-banner-ad']) ? $ads['index-banner-ad'] : [];
             <?php endforeach?>
         </ul>
     </div>
+    <?php endif?>
 
     <!--课程分类-->
     <div class="index-intro wide">
