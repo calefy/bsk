@@ -34,6 +34,7 @@ class BskAdPosition extends BskBaseActiveRecord
         return [
             [['id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             [['key'], 'string', 'max' => 32],
+            [['key'], 'unique'],
             [['description'], 'string', 'max' => 512],
         ];
     }
