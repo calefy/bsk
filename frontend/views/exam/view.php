@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
 $this->title = $model->title;
 ?>
-<div class="exam-view">
+<div class="exam-view wide">
     <div class="text-center">
         <h2>(<?=$model->short_time . '&middot;' . $model->short_addr?>)<?=$model->title?></h2>
     </div>

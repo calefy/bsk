@@ -9,7 +9,7 @@ $items = json_decode($model->info, true);
 
 $this->title = '试题详情';
 ?>
-<div class="question-view">
+<div class="question-view wide">
     <div class="panel panel-default">
         <div class="panel-heading">试题详情</div>
         <div class="panel-body">
