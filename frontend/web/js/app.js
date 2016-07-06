@@ -10,3 +10,19 @@ setTimeout(function() {
         });
     }
 }, 200);
+
+
+// bootstrap下拉菜单点击变化
+$(function() {
+    $('.dropdown-menu a').on('click', function(e) {
+        e.preventDefault();
+        var target = $(e.currentTarget);
+        target.parents('.input-group-btn:eq(0)')
+            .find('input[data-role=button]')
+            .val(target.data('key') || target.text())
+            .end()
+            .find('button .text')
+            .text(target.text());
+    })
+
+});

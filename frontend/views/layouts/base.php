@@ -117,20 +117,25 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
     -->
 
     <div class="search-form wide">
-        <form class="clearfix">
+        <form class="clearfix" action="/search">
             <div class="pull-left">
                 <img src="/img/logo-whole.png" alt=""/>
             </div>
             <div class="pull-right">
                 <div class="input-group input-group-lg">
                     <div class="input-group-btn">
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">试题 <span class="caret"></span></button>
+                        <?php $qType = Yii::$app->request->getQueryParam('type', 1)?>
+                        <input data-role="button" type="hidden" name="type" value="<?=$qType?>"/>
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text"><?=$qType == 2 ? '试卷' : '试题'?></span>
+                            <span class="caret"></span>
+                        </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">试题</a></li>
-                            <li><a href="#">试卷</a></li>
+                            <li><a href="#" data-key="1">试题</a></li>
+                            <li><a href="#" data-key="2">试卷</a></li>
                         </ul>
                     </div>
-                    <input class="form-control" type="">
+                    <input class="form-control" type="text" name="text" value="<?=Yii::$app->request->getQueryParam('text', '')?>">
                     <span class="input-group-btn"><button class="btn btn-default" type="submit">搜索</button></span>
                 </div>
             </div>
