@@ -20,6 +20,23 @@ use common\models\BskCategoryOther;
 class QuestionController extends Controller
 {
 
+    // 检索类型
+    const SEARCH_TYPES = [
+        BskCategoryOther::CATEGORY_TYPE_CHAPTER => '按章节',
+        BskCategoryOther::CATEGORY_TYPE_POINT => '按考点',
+    ];
+    // 题型
+    const QUESTION_TYPES = [
+        0 => '全部',
+        BskQuestion::QUESTION_TYPE_SELECT => '选择题',
+        BskQuestion::QUESTION_TYPE_FILL => '填空题',
+        BskQuestion::QUESTION_TYPE_ASK => '解答题',
+    ];
+    // 难度
+    const QUESTION_LEVELS = [
+        '全部', '基础', '中档', '难题'
+    ];
+
     /**
      *
      */
@@ -36,17 +53,27 @@ class QuestionController extends Controller
      * 试题分类筛选页面
      * @param $g 班级ID
      * @param $s 学科ID
+     * @param $t 检索类型: 章节或考点
      * @param $l 大纲版本ID
      * @param $m 学期ID
      * @param $c 所属扩展分类ID
+     *
+     * @param $qt 题型（选择、填空等）BskQuestion::types()
+     * @param $ql 难度（0-全部，1-基础，2-中档，3-难题）
      */
-    public function actionCategory($g=null, $s=null, $l=null, $m=null, $c=null) {
+    public function actionCategory($g=null, $s=null, $t=null, $l=null, $m=null, $c=null, $qt=0, $ql=0) {
         $gradeSubjects = getDealedGradeSubjects();
         // 确定班级、学科ID
         if (!($g && isset($gradeSubjects['gradeMap'][$g]) &&
                 $s && isset($gradeSubjects['subjectMap'][$s]))) {
             $g = $gradeSubjects['first']['g'];
             $s = $gradeSubjects['first']['s'];
+        }
+
+        // 确定检索类型
+        $t = intval($t);
+        if (!in_array($t, array_keys(self::SEARCH_TYPES))) {
+            $t = BskCategoryOther::CATEGORY_TYPE_CHAPTER;
         }
 
         // 获取所有的版本信息
@@ -84,7 +111,7 @@ class QuestionController extends Controller
                 'semester_id' => $m,
                 'science_id' => $s,
                 'syllabus_id' => $l,
-                'type' => 3, // 试卷类型
+                'type' => $t,
             ])
             ->one();
         if ($extraRoot) {
@@ -126,25 +153,50 @@ class QuestionController extends Controller
             }
         }
 
-        // 根据以上参数查询试卷
+        // 题型
+        if (!in_array(intval($qt), array_keys(self::QUESTION_TYPES))) {
+            $qt = 0;
+        }
+        // 难度
+        if (!in_array(intval($ql), array_keys(self::QUESTION_LEVELS))) {
+            $ql = 0;
+        }
+
+        // 根据以上参数查询问题
         $sort = new Sort([
             'defaultOrder' => [
                 'created_at' => SORT_DESC,
-                'title' => SORT_ASC,
+                'level' => SORT_DESC,
             ],
             'attributes' => [
                 'created_at' => [
                     'label' => '上载日期',
                     'default' => SORT_DESC,
                 ],
-                'title' => ['label' => '试卷名称'],
+                'level' => ['label' => '试题难度'],
             ],
         ]);
-        $query = BskExam::find()
-            ->andWhere(['category_id' => $cids]);
+
+
+        if ($t === BskCategoryOther::CATEGORY_TYPE_CHAPTER) { // 按章节检索试题
+            $query = BskQuestion::find()
+                ->andWhere(['chapter_id' => $c]);
+        } else { // 按考点检索试题
+            $relTable = BskQuestionPoint::tableName();
+            $query = BskQuestion::find()
+                ->innerJoin($relTable, $relTable . '.question_id=' . BskQuestion::tableName() . '.id')
+                ->andWhere([$relTable . '.status' => BskQuestionPoint::STATUS_ACTIVE])
+                ->andWhere([$relTable . '.point_id' => $c]);
+        }
+        if ($qt) {
+            $query->andWhere(['type' => $qt]);
+        }
+        if ($ql) {
+            $query->andWhere($ql === 1 ? 'level < 30' : $ql === 2 ? ['between', 'level', 30, 70] : 'level > 70');
+        }
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
-        $exams = $query
+        $questions = $query
                     ->orderBy($sort->orders)
                     ->offset($pages->offset)
                     ->limit($pages->limit)
@@ -152,7 +204,7 @@ class QuestionController extends Controller
 
         // 返回数据到页面
         return $this->render('category', [
-            'req' => ['g' => $g, 's' => $s, 'l' => $l, 'm' => $m, 'c' => $c],
+            'req' => ['g' => $g, 's' => $s, 't' => $t, 'l' => $l, 'm' => $m, 'c' => $c, 'qt' => $qt, 'ql' => $ql],
             'gradeSubjects' => $gradeSubjects,
             'curGradeSubjectName' => $gradeSubjects['gradeMap'][$g].$gradeSubjects['subjectMap'][$s],
 
@@ -165,8 +217,12 @@ class QuestionController extends Controller
             'extraCategories' => $extraCategories ? ArrayHelper::toArray($extraCategories) : null,
 
             'sort' => $sort,
-            'exams' => $exams,
             'pages' => $pages,
+            'questions' => $questions,
+
+            'searchTypes' => self::SEARCH_TYPES,
+            'questionTypes' => self::QUESTION_TYPES,
+            'questionLevels' => self::QUESTION_LEVELS,
         ]);
     }
 }

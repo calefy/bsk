@@ -12,7 +12,7 @@
 .list{margin:10px 0;}
 .list .tree,
 .list .cnt{border:1px solid #dfdfdf;}
-.list .tree{width:215px;padding:15px 0;}
+.list .tree{width:215px;padding:15px 0;overflow:hidden;}
 .list .cnt{width:770px;min-height:350px;padding:15px 10px;}
 .list .cnt .title{border-bottom:1px solid #dfdfdf;}
 .list .cnt .list-wrap{margin:20px 0 25px;}
@@ -23,3 +23,17 @@
 .ads-t, .ads-b{margin:5px 0;}
 
 
+.main-filter .table{background-color:#e6fbe0;}
+.main-filter .table,
+.main-filter .table th,
+.main-filter .table td{border-color:#6f6f6f;}
+.main-filter .table th{color:#015a03;background-color:#92d947;text-align:center;}
+.main-filter a{color:#869576;display:inline-block;padding:0 8px;}
+.main-filter a.active{color:#015a03;background-color:#92d947;}
+
+.question-filter .well{margin-bottom:10px;}
+.question-filter .well p{border-bottom:#ccc 1px dashed;padding-bottom:10px;}
+.question-filter .well p:last-child{margin-bottom:0;border:none;padding:0;}
+.question-filter .well p strong{margin-right:15px;color:#5f5d5d;}
+.question-filter .well p a{color:#000;display:inline-block;padding:0 8px;}
+.question-filter .well p a.active{color:#fff;background-color:#70b725;}

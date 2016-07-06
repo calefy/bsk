@@ -98,7 +98,7 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
         <ul class="wide clearfix">
             <li><a href="/">首页</a></li>
             <li><a href="/exam/category">精品试卷</a></li>
-            <li><a href="/">精品题库</a></li>
+            <li><a href="/question/category">精品题库</a></li>
             <li><a href="/">视频课程</a></li>
             <li><a href="/">学习交流</a></li>
             <li><a href="/">一对一老师资源库</a></li>

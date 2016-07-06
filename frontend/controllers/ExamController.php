@@ -72,7 +72,7 @@ class ExamController extends Controller
                 'semester_id' => $m,
                 'science_id' => $s,
                 'syllabus_id' => $l,
-                'type' => 3, // 试卷类型
+                'type' => BskCategoryOther::CATEGORY_TYPE_EXAM, // 试卷类型
             ])
             ->one();
         if ($extraRoot) {

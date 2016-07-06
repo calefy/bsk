@@ -12,7 +12,7 @@
 .list{margin:10px 0;}
 .list .tree,
 .list .cnt{border:1px solid #dfdfdf;}
-.list .tree{width:215px;padding:15px 0;}
+.list .tree{width:215px;padding:15px 0;overflow:hidden;}
 .list .cnt{width:770px;min-height:350px;padding:15px 10px;}
 .list .cnt .title{border-bottom:1px solid #dfdfdf;}
 .list .cnt .list-wrap{margin:20px 0 25px;}
