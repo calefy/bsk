@@ -11,6 +11,7 @@ use yii\data\Pagination;
 use yii\data\Sort;
 
 use common\models\BskQuestion;
+use common\models\BskQuestionPoint;
 use common\models\BskCategory;
 use common\models\BskCategoryOther;
 
@@ -154,11 +155,13 @@ class QuestionController extends Controller
         }
 
         // 题型
-        if (!in_array(intval($qt), array_keys(self::QUESTION_TYPES))) {
+        $qt = intval($qt);
+        if (!in_array($qt, array_keys(self::QUESTION_TYPES))) {
             $qt = 0;
         }
         // 难度
-        if (!in_array(intval($ql), array_keys(self::QUESTION_LEVELS))) {
+        $ql = intval($ql);
+        if (!in_array($ql, array_keys(self::QUESTION_LEVELS))) {
             $ql = 0;
         }
 
@@ -192,7 +195,7 @@ class QuestionController extends Controller
             $query->andWhere(['type' => $qt]);
         }
         if ($ql) {
-            $query->andWhere($ql === 1 ? 'level < 30' : $ql === 2 ? ['between', 'level', 30, 70] : 'level > 70');
+            $query->andWhere($ql === 1 ? 'level < 30' : ($ql === 2 ? ['between', 'level', 30, 70] : 'level > 70'));
         }
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
