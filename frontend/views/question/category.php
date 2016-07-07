@@ -11,6 +11,7 @@ use common\models\BskQuestion;
 
 $this->title = '试题分类查询';
 
+$ads = getAds(['question-bottom-banner']);
 ?>
 <div class="site-question wide">
     <div class="big-filter">
@@ -129,8 +130,12 @@ $this->title = '试题分类查询';
         <?php endif?>
     </div>
 
-    <div class="ads-b">
-        <img src="http://r.oss.chinabsk.cn/i/ads1.jpg" alt=""/>
-    </div>
+    <?php if (isset($ads['question-bottom-banner'])): ?>
+        <div class="ads-b">
+            <?php foreach($ads['question-bottom-banner']as $item):?>
+                <img src="<?=$item->getImageUrl()?>" alt="<?=$item->text1?>"/>
+            <?php endforeach?>
+        </div>
+    <?php endif?>
 </div>
 

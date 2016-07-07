@@ -6,6 +6,7 @@ use yii\helpers\Html;
 
 $this->title = '试卷分类查询';
 
+$ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
 ?>
 <div class="site-exam wide">
     <div class="big-filter">
@@ -58,9 +59,13 @@ $this->title = '试卷分类查询';
     </div>
 -->
 
-    <div class="ads-t">
-        <img src="http://r.oss.chinabsk.cn/i/ads1.jpg" alt=""/>
-    </div>
+    <?php if (isset($ads['exam-top-banner'])): ?>
+        <div class="ads-t">
+            <?php foreach($ads['exam-top-banner']as $item):?>
+                <img src="<?=$item->getImageUrl()?>" alt="<?=$item->text1?>"/>
+            <?php endforeach?>
+        </div>
+    <?php endif?>
 
     <div class="list clearfix">
         <?php if (empty($extraCategories)): ?>
@@ -103,8 +108,12 @@ $this->title = '试卷分类查询';
         <?php endif?>
     </div>
 
-    <div class="ads-b">
-        <img src="http://r.oss.chinabsk.cn/i/ads1.jpg" alt=""/>
-    </div>
+    <?php if (isset($ads['exam-bottom-banner'])): ?>
+        <div class="ads-b">
+            <?php foreach($ads['exam-bottom-banner']as $item):?>
+                <img src="<?=$item->getImageUrl()?>" alt="<?=$item->text1?>"/>
+            <?php endforeach?>
+        </div>
+    <?php endif?>
 </div>
 

@@ -6,19 +6,22 @@ use yii\bootstrap\NavBar;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$this->beginContent('@frontend/views/layouts/_clear.php')
+$this->beginContent('@frontend/views/layouts/_clear.php');
+
+$ads = getAds(['index-carousel']);
 ?>
 <div class="wrap">
     <!--
     <?php
+    /*
     NavBar::begin([
         'brandLabel' => '必胜课',//Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
-    ]); ?>
-    <?php echo Nav::widget([
+    ]);*/ ?>
+    <?php/* echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t('frontend', 'Home'), 'url' => ['/']],
@@ -47,7 +50,6 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                     ]
                 ]
             ],
-            /*
             [
                 'label'=>Yii::t('frontend', 'Language'),
                 'items'=>array_map(function ($code) {
@@ -58,10 +60,9 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                     ];
                 }, array_keys(Yii::$app->params['availableLocales']))
             ]
-            */
         ]
-    ]); ?>
-    <?php NavBar::end(); ?>
+        ]);*/ ?>
+    <?php // NavBar::end(); ?>
     -->
 
     <div class="header-top">
@@ -99,13 +100,35 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
             <li><a href="/">首页</a></li>
             <li><a href="/exam/category">精品试卷</a></li>
             <li><a href="/question/category">精品题库</a></li>
-            <li><a href="/">视频课程</a></li>
-            <li><a href="/">学习交流</a></li>
-            <li><a href="/">一对一老师资源库</a></li>
+            <li><a href="/page/videos">视频课程</a></li>
+            <li><a href="/page/study">学习交流</a></li>
+            <li><a href="/page/teachers">一对一老师资源库</a></li>
             <li><a href="/page/about">关于我们</a></li>
         </ul>
     </div>
-    <div class="header-carousel"></div>
+    <?php if (isset($ads['index-carousel'])): ?>
+    <div class="header-carousel">
+        <div class="carousel slide" data-ride="carousel" id="header-carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <?php foreach($ads['index-carousel'] as $index=>$item): ?>
+            <li data-slide-to="<?=$index?>" class="<?=$index === 0 ? 'active' : ''?>" data-target="#header-carousel"></li>
+            <?php endforeach?>
+          </ol>
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <?php foreach($ads['index-carousel'] as $index=>$item): ?>
+                <div class="item <?=$index === 0 ? 'active' : ''?>">
+                  <a href="<?=$item->url?>" target="_blank"><img src="<?=$item->getImageUrl()?>" alt=""/></a>
+                  <div class="carousel-caption">
+                    <?=$item->text1?>
+                  </div>
+                </div>
+            <?php endforeach?>
+          </div>
+        </div>
+    </div>
+    <?php endif?>
     <!--
     <div class="header-grade">
         <div class="wide row text-center">
