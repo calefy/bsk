@@ -92,8 +92,9 @@ $ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
                     <p class="pull-left">
                         您当前的位置：
                         <a href="/">必胜课</a> &gt;
-                        <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?=$curGradeSubjectName?></a> &gt;
+                        <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?=$curGradeSubjectName?></a>
                         <!--
+                        &gt;
                         <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?php //echo $curSemesterName?></a>
                         -->
                     </p>
