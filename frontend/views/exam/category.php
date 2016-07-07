@@ -22,7 +22,7 @@ $ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
                     <?php foreach($grade['subjects'] as $subject): ?>
                         <li><a href="<?=Url::to(array_merge(['/exam/category'], $req, ['g' => $grade['id'], 's' => $subject['id']]))?>"><?=$subject['name']?></a></li>
                     <?php endforeach ?>
-                    <?php if ($index + 1 < count($gradeSubjects)): ?>
+                    <?php if ($index + 2 < count($gradeSubjects)): ?>
                         <li class="divider"></li>
                     <?php endif ?>
                 <?php endforeach?>
@@ -45,9 +45,19 @@ $ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
             </div>
         </div>
         <div class="pull-right">
+            <?php /* ?>
             <?php foreach($semesters as $item): ?>
                 <a href="<?=Url::to(array_merge(['/exam/category'], $req, ['m' => $item->id]))?>" class="<?=$req['m'] == $item->id ? 'active' : ''?>"><?=$item->name?></a>
             <?php endforeach ?>
+            <?php */ ?>
+
+            <?php foreach($gradeSubjects['leveled'] as $index=>$grade):?>
+                <?php if ($grade['id'] == $req['g']) : ?>
+                    <?php foreach($grade['subjects'] as $subject): ?>
+                        <a href="<?=Url::to(array_merge(['/exam/category'], $req, ['g' => $grade['id'], 's' => $subject['id']]))?>" class="<?=$subject['id'] == $req['s'] ? 'active' : ''?>"><?=$subject['name']?></a>
+                    <?php endforeach ?>
+                <?php endif ?>
+            <?php endforeach?>
         </div>
     </div>
 <!--
@@ -69,7 +79,7 @@ $ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
 
     <div class="list clearfix">
         <?php if (empty($extraCategories)): ?>
-            <div class="well">暂无 “<?=$curGradeSubjectName . '->' . $curSyllabusName . '->' . $curSemesterName?>” 分类下的试卷</div>
+            <div class="well">暂无 “<?=$curGradeSubjectName . '->' . $curSyllabusName /*. '->' . $curSemesterName*/?>” 分类下的试卷</div>
         <?php else: ?>
             <div class="pull-left tree">
                 <div id="exam-cat-tree"
@@ -83,7 +93,9 @@ $ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
                         您当前的位置：
                         <a href="/">必胜课</a> &gt;
                         <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?=$curGradeSubjectName?></a> &gt;
-                        <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?=$curSemesterName?></a>
+                        <!--
+                        <a href="<?=Url::to(array_merge(['/exam/category'], $req))?>"><?php //echo $curSemesterName?></a>
+                        -->
                     </p>
                     <p class="pull-right">
                         排序：

@@ -4,8 +4,8 @@
 
 
 $(function() {
-    // bootstrap下拉菜单点击变化
-    $('.dropdown-menu a').on('click', function(e) {
+    // 搜索表单中，bootstrap下拉菜单点击变化
+    $('.search-form .dropdown-menu a').on('click', function(e) {
         e.preventDefault();
         var target = $(e.currentTarget);
         target.parents('.input-group-btn:eq(0)')

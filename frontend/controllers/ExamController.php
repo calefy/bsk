@@ -27,6 +27,8 @@ class ExamController extends Controller
      * @param $l 大纲版本ID
      * @param $m 学期ID
      * @param $c 所属扩展分类ID
+     *
+     * NOTE: $m 前端不展示具体学期，默认取九年级下，以适应前端要求“中考试卷”的条件
      */
     public function actionCategory($g=null, $s=null, $l=null, $m=null, $c=null) {
         $gradeSubjects = getDealedGradeSubjects();
@@ -52,16 +54,17 @@ class ExamController extends Controller
         }
 
         // 获取学期
-        $grade = BskCategory::findOne($g);
-        $semesters = $grade->leaves()->select('id,name')->all();
-        if (!$semesters) {
-            throw new ServerErrorHttpException('获取学期信息失败');
-        }
-        $semesterMap = ArrayHelper::map($semesters, 'id', 'name');
-        if (empty($m) || !isset($semesterMap[$m])) {
-            $m = $semesters[0]->id;
-        }
-
+        //$grade = BskCategory::findOne($g);
+        //$semesters = $grade->leaves()->select('id,name')->all();
+        //if (!$semesters) {
+        //    throw new ServerErrorHttpException('获取学期信息失败');
+        //}
+        //$semesterMap = ArrayHelper::map($semesters, 'id', 'name');
+        //if (empty($m) || !isset($semesterMap[$m])) {
+        //    $m = $semesters[0]->id;
+        //}
+        // 因前端仅展示中考试卷，因此写死学期为9年级下ID
+        $m = '680399336582933';
 
         // 根据 g、s、l、m 获取对应的扩展分类
         $extraCategories = null;
@@ -140,15 +143,16 @@ class ExamController extends Controller
 
         // 返回数据到页面
         return $this->render('category', [
-            'req' => ['g' => $g, 's' => $s, 'l' => $l, 'm' => $m, 'c' => $c],
+            //'req' => ['g' => $g, 's' => $s, 'l' => $l, 'm' => $m, 'c' => $c],
+            'req' => ['g' => $g, 's' => $s, 'l' => $l, 'c' => $c],
             'gradeSubjects' => $gradeSubjects,
             'curGradeSubjectName' => $gradeSubjects['gradeMap'][$g].$gradeSubjects['subjectMap'][$s],
 
             'syllabus' => $syllabus,
             'curSyllabusName' => $syllabusMap[$l],
 
-            'semesters' => $semesters,
-            'curSemesterName' => $semesterMap[$m],
+            //'semesters' => $semesters,
+            //'curSemesterName' => $semesterMap[$m],
 
             'extraCategories' => $extraCategories ? ArrayHelper::toArray($extraCategories) : null,
 
