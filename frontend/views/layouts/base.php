@@ -9,19 +9,20 @@ use yii\bootstrap\NavBar;
 $this->beginContent('@frontend/views/layouts/_clear.php');
 
 $ads = getAds(['index-carousel']);
+
+$url= Yii::$app->request->resolve();
+$basePath = isset($url[1]['slug']) ? str_replace('view', $url[1]['slug'], $url[0]) : $url[0];
 ?>
 <div class="wrap">
-    <!--
-    <?php
-    /*
-    NavBar::begin([
+    <?php /* ?>
+    <?php NavBar::begin([
         'brandLabel' => '必胜课',//Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
-    ]);*/ ?>
-    <?php/* echo Nav::widget([
+    ]); ?>
+    <?php echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t('frontend', 'Home'), 'url' => ['/']],
@@ -61,9 +62,9 @@ $ads = getAds(['index-carousel']);
                 }, array_keys(Yii::$app->params['availableLocales']))
             ]
         ]
-        ]);*/ ?>
-    <?php // NavBar::end(); ?>
-    -->
+        ]); ?>
+    <?php NavBar::end(); ?>
+    <?php */?>
 
     <div class="header-top">
         <div class="wide clearfix">
@@ -97,13 +98,13 @@ $ads = getAds(['index-carousel']);
     </h1>
     <div class="header-nav">
         <ul class="wide clearfix">
-            <li><a href="/">首页</a></li>
-            <li><a href="/exam/category">中考试卷</a></li>
-            <li><a href="/question/category">精品题库</a></li>
-            <li><a href="/page/videos">视频课程</a></li>
-            <li><a href="/page/study">学习交流</a></li>
-            <li><a href="/page/teachers">一对一老师资源库</a></li>
-            <li><a href="/page/about">关于我们</a></li>
+            <li><a href="/" class="<?=$basePath === '' ? 'on' : ''?>">首页</a></li>
+            <li><a href="/exam/category" class="<?=$basePath === 'exam/category' ? 'on' : ''?>">中考试卷</a></li>
+            <li><a href="/question/category" class="<?=$basePath === 'question/category' ? 'on' : ''?>">精品题库</a></li>
+            <li><a href="/page/videos" class="<?=$basePath === 'page/videos' ? 'on' : ''?>">视频课程</a></li>
+            <li><a href="/page/study" class="<?=$basePath === 'page/study' ? 'on' : ''?>">学习交流</a></li>
+            <li><a href="/page/teachers" class="<?=$basePath === 'page/teachers' ? 'on' : ''?>">一对一老师资源库</a></li>
+            <li><a href="/page/about" class="<?=$basePath === 'page/about' ? 'on' : ''?>">关于我们</a></li>
         </ul>
     </div>
     <?php if (isset($ads['index-carousel'])): ?>
