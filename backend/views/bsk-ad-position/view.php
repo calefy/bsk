@@ -29,6 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'key',
             'description',
+            [
+                'label' => '位置示意图',
+                'format' => 'html',
+                'value' => $model->image_path ? Html::img($model->image_base_url . '/' . $model->image_path, ['class'=> 'mh200']) : '',
+            ],
             //'status',
             //'updated_by',
             'updated_at:datetime',

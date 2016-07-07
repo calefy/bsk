@@ -8,6 +8,8 @@ use backend\models\search\BskAdPositionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use trntv\filekit\actions\DeleteAction;
+use trntv\filekit\actions\UploadAction;
 
 /**
  * BskAdPositionController implements the CRUD actions for BskAdPosition model.
@@ -23,6 +25,19 @@ class BskAdPositionController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'ad-thumb-upload' => [
+                'class' => UploadAction::className(),
+                'deleteRoute' => 'ad-thumb-delete',
+            ],
+            'ad-thumb-delete' => [
+                'class' => DeleteAction::className()
+            ]
         ];
     }
 

@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use trntv\filekit\behaviors\UploadBehavior;
 
 /**
  * This is the model class for table "bsk_ad_position".
@@ -18,6 +20,7 @@ use Yii;
  */
 class BskAdPosition extends BskBaseActiveRecord
 {
+    public $image;
     /**
      * @inheritdoc
      */
@@ -35,7 +38,10 @@ class BskAdPosition extends BskBaseActiveRecord
             [['id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             [['key'], 'string', 'max' => 32],
             [['key'], 'unique'],
+            [['image_path'], 'string', 'max' => 128],
+            [['image_base_url'], 'string', 'max' => 64],
             [['description'], 'string', 'max' => 512],
+            ['image', 'safe'],
         ];
     }
 
@@ -48,12 +54,29 @@ class BskAdPosition extends BskBaseActiveRecord
             'id' => Yii::t('common', 'ID'),
             'key' => Yii::t('common', '广告位标识'),
             'description' => Yii::t('common', '广告位描述'),
+            'image_path' => Yii::t('common', '示意图路径'),
+            'image_base_url' => Yii::t('common', '示意图路径host'),
             'status' => Yii::t('common', 'Status'),
             'updated_by' => Yii::t('common', 'Updated By'),
             'updated_at' => Yii::t('common', 'Updated At'),
             'created_by' => Yii::t('common', 'Created By'),
             'created_at' => Yii::t('common', 'Created At'),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'image' => [
+                'class' => UploadBehavior::className(),
+                'attribute' => 'image',
+                'pathAttribute' => 'image_path',
+                'baseUrlAttribute' => 'image_base_url'
+            ]
+        ]);
     }
 
     public static function find() {
