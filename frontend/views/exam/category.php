@@ -121,6 +121,24 @@ $ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
         <?php endif?>
     </div>
 
+    <div class="recommend">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">精品试卷推荐</h3>
+            </div>
+            <div class="panel-body">
+                        <ul>
+                            <?php foreach($recommend as $item): ?>
+                                <li>
+                                    <a href="<?=Url::to(['/exam/view', 'id'=> $item->id])?>" target="_blank"><?=$item->title?></a>
+                                    <span><?=date('Y-m-d', $item->created_at)?></span>
+                                </li>
+                            <?php endforeach?>
+                        </ul>
+            </div>
+        </div>
+    </div>
+
     <?php if (isset($ads['exam-bottom-banner'])): ?>
         <div class="ads-b">
             <?php foreach($ads['exam-bottom-banner']as $item):?>

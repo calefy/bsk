@@ -18,7 +18,7 @@ class BskExamSearch extends BskExam
     public function rules()
     {
         return [
-            [['id', 'type', 'category_id', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            [['id', 'type', 'category_id', 'weight', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             [['short_time', 'short_addr', 'title', 'description', 'stem'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class BskExamSearch extends BskExam
             'id' => $this->id,
             'type' => $this->type,
             'category_id' => $this->category_id,
+            'weight' => $this->weight,
             'status' => $this->status,
             'updated_by' => $this->updated_by,
             'updated_at' => $this->updated_at,

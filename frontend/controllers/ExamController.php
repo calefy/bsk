@@ -141,6 +141,12 @@ class ExamController extends Controller
                     ->limit($pages->limit)
                     ->all();
 
+        // 推荐试卷
+        $recommend = BskExam::find()
+            ->orderBy(['weight' => SORT_DESC, 'created_at' => SORT_DESC])
+            ->limit(8)
+            ->all();
+
         // 返回数据到页面
         return $this->render('category', [
             //'req' => ['g' => $g, 's' => $s, 'l' => $l, 'm' => $m, 'c' => $c],
@@ -159,6 +165,8 @@ class ExamController extends Controller
             'sort' => $sort,
             'exams' => $exams,
             'pages' => $pages,
+
+            'recommend' => $recommend,
         ]);
     }
 

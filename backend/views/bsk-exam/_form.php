@@ -46,6 +46,8 @@ $model->type = $model->type ? $model->type : 1; // 默认写死为真题类型
 
     <?php echo $form->field($model, 'description')->textarea(['maxlength' => true, 'rows' => 3, 'data-ckeditor' => true]) ?>
 
+    <?php echo $form->field($model, 'weight')->textInput(['placeholder' => '请输入整数，如 5, 18']) ?>
+
     <div class="form-group">
         <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

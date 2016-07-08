@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'stem',
             // 'status',
             // 'updated_by',
+            'weight',
             [
                 'attribute' => 'updated_at',
                 'format' => 'datetime',
