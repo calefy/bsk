@@ -131,7 +131,7 @@ $ads = getAds(['exam-top-banner', 'exam-bottom-banner']);
                             <?php foreach($recommend as $item): ?>
                                 <li>
                                     <a href="<?=Url::to(['/exam/view', 'id'=> $item->id])?>" target="_blank"><?=$item->title?></a>
-                                    <span><?=date('Y-m-d', $item->created_at)?></span>
+                                    <span>浏览<?=$item->view?>次</span>
                                 </li>
                             <?php endforeach?>
                         </ul>

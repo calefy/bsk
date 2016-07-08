@@ -38,7 +38,7 @@ class BskExam extends BskBaseActiveRecord
     {
         return [
             [['title', 'type', 'category_id', 'short_time', 'short_addr'], 'required'],
-            [['id', 'type', 'category_id', 'weight', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
+            [['id', 'type', 'category_id', 'weight', 'view', 'status', 'updated_by', 'updated_at', 'created_by', 'created_at'], 'integer'],
             [['short_time', 'short_addr'], 'string', 'max' => 16],
             [['title'], 'string', 'max' => 128],
             [['description', 'stem'], 'string', 'max' => 256],
@@ -62,6 +62,7 @@ class BskExam extends BskBaseActiveRecord
             'description' => Yii::t('common', '试卷描述'),
             'stem' => Yii::t('common', '试卷主题干json'),
             'weight' => Yii::t('common', '试卷权重'),
+            'view' => Yii::t('common', '浏览次数'),
             'status' => Yii::t('common', '状态：0-删除，1-有效'),
             'updated_by' => Yii::t('common', '更新者'),
             'updated_at' => Yii::t('common', '更新时间'),

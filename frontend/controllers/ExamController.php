@@ -179,6 +179,9 @@ class ExamController extends Controller
         if (!$model) {
             throw new NotFoundHttpException;
         }
+        // 记录浏览次数
+        $model->view = $model->view + 1;
+        $model->save();
         // 试卷的试题
         $questions = $model->getQuestions()
             ->select('id,type,title,info,level')
