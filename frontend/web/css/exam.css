@@ -25,5 +25,5 @@
 
 .recommend{margin-top:15px;}
 .recommend li{line-height:2em;float:left;width:50%;}
-.recommend li a{display:inline-block;max-width:380px;overflow:hidden;vertical-align:middle;margin-right:10px;}
+.recommend li a{display:inline-block;max-width:380px;overflow:hidden;vertical-align:middle;margin-right:10px;white-space:nowrap;text-overflow:ellipsis;}
 .recommend li span{color:#999;font-size:0.75em;}
