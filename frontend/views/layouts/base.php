@@ -192,7 +192,8 @@ $basePath = isset($url[1]['slug']) ? str_replace('view', $url[1]['slug'], $url[0
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?d0d008cd3e5c866ccfc5dedd3133a34a";
+  //hm.src = "//hm.baidu.com/hm.js?d0d008cd3e5c866ccfc5dedd3133a34a";
+  hm.src = "//hm.baidu.com/hm.js?339f9695460282049909eb49d26573fb";
   var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
