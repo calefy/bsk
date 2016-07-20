@@ -168,8 +168,8 @@ class QuestionController extends Controller
         // 根据以上参数查询问题
         $sort = new Sort([
             'defaultOrder' => [
-                'created_at' => SORT_DESC,
-                'level' => SORT_DESC,
+                'created_at' => SORT_ASC,
+                'level' => SORT_ASC,
             ],
             'attributes' => [
                 'created_at' => [
