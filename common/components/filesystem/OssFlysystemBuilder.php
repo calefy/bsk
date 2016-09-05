@@ -6,6 +6,7 @@ use League\Flysystem\Filesystem;
 use trntv\filekit\filesystem\FilesystemBuilderInterface;
 use OSS\OssClient;
 use OSS\Core\OssException;
+use common\components\filesystem\OssAdapter;
 
 /**
  */
