@@ -16,7 +16,7 @@ $this->title = '试题详情';
             <div>（<?=$types[$model->type]?>）<?=BskQuestion::replaceFill($model)?></div>
             <?php if ($model->type == BskQuestion::QUESTION_TYPE_SELECT): ?>
                 <?php foreach($items as $index=>$item): ?>
-                    <p style="padding:5px 20px;margin:0" class="<?=(isset($item['correct']) && $item['correct']) ? 'bg-success' : ''?>"><?=chr(65+$index)?>. <?=$item['text']?></p>
+                    <p style="padding:5px 20px;margin:0" class="col-sm-3 <?=(isset($item['correct']) && $item['correct']) ? 'bg-success' : ''?>"><?=chr(65+$index)?>. <?=$item['text']?></p>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
